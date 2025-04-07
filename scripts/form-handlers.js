@@ -1026,7 +1026,31 @@ document.addEventListener('DOMContentLoaded', function () {
     // Функциональность флага - исправленная
     const flagColorButtons = document.getElementById('flag-color-buttons');
     const flagTemplateButtons = document.querySelectorAll('.flag-template-buttons button');
+    
+    function pixelateCanvas(ctx, pixelSize) {
+        const { width, height } = ctx.canvas;
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+    
+        for (let y = 0; y < height; y += pixelSize) {
+            for (let x = 0; x < width; x += pixelSize) {
+                // Центр квадрата
+                const centerX = Math.min(x + Math.floor(pixelSize / 2), width - 1);
+                const centerY = Math.min(y + Math.floor(pixelSize / 2), height - 1);
+                const centerIndex = (centerY * width + centerX) * 4;
+    
+                const r = data[centerIndex];
+                const g = data[centerIndex + 1];
+                const b = data[centerIndex + 2];
+                const a = data[centerIndex + 3];
+    
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+                ctx.fillRect(x, y, pixelSize, pixelSize);
+            }
+        }
+    }
 
+    
     if (flagCanvas) {
         const ctx = flagCanvas.getContext('2d');
         let selectedColor = '#000000';
@@ -1109,32 +1133,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // Рисуем сетку поверх флага
+            pixelateCanvas(ctx, cellSize);
             drawGrid(ctx, cellSize);
         }
 
-        // Создаем цветовую палитру кнопок
-        if (flagColorButtons) {
-            const colors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF',
-                '#800000', '#008000', '#000080', '#808000', '#800080', '#008080', '#C0C0C0', '#808080'];
-
-            colors.forEach(color => {
-                const btn = document.createElement('button');
-                btn.style.backgroundColor = color;
-                btn.setAttribute('data-color', color);
-                btn.style.width = '30px';
-                btn.style.height = '30px';
-                btn.style.margin = '2px';
-                btn.style.cursor = 'pointer';
-                btn.style.border = color === '#FFFFFF' ? '1px solid #ddd' : 'none';
-
-                btn.addEventListener('click', function () {
-                    selectedColor = color;
-                    if (currentFlagColor) currentFlagColor.textContent = color;
-                });
-
-                flagColorButtons.appendChild(btn);
-            });
-        }
 
         // Обработчики событий для рисования
         if (flagCanvas) {

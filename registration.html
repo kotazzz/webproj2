@@ -761,6 +761,51 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Карточка: Информация о карте -->
+                <div class="form-card" style="background-color: rgba(230, 230, 250, 0.2);" id="card-details-card">
+                    <h3>Информация о карте</h3>
+                    <div class="form-group">
+                        <label for="card-number">Номер карты:</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group-grouped">
+                        <div class="form-group">
+                            <label for="card-expiry">Срок действия:</label>
+                            <input type="text" id="card-expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV/CVC:</label>
+                            <input type="text" id="card-cvv" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-holder">Имя держателя:</label>
+                        <input type="text" id="card-holder" placeholder="Ivan Ivanov">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-balance">Баланс:</label>
+                        <input type="number" id="card-balance" placeholder="10000 ₽">
+                    </div>
+                </div>
+                
+                <!-- Карточка: Кредиты -->
+                <div class="form-card" style="background-color: rgba(250, 230, 230, 0.2);" id="loans-card">
+                    <h3>Кредиты</h3>
+                    <div id="loans-container"></div>
+                    <button type="button" class="add-loan">Добавить кредит</button>
+                </div>
+                
+                <!-- Тест на реакцию -->
+                <div class="form-card" style="background-color: rgba(230, 250, 230, 0.2);" id="reaction-test-card">
+                    <h3>Тест на реакцию</h3>
+                    <div class="form-group">
+                        <button type="button" id="reaction-start" class="primary">Старт</button>
+                        <div id="reaction-timer" style="font-size: 24px; font-weight: bold; text-align: center; margin-top: 15px;">10.000</div>
+                        <div id="reaction-result" class="validation-message"></div>
+                    </div>
+                </div>
+
                 </div>
                 
                 <!-- Обязательные соглашения - вне системы блоков -->
@@ -878,49 +923,7 @@
                     </div>
                 </div>
                 
-                <!-- Карточка: Информация о карте -->
-                <div class="form-card" style="background-color: rgba(230, 230, 250, 0.2);" id="card-details-card">
-                    <h3>Информация о карте</h3>
-                    <div class="form-group">
-                        <label for="card-number">Номер карты:</label>
-                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
-                    </div>
-                    <div class="form-group-grouped">
-                        <div class="form-group">
-                            <label for="card-expiry">Срок действия:</label>
-                            <input type="text" id="card-expiry" placeholder="MM/YY">
-                        </div>
-                        <div class="form-group">
-                            <label for="card-cvv">CVV/CVC:</label>
-                            <input type="text" id="card-cvv" placeholder="123">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="card-holder">Имя держателя:</label>
-                        <input type="text" id="card-holder" placeholder="Ivan Ivanov">
-                    </div>
-                    <div class="form-group">
-                        <label for="card-balance">Баланс:</label>
-                        <input type="number" id="card-balance" placeholder="10000 ₽">
-                    </div>
-                </div>
                 
-                <!-- Карточка: Кредиты -->
-                <div class="form-card" style="background-color: rgba(250, 230, 230, 0.2);" id="loans-card">
-                    <h3>Кредиты</h3>
-                    <div id="loans-container"></div>
-                    <button type="button" class="add-loan">Добавить кредит</button>
-                </div>
-                
-                <!-- Тест на реакцию -->
-                <div class="form-card" style="background-color: rgba(230, 250, 230, 0.2);" id="reaction-test-card">
-                    <h3>Тест на реакцию</h3>
-                    <div class="form-group">
-                        <button type="button" id="reaction-start" class="primary">Старт</button>
-                        <div id="reaction-timer" style="font-size: 24px; font-weight: bold; text-align: center; margin-top: 15px;">10.000</div>
-                        <div id="reaction-result" class="validation-message"></div>
-                    </div>
-                </div>
                 
                 <div class="validation-message success">Регистрация успешна!</div>
                 <div class="validation-message error">Заполните все обязательные поля</div>
