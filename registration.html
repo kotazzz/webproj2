@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | Моя семья - мой космос</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="dark-theme">
+    <header>
+        <div class="logo">
+            <a href="index.html">Моя семья - мой космос</a>
+        </div>
+        <nav>
+            <a href="registration.html">Регистрация</a>
+            <a href="index.html#auth">Авторизация</a>
+            <a href="account.html">Личный кабинет</a>
+            <a href="index.html#about">О нас</a>
+            <a href="index.html#competitions">Конкурсы</a>
+            <a href="index.html#search">Поиск</a>
+            <a href="#footer">Контакты</a>
+            <button id="theme-switcher">☀️</button>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <h1>Регистрация</h1>
+            <form class="registration-form">
+                <div class="form-group">
+                    <label for="reg-email">Email:</label>
+                    <input type="email" id="reg-email" required placeholder="Введите ваш email">
+                </div>
+                <div class="form-group">
+                    <label for="reg-name">Имя:</label>
+                    <input type="text" id="reg-name" required placeholder="Введите ваше имя">
+                </div>
+                <div class="form-group">
+                    <label for="reg-surname">Фамилия:</label>
+                    <input type="text" id="reg-surname" required placeholder="Введите вашу фамилию">
+                </div>
+                <div class="form-group">
+                    <label for="reg-age">Возраст:</label>
+                    <input type="number" id="reg-age" required min="1" placeholder="Введите ваш возраст">
+                    <input type="range" id="reg-age-range" min="1" max="100" value="30">
+                </div>
+                <div class="form-group">
+                    <label>Пол:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="reg-male" name="gender" required>
+                        <label for="reg-male">Мужской</label>
+                        <input type="radio" id="reg-female" name="gender" required>
+                        <label for="reg-female">Женский</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Пароль:</label>
+                    <input type="password" id="reg-password" required placeholder="Введите пароль">
+                </div>
+                <div class="form-group">
+                    <label for="reg-password-confirm">Повторите пароль:</label>
+                    <input type="password" id="reg-password-confirm" required placeholder="Подтвердите пароль">
+                </div>
+                
+                <div class="form-group">
+                    <label>Семейная фотография:</label>
+                    <div class="file-upload">
+                        <input type="file" id="reg-photo" accept="image/*">
+                        <label for="reg-photo" class="file-upload-label">Выберите файл</label>
+                    </div>
+                </div>
+                
+                <h3>Члены семьи</h3>
+                <div class="family-member">
+                    <div class="form-group">
+                        <label>Фамилия:</label>
+                        <input type="text" placeholder="Введите фамилию">
+                    </div>
+                    <div class="form-group">
+                        <label>Имя:</label>
+                        <input type="text" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group">
+                        <label>Возраст:</label>
+                        <input type="number" min="1" placeholder="Введите возраст">
+                    </div>
+                    <div class="form-group">
+                        <label>Пол:</label>
+                        <select required>
+                            <option value="" disabled selected>Выберите пол</option>
+                            <option value="male">Мужской</option>
+                            <option value="female">Женский</option>
+                        </select>
+                    </div>
+                    <button type="button" class="remove-member">Удалить</button>
+                </div>
+                
+                <button type="button" class="add-member">Добавить члена семьи</button>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="reg-agreement" required>
+                    <label for="reg-agreement">Я согласен на обработку персональных данных</label>
+                </div>
+                
+                <div class="validation-message success">Регистрация успешна!</div>
+                <div class="validation-message error">Заполните все обязательные поля</div>
+                
+                <button type="submit" class="primary">Зарегистрироваться</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <a href="tel:+74842234567">+7 (4842) 23-45-67</a>
+                <a href="mailto:family@cosmos.ru">family@cosmos.ru</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Навигация</h3>
+                <div class="footer-navigation">
+                    <a href="index.html">Главная</a>
+                    <a href="index-light.html">Светлая тема</a>
+                    <a href="registration.html">Регистрация</a>
+                    <a href="competition.html">Конкурс</a>
+                    <a href="schedule.html">Расписание</a>
+                    <a href="account.html">Личный кабинет</a>
+                    <a href="404.html">404</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="ВКонтакте">ВК</a>
+                    <a href="#" aria-label="Одноклассники">ОК</a>
+                    <a href="#" aria-label="Телеграм">TG</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Моя семья - мой космос. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script src="scripts/theme-switcher.js"></script>
+</body>
+</html>

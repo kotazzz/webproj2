@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет | Моя семья - мой космос</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="dark-theme">
+    <header>
+        <div class="logo">
+            <a href="index.html">Моя семья - мой космос</a>
+        </div>
+        <nav>
+            <!-- Нет ссылки на регистрацию в личном кабинете -->
+            <a href="index.html#auth">Авторизация</a>
+            <a href="account.html">Личный кабинет</a>
+            <a href="index.html#about">О нас</a>
+            <a href="index.html#competitions">Конкурсы</a>
+            <a href="index.html#search">Поиск</a>
+            <a href="#footer">Контакты</a>
+            <button class="logout-btn">Выйти</button>
+            <button id="theme-switcher">☀️</button>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <h1>Личный кабинет</h1>
+            <div class="user-info">
+                <div class="placeholder user-avatar">Фото профиля</div>
+                <div class="user-details">
+                    <h2>Иванов Иван</h2>
+                    <p>Email: ivan@example.com</p>
+                </div>
+            </div>
+            
+            <h2>Записаться на конкурс</h2>
+            <form class="competition-form">
+                <div class="form-group">
+                    <label for="competition">Конкурс:</label>
+                    <select id="competition" required>
+                        <option value="" disabled selected>Выберите конкурс</option>
+                        <option value="photo">Фотоконкурс "В объективе эмоции"</option>
+                        <option value="literature">Литературный конкурс "Свободное перо"</option>
+                        <option value="vocal">Вокальный конкурс "Голос поколения"</option>
+                        <option value="dance">Танцевальный баттл "Ритмы улиц"</option>
+                        <option value="cooking">Кулинарный челлендж "Золотые руки"</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="competition-date">Дата:</label>
+                    <input type="date" id="competition-date" required value="2024-07-08" min="2024-07-08" max="2024-07-08">
+                </div>
+                
+                <div class="form-group">
+                    <label for="competition-time">Время:</label>
+                    <select id="competition-time" required>
+                        <option value="" disabled selected>Выберите время</option>
+                        <option value="9">09:00</option>
+                        <option value="10">10:00</option>
+                        <option value="11">11:00</option>
+                        <option value="12">12:00</option>
+                        <option value="13">13:00</option>
+                        <option value="14">14:00</option>
+                        <option value="15">15:00</option>
+                        <option value="16">16:00</option>
+                        <option value="17">17:00</option>
+                        <option value="18">18:00</option>
+                        <option value="19">19:00</option>
+                        <option value="20">20:00</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="participants">Количество участников:</label>
+                    <input type="number" id="participants" required min="1" value="1">
+                </div>
+                
+                <button type="submit" class="primary">Записаться</button>
+            </form>
+            
+            <h2>Ваши записи</h2>
+            <div class="registrations">
+                <div class="card">
+                    <h3>Фотоконкурс "В объективе эмоции"</h3>
+                    <p>Дата: 08.07.2024</p>
+                    <p>Время: 15:00</p>
+                    <p>Количество участников: 2</p>
+                    <button class="cancel-btn">Отменить запись</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Литературный конкурс "Свободное перо"</h3>
+                    <p>Дата: 08.07.2024</p>
+                    <p>Время: 12:00</p>
+                    <p>Количество участников: 1</p>
+                    <button class="cancel-btn">Отменить запись</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <a href="tel:+74842234567">+7 (4842) 23-45-67</a>
+                <a href="mailto:family@cosmos.ru">family@cosmos.ru</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Навигация</h3>
+                <div class="footer-navigation">
+                    <a href="index.html">Главная</a>
+                    <a href="index-light.html">Светлая тема</a>
+                    <a href="competition.html">Конкурс</a>
+                    <a href="schedule.html">Расписание</a>
+                    <a href="account.html">Личный кабинет</a>
+                    <a href="404.html">404</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="ВКонтакте">ВК</a>
+                    <a href="#" aria-label="Одноклассники">ОК</a>
+                    <a href="#" aria-label="Телеграм">TG</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Моя семья - мой космос. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script src="scripts/theme-switcher.js"></script>
+</body>
+</html>

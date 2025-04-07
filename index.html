@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя семья - мой космос</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="dark-theme">
+    <header>
+        <div class="logo">
+            <a href="index.html">Моя семья - мой космос</a>
+        </div>
+        <nav>
+            <a href="registration.html">Регистрация</a>
+            <a href="#auth">Авторизация</a>
+            <a href="account.html">Личный кабинет</a>
+            <a href="#about">О нас</a>
+            <a href="#competitions">Конкурсы</a>
+            <a href="#search">Поиск</a>
+            <a href="#footer">Контакты</a>
+            <button id="theme-switcher">☀️</button>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section id="slider" class="section">
+            <h2>Популярные конкурсы</h2>
+            <div class="placeholder">Слайдер с конкурсами</div>
+        </section>
+        
+        <section id="auth" class="section">
+            <h2>Авторизация</h2>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="Введите ваш email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" placeholder="Введите ваш пароль">
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Запомнить меня</label>
+                </div>
+                <button type="submit" class="primary">Войти</button>
+                <p><a href="#">Забыли пароль?</a></p>
+            </form>
+        </section>
+        
+        <section id="about" class="section">
+            <h2>О нас</h2>
+            <div class="placeholder">Изображение о нас</div>
+            <p>Текст о нас и нашем мероприятии</p>
+        </section>
+        
+        <section id="welcome" class="section">
+            <h2>Приветствие от организаторов</h2>
+            <div class="embed-video">
+                <iframe src="https://rutube.ru/play/embed/45b91dbe4953f95179fd6d1e4bc5a5fc" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+        
+        <section id="competitions" class="section">
+            <h2>Конкурсы</h2>
+            <div class="competitions-grid">
+                <div class="card">
+                    <div class="placeholder">Фото конкурса</div>
+                    <h3>Фотоконкурс "В объективе эмоции"</h3>
+                    <p>Участвуйте с вашими лучшими эмоциональными снимками. Любые жанры и техники.</p>
+                    <div class="card-footer">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <div class="participants">Участников: 42</div>
+                    </div>
+                    <a href="competition.html" class="btn primary">Подробнее</a>
+                </div>
+                
+                <div class="card">
+                    <div class="placeholder">Фото конкурса</div>
+                    <h3>Литературный конкурс "Свободное перо"</h3>
+                    <p>Проза и поэзия на свободную тему. Оценивается оригинальность, стиль и глубина мысли.</p>
+                    <div class="card-footer">
+                        <div class="rating">⭐⭐⭐⭐</div>
+                        <div class="participants">Участников: 28</div>
+                    </div>
+                    <a href="competition.html" class="btn primary">Подробнее</a>
+                </div>
+                
+                <div class="card">
+                    <div class="placeholder">Фото конкурса</div>
+                    <h3>Вокальный конкурс "Голос поколения"</h3>
+                    <p>Для исполнителей от 16 до 35 лет. Все музыкальные жанры. Гран-при - запись в студии.</p>
+                    <div class="card-footer">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <div class="participants">Участников: 36</div>
+                    </div>
+                    <a href="competition.html" class="btn primary">Подробнее</a>
+                </div>
+                
+                <div class="card">
+                    <div class="placeholder">Фото конкурса</div>
+                    <h3>Танцевальный баттл "Ритмы улиц"</h3>
+                    <p>Уличные танцевальные стили. Оценивается техника, энергия и зрелищность.</p>
+                    <div class="card-footer">
+                        <div class="rating">⭐⭐⭐⭐</div>
+                        <div class="participants">Участников: 30</div>
+                    </div>
+                    <a href="competition.html" class="btn primary">Подробнее</a>
+                </div>
+                
+                <div class="card">
+                    <div class="placeholder">Фото конкурса</div>
+                    <h3>Кулинарный челлендж "Золотые руки"</h3>
+                    <p>Приготовьте авторское блюдо из заданных ингредиентов. Креативность и вкус - главные критерии.</p>
+                    <div class="card-footer">
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <div class="participants">Участников: 24</div>
+                    </div>
+                    <a href="competition.html" class="btn primary">Подробнее</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="search" class="section">
+            <h2>Поиск конкурсов</h2>
+            <div class="search-container">
+                <input type="text" placeholder="Введите название конкурса или ключевое слово..." list="search-suggestions">
+                <datalist id="search-suggestions">
+                    <option value="Фотоконкурс">
+                    <option value="Литературный">
+                    <option value="Вокальный">
+                    <option value="Танцевальный">
+                    <option value="Кулинарный">
+                </datalist>
+                <button class="primary">Поиск</button>
+            </div>
+        </section>
+        
+        <section id="testimonials" class="section">
+            <h2>Отзывы</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial active">
+                    <div class="testimonial-content">
+                        <div class="placeholder testimonial-image">Фото</div>
+                        <div class="testimonial-info">
+                            <h3>Анна К.</h3>
+                            <p>Участвовала в фотоконкурсе - потрясающая организация! Получила ценные советы от жюри.</p>
+                            <div class="testimonial-meta">
+                                <span class="date">15.05.2023</span>
+                                <a href="competition.html" class="testimonial-link">Перейти к конкурсу</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-indicators">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="newsletter" class="section">
+            <h2>Подписка на новости</h2>
+            <form class="newsletter-form">
+                <h3>Будьте в курсе новостей</h3>
+                <div class="form-group">
+                    <label for="newsletter-email">Email:</label>
+                    <input type="email" id="newsletter-email" placeholder="Введите ваш email">
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="newsletter-agreement">
+                    <label for="newsletter-agreement">Я согласен на обработку персональных данных</label>
+                </div>
+                <button type="submit" class="primary">Подписаться</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <a href="tel:+74842234567">+7 (4842) 23-45-67</a>
+                <a href="mailto:family@cosmos.ru">family@cosmos.ru</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Навигация</h3>
+                <div class="footer-navigation">
+                    <a href="index.html">Главная</a>
+                    <a href="index-light.html">Светлая тема</a>
+                    <a href="registration.html">Регистрация</a>
+                    <a href="competition.html">Конкурс</a>
+                    <a href="schedule.html">Расписание</a>
+                    <a href="account.html">Личный кабинет</a>
+                    <a href="404.html">404</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="ВКонтакте">ВК</a>
+                    <a href="#" aria-label="Одноклассники">ОК</a>
+                    <a href="#" aria-label="Телеграм">TG</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Моя семья - мой космос. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script src="scripts/theme-switcher.js"></script>
+</body>
+</html>
