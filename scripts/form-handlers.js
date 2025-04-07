@@ -351,20 +351,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const checkTranslationButton = document.getElementById('check-translation');
     const chineseOptions = document.getElementById('chinese-options');
     const translationResult = document.getElementById('translation-result');
-    
+    const chineseTranslationInputs = document.querySelectorAll('input[name="chinese-translation"]');
+
     // Функция для перемешивания вариантов перевода
     function shuffleTranslations() {
-        const options = Array.from(document.querySelectorAll('input[name="chinese-translation"]'));
-        const labels = Array.from(document.querySelectorAll('label[for^="chinese"]'));
-        const parent = options[0].parentNode;
+        const radioGroup = document.querySelector('.chinese-options .radio-group');
+        if (!radioGroup) return;
         
-        // Создаем пары радиокнопка-метка для сохранения связи
-        let pairs = options.map((option, index) => {
-            return { 
-                option: option, 
-                label: labels[index],
-                value: option.value
-            };
+        const inputs = Array.from(radioGroup.querySelectorAll('input[type="radio"]'));
+        const labels = Array.from(radioGroup.querySelectorAll('label'));
+        
+        // Создаем пары радио-кнопка + метка
+        const pairs = [];
+        inputs.forEach(input => {
+            const inputId = input.id;
+            const matchingLabel = labels.find(label => label.getAttribute('for') === inputId);
+            if (matchingLabel) {
+                pairs.push({
+                    input: input.cloneNode(true),
+                    label: matchingLabel.cloneNode(true),
+                    value: input.value
+                });
+            }
         });
         
         // Перемешиваем пары
@@ -374,14 +382,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Очищаем контейнер
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
+        while (radioGroup.firstChild) {
+            radioGroup.removeChild(radioGroup.firstChild);
         }
         
         // Добавляем перемешанные элементы обратно
         pairs.forEach(pair => {
-            parent.appendChild(pair.option);
-            parent.appendChild(pair.label);
+            radioGroup.appendChild(pair.input);
+            radioGroup.appendChild(pair.label);
+        });
+        
+        // Заново добавляем обработчики событий для радиокнопок
+        document.querySelectorAll('input[name="chinese-translation"]').forEach(input => {
+            input.addEventListener('change', function() {
+                console.log(`Выбран вариант перевода: ${this.value}`);
+            });
         });
     }
 
@@ -405,6 +420,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 checkTranslationButton.setAttribute('disabled', 'disabled');
                 registerButton.setAttribute('disabled', 'disabled');
             }
+        });
+    });
+
+    // Добавляем обработчики для радиокнопок с китайским переводом
+    chineseTranslationInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log(`Выбран вариант перевода: ${this.value}`);
         });
     });
 
@@ -433,6 +455,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 translationResult.textContent = 'Неправильно. Попробуйте еще раз.';
                 translationResult.className = 'validation-message incorrect';
                 registerButton.setAttribute('disabled', 'disabled');
+                
+                // Очищаем выбранный вариант
+                document.querySelectorAll('input[name="chinese-translation"]').forEach(input => {
+                    input.checked = false;
+                });
                 
                 // Перемешиваем варианты ответа
                 setTimeout(shuffleTranslations, 500);

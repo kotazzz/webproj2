@@ -1135,14 +1135,45 @@ textarea:focus {
     font-size: 18px;
     padding: 10px 15px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 150px;
+    min-width: 180px;
+    width: calc(50% - 15px);
     background-color: rgba(66, 153, 225, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.chinese-options .radio-group label:hover {
+    background-color: rgba(66, 153, 225, 0.2);
+    transform: translateY(-3px);
+}
+
+.chinese-options .radio-group label .translation {
+    font-size: 14px;
+    color: #A0AEC0;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.chinese-options .radio-group input[type="radio"]:checked + label {
+    border-color: #4299E1;
+    background-color: rgba(66, 153, 225, 0.3);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 .check-button {
+    margin-top: 15px;
     margin-bottom: 15px;
+    background-color: #4299E1;
+    color: white;
+    width: 100%;
+    padding: 12px;
+}
+
+.check-button:hover {
+    background-color: #3182CE;
 }
 
 button:disabled {
