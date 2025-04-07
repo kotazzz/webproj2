@@ -869,31 +869,30 @@ textarea:focus {
     outline: none;
 }
 
-/* Стили для выбора даты */
-input[type="date"] {
-    padding: 10px;
-    border: 1px solid #E2E8F0;
+/* Стили для радиокнопок */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 2px solid transparent;
     border-radius: 6px;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
     transition: border-color 0.3s ease;
-}
-
-input[type="date"]:focus {
-    border-color: #4299E1;
-    outline: none;
-}
-
-/* Стили для настроения */
-#mood-display {
-    margin-top: 8px;
     font-size: 14px;
-    color: #A0AEC0;
-    text-align: center;
-    padding: 5px;
-    background-color: rgba(74, 85, 104, 0.1);
-    border-radius: 4px;
+    background-color: rgba(66, 153, 225, 0.1);
+}
+
+.radio-group input[type="radio"]:checked + label {
+    border-color: #4299E1;
+    background-color: rgba(66, 153, 225, 0.2);
 }
 
 /* Стили для выбора звезды */

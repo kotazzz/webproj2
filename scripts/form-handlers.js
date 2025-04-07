@@ -169,7 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     // Обработчик для любимой космической еды
     const spaceFoodInput = document.getElementById('reg-favorite-space-food');
     if (spaceFoodInput) {
@@ -185,4 +184,52 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Любимое созвездие: ${this.value}`);
         });
     }
+
+    // Обработчик для выбора любимого фильма
+    const favoriteMovieInput = document.getElementById('reg-favorite-movie');
+    if (favoriteMovieInput) {
+        favoriteMovieInput.addEventListener('input', function() {
+            console.log(`Любимый фильм: ${this.value}`);
+        });
+    }
+
+    // Обработчик для выбора музыкального жанра
+    const favoriteMusicSelect = document.getElementById('reg-favorite-music');
+    if (favoriteMusicSelect) {
+        favoriteMusicSelect.addEventListener('change', function() {
+            console.log(`Любимый музыкальный жанр: ${this.value}`);
+        });
+    }
+
+    // Обработчик для выбора времени года
+    const favoriteSeasonSelect = document.getElementById('reg-favorite-season');
+    if (favoriteSeasonSelect) {
+        favoriteSeasonSelect.addEventListener('change', function() {
+            console.log(`Любимое время года: ${this.value}`);
+        });
+    }
+
+    // Обработчик для выбора цвета
+    const favoriteColorInput = document.getElementById('reg-favorite-color');
+    if (favoriteColorInput) {
+        favoriteColorInput.addEventListener('input', function() {
+            console.log(`Любимый цвет: ${this.value}`);
+        });
+    }
+
+    // Обработчик для радиокнопок (домашние животные)
+    const petInputs = document.querySelectorAll('input[name="pet"]');
+    petInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log(`Домашние животные: ${this.value === 'yes' ? 'Есть' : 'Нет'}`);
+        });
+    });
+
+    // Обработчик для радиокнопок (путешествия)
+    const travelInputs = document.querySelectorAll('input[name="travel"]');
+    travelInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log(`Любите путешествовать: ${this.value === 'yes' ? 'Да' : 'Нет'}`);
+        });
+    });
 });

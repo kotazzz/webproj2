@@ -191,6 +191,71 @@
                     <input type="text" id="reg-favorite-constellation" placeholder="Например: Орион">
                 </div>
                 
+                <div class="form-group">
+                    <label for="reg-favorite-movie">Ваш любимый фильм:</label>
+                    <input type="text" id="reg-favorite-movie" placeholder="Например: Властелин колец">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-music">Ваш любимый музыкальный жанр:</label>
+                    <select id="reg-favorite-music" required>
+                        <option value="" disabled selected>Выберите жанр</option>
+                        <option value="rock">Рок</option>
+                        <option value="pop">Поп</option>
+                        <option value="jazz">Джаз</option>
+                        <option value="classical">Классическая музыка</option>
+                        <option value="hiphop">Хип-хоп</option>
+                        <option value="electronic">Электронная музыка</option>
+                        <option value="folk">Фолк</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-food">Ваше любимое блюдо:</label>
+                    <input type="text" id="reg-favorite-food" placeholder="Например: Пицца">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-pet">У вас есть домашние животные?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="pet-yes" name="pet" value="yes" required>
+                        <label for="pet-yes">Да</label>
+                        <input type="radio" id="pet-no" name="pet" value="no">
+                        <label for="pet-no">Нет</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-season">Ваше любимое время года:</label>
+                    <select id="reg-favorite-season" required>
+                        <option value="" disabled selected>Выберите время года</option>
+                        <option value="spring">Весна</option>
+                        <option value="summer">Лето</option>
+                        <option value="autumn">Осень</option>
+                        <option value="winter">Зима</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-hobby">Ваше любимое хобби:</label>
+                    <textarea id="reg-favorite-hobby" rows="3" placeholder="Например: рисование, чтение, спорт"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-color">Ваш любимый цвет (нет, другой любимый цвет):</label>
+                    <input type="color" id="reg-favorite-color" value="#FF5733">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-travel">Вы любите путешествовать?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="travel-yes" name="travel" value="yes" required>
+                        <label for="travel-yes">Да</label>
+                        <input type="radio" id="travel-no" name="travel" value="no">
+                        <label for="travel-no">Нет</label>
+                    </div>
+                </div>
+                
                 <h3>Члены семьи</h3>
                 <div id="family-members-container">
                     <div class="family-member">
