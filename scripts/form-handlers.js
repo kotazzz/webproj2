@@ -835,24 +835,24 @@ document.addEventListener('DOMContentLoaded', function() {
             { color: '#DD0000', y: 80, height: 80 },
             { color: '#FFCE00', y: 160, height: 80 }
         ],
-        // Добавьте остальные шаблоны
+        france: [
+            { color: '#0055A4', x: 0, width: 106.67 },
+            { color: '#FFFFFF', x: 106.67, width: 106.67 },
+            { color: '#EF4135', x: 213.34, width: 106.67 }
+        ],
+        japan: [
+            { color: '#FFFFFF', x: 0, y: 0, width: 320, height: 240 },
+            { color: '#BC002D', x: 120, y: 60, width: 80, height: 80, isCircle: true }
+        ],
+        italy: [
+            { color: '#009246', x: 0, width: 106.67 },
+            { color: '#FFFFFF', x: 106.67, width: 106.67 },
+            { color: '#CE2B37', x: 213.34, width: 106.67 }
+        ]
     };
 
     document.querySelectorAll('.flag-template-buttons button').forEach(btn => {
         btn.addEventListener('click', () => {
-            const template = flagTemplates[btn.dataset.flag];
-            if (template) {
-                template.forEach(({color, y, height}) => {
-                    ctx.fillStyle = color;
-                    ctx.fillRect(0, y, flagCanvas.width, height);
-                });
-                drawGrid();
-            }
-        });
-    });
-
-    flagCanvas.addEventListener('mousedown', startDrawing);
-    flagCanvas.addEventListener('mousemove', draw);
     flagCanvas.addEventListener('mouseup', stopDrawing);
     flagCanvas.addEventListener('mouseout', stopDrawing);
 

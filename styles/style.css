@@ -1778,11 +1778,6 @@ body.light-theme .shape-toggle-label {
     color: #FFFFFF; /* Белый текст на выбранном элементе */
 }
 
-/* Улучшенный стиль для выпадающего списка цитат */
-select#wise-quote {
-    color: #E2E8F0; /* Делаем более контрастным */
-    background-color: rgba(45, 55, 72, 0.8); /* Делаем фон темнее */
-}
 
 /* Улучшенные стили для формы выбора фигуры */
 .shape-container {
