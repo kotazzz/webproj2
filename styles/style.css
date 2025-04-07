@@ -1532,6 +1532,79 @@ body.light-theme .mbti-description {
     color: #2D3748; /* Темный текст для светлой темы */
 }
 
+/* Улучшенные стили для MBTI кнопок */
+.mbti-toggle {
+    width: 60px;
+    height: 40px;
+    border: 2px solid #4299E1;
+    background-color: rgba(66, 153, 225, 0.2);
+    color: #FFFFFF; /* Максимальный контраст */
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+    /* Центрирование текста */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Предотвращаем поведение кнопки по умолчанию */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Скругление углов для лучшего внешнего вида */
+    border-radius: 8px;
+}
+
+.mbti-toggle:focus {
+    outline: none;
+}
+
+.mbti-toggle.active {
+    background-color: #4299E1;
+    color: white;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Подсветка активной кнопки */
+}
+
+.mbti-label {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #FFFFFF; /* Максимальный контраст */
+    margin-top: 8px;
+    width: 100%;
+}
+
+.mbti-result {
+    background: rgba(66, 153, 225, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 100px;
+    margin-top: 20px;
+}
+
+.mbti-type {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #4299E1; /* По умолчанию синий */
+    text-align: center;
+}
+
+.mbti-description {
+    margin: 0;
+    line-height: 1.5;
+    color: #FFFFFF; /* Максимальный контраст */
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+body.light-theme .mbti-description {
+    color: #2D3748; /* Темный текст для светлой темы */
+}
+
 /* Стили для фигуры */
 .shape-controls {
     margin-bottom: 20px;

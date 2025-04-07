@@ -863,11 +863,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Обработчики для MBTI - исправленная версия с предотвращением отправки формы
-    const mbtiToggleGroups = document.querySelectorAll('.mbti-toggle-group');
-    const mbtiType = document.querySelector('.mbti-type');
-    const mbtiDescription = document.querySelector('.mbti-description');
-
-    if (mbtiToggleGroups && mbtiType && mbtiDescription) {
+    if (document.querySelectorAll('.mbti-toggle-group').length > 0) {
         // Полные описания для всех 16 типов MBTI
         const mbtiDescriptions = {
             'ISTJ': 'Ответственный, организованный, практичный и надежный',
@@ -895,6 +891,10 @@ document.addEventListener('DOMContentLoaded', function() {
             'ESTJ': '#50E3C2', 'ESFJ': '#B8E986', 'ENFJ': '#F5A623', 'ENTJ': '#9013FE'
         };
 
+        const mbtiType = document.querySelector('.mbti-type');
+        const mbtiDescription = document.querySelector('.mbti-description');
+        const mbtiToggleGroups = document.querySelectorAll('.mbti-toggle-group');
+
         mbtiToggleGroups.forEach(group => {
             const toggles = group.querySelectorAll('.mbti-toggle');
             toggles.forEach(toggle => {
@@ -903,27 +903,47 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     e.stopPropagation();
                     
+                    // Удаляем класс active у всех переключателей в этой группе
                     toggles.forEach(t => t.classList.remove('active'));
+                    // Добавляем класс active текущему переключателю
                     this.classList.add('active');
+                    
+                    // Обновляем отображение MBTI
                     updateMBTI();
+                    
+                    // Для диагностики
+                    console.log('MBTI toggle clicked:', this.dataset.value);
                 });
             });
         });
 
         function updateMBTI() {
             const activeToggles = document.querySelectorAll('.mbti-toggle.active');
+            console.log('Active toggles:', activeToggles.length);
+            
             if (activeToggles.length === 4) {
                 const type = Array.from(activeToggles).map(t => t.dataset.value).join('');
+                console.log('MBTI type:', type);
                 
-                mbtiType.textContent = type;
-                
-                if (mbtiColors[type]) {
-                    mbtiType.style.color = mbtiColors[type];
-                    mbtiDescription.style.backgroundColor = `${mbtiColors[type]}22`;
+                // Обновляем тип личности
+                if (mbtiType) {
+                    mbtiType.textContent = type;
+                    
+                    if (mbtiColors[type]) {
+                        mbtiType.style.color = mbtiColors[type];
+                    }
                 }
                 
-                // Используем сохраненные описания для всех типов
-                mbtiDescription.textContent = mbtiDescriptions[type] || `Тип личности: ${type}`;
+                // Обновляем описание
+                if (mbtiDescription) {
+                    mbtiDescription.textContent = mbtiDescriptions[type] || `Тип личности: ${type}`;
+                    
+                    if (mbtiColors[type]) {
+                        mbtiDescription.style.backgroundColor = `${mbtiColors[type]}22`;
+                    }
+                    
+                    console.log('Updated description:', mbtiDescription.textContent);
+                }
             }
         }
     }
