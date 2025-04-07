@@ -355,44 +355,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция для перемешивания вариантов перевода
     function shuffleTranslations() {
-        const radioGroup = document.querySelector('.chinese-options .radio-group');
+        const radioGroup = document.querySelector('.horizontal-radio');
         if (!radioGroup) return;
         
-        const inputs = Array.from(radioGroup.querySelectorAll('input[type="radio"]'));
-        const labels = Array.from(radioGroup.querySelectorAll('label'));
+        const container = radioGroup.parentNode;
         
-        // Создаем пары радио-кнопка + метка
+        // Собираем все пары инпут+метка
         const pairs = [];
+        const inputs = radioGroup.querySelectorAll('input[type="radio"]');
+        
         inputs.forEach(input => {
-            const inputId = input.id;
-            const matchingLabel = labels.find(label => label.getAttribute('for') === inputId);
-            if (matchingLabel) {
+            const label = radioGroup.querySelector(`label[for="${input.id}"]`);
+            if (label) {
                 pairs.push({
-                    input: input.cloneNode(true),
-                    label: matchingLabel.cloneNode(true),
-                    value: input.value
+                    input: input,
+                    label: label
                 });
             }
         });
         
-        // Перемешиваем пары
-        for (let i = pairs.length - 1; i > 0; i--) {
+        // Клонируем и перемешиваем пары
+        const shuffledPairs = [...pairs];
+        for (let i = shuffledPairs.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+            [shuffledPairs[i], shuffledPairs[j]] = [shuffledPairs[j], shuffledPairs[i]];
         }
         
-        // Очищаем контейнер
-        while (radioGroup.firstChild) {
-            radioGroup.removeChild(radioGroup.firstChild);
-        }
+        // Создаем новую группу радиокнопок
+        const newRadioGroup = document.createElement('div');
+        newRadioGroup.className = 'radio-group horizontal-radio';
         
-        // Добавляем перемешанные элементы обратно
-        pairs.forEach(pair => {
-            radioGroup.appendChild(pair.input);
-            radioGroup.appendChild(pair.label);
+        // Добавляем элементы в перемешанном порядке
+        shuffledPairs.forEach(pair => {
+            newRadioGroup.appendChild(pair.input);
+            newRadioGroup.appendChild(pair.label);
         });
         
-        // Заново добавляем обработчики событий для радиокнопок
+        // Заменяем старую группу радиокнопок на новую
+        radioGroup.replaceWith(newRadioGroup);
+        
+        // Повторное добавление обработчиков
         document.querySelectorAll('input[name="chinese-translation"]').forEach(input => {
             input.addEventListener('change', function() {
                 console.log(`Выбран вариант перевода: ${this.value}`);
