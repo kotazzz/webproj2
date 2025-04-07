@@ -44,14 +44,25 @@
                     <input type="number" id="reg-age" required min="1" placeholder="Введите ваш возраст">
                     <input type="range" id="reg-age-range" min="1" max="100" value="30">
                 </div>
+                
                 <div class="form-group">
-                    <label>Пол:</label>
-                    <div class="radio-group">
-                        <input type="radio" id="reg-male" name="gender" required>
-                        <label for="reg-male">Мужской</label>
-                        <input type="radio" id="reg-female" name="gender" required>
-                        <label for="reg-female">Женский</label>
-                    </div>
+                    <label for="reg-gender-ratio">Гендерное соотношение:</label>
+                    <input type="range" id="reg-gender-ratio" min="0" max="100" value="50">
+                    <div class="ratio-display" id="gender-ratio-display">Мужчина 50%, женщина 50%</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-product-category">Категория продукта:</label>
+                    <select id="reg-product-category" required>
+                        <option value="" disabled selected>Выберите категорию продукта</option>
+                        <option value="office">Microsoft Office</option>
+                        <option value="os">Windows OS</option>
+                        <option value="dev">Visual Studio</option>
+                        <option value="cloud">Microsoft Azure</option>
+                        <option value="xbox">Xbox & Gaming</option>
+                        <option value="surface">Surface</option>
+                        <option value="teams">Microsoft Teams</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="reg-password">Пароль:</label>
@@ -69,30 +80,143 @@
                         <label for="reg-photo" class="file-upload-label">Выберите файл</label>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="reg-avatar">Выберите аватар:</label>
+                    <div class="avatar-selection">
+                        <input type="radio" id="avatar1" name="avatar" value="astronaut" required>
+                        <label for="avatar1">
+                            <img src="https://4glaza.ru/upload/medialibrary/abb/sc3l8n9w4f3jl36bu86aq3i8e210o6wx/articles-astronavt-i-kosmonavt-v-chem-raznica.jpg" alt="Аватар астронавта">
+                        </label>
+                        <input type="radio" id="avatar2" name="avatar" value="rocket">
+                        <label for="avatar2">
+                            <img src="https://thumbs.dreamstime.com/z/%D1%80%D0%B0%D0%BA%D0%B5%D1%82%D0%B0-40502665.jpg" alt="Аватар ракеты">
+                        </label>
+                        <input type="radio" id="avatar3" name="avatar" value="planet">
+                        <label for="avatar3">
+                            <img src="https://universemagazine.com/wp-content/uploads/2024/02/rings-960-h-640.jpg" alt="Аватар планеты">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-color">Выберите любимый цвет:</label>
+                    <input type="color" id="reg-color" value="#4299E1">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-birthday">Дата рождения:</label>
+                    <input type="date" id="reg-birthday" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-hobbies">Ваши хобби:</label>
+                    <textarea id="reg-hobbies" rows="3" placeholder="Например: чтение, программирование, путешествия"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-mood">Ваше настроение:</label>
+                    <input type="range" id="reg-mood" min="0" max="100" value="50">
+                    <div class="ratio-display" id="mood-display">Настроение: 50%</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-planet">Любимая планета:</label>
+                    <select id="reg-favorite-planet" required>
+                        <option value="" disabled selected>Выберите планету</option>
+                        <option value="mercury">Меркурий</option>
+                        <option value="venus">Венера</option>
+                        <option value="earth">Земля</option>
+                        <option value="mars">Марс</option>
+                        <option value="jupiter">Юпитер</option>
+                        <option value="saturn">Сатурн</option>
+                        <option value="uranus">Уран</option>
+                        <option value="neptune">Нептун</option>
+                        <option value="pluto">Плутон</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-space-food">Любимая космическая еда:</label>
+                    <input type="text" id="reg-favorite-space-food" placeholder="Например: сублимированное мороженое">
+                </div>
+
+                <div class="form-group">
+                    <label>Выберите любимую звезду:</label>
+                    <div class="star-selection">
+                        <input type="radio" id="star1" name="star" value="sirius" required>
+                        <label for="star1">Сириус</label>
+                        <input type="radio" id="star2" name="star" value="vega">
+                        <label for="star2">Вега</label>
+                        <input type="radio" id="star3" name="star" value="polaris">
+                        <label for="star3">Полярная звезда</label>
+                        <input type="radio" id="star4" name="star" value="betelgeuse">
+                        <label for="star4">Бетельгейзе</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-space-skill">Ваши навыки для космоса:</label>
+                    <select id="reg-space-skill" multiple>
+                        <option value="pilot">Пилотирование</option>
+                        <option value="engineering">Инженерия</option>
+                        <option value="science">Наука</option>
+                        <option value="cooking">Кулинария</option>
+                        <option value="communication">Коммуникация</option>
+                        <option value="fitness">Физическая подготовка</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-favorite-constellation">Любимое созвездие:</label>
+                    <input type="text" id="reg-favorite-constellation" placeholder="Например: Орион">
+                </div>
                 
                 <h3>Члены семьи</h3>
-                <div class="family-member">
-                    <div class="form-group">
-                        <label>Фамилия:</label>
-                        <input type="text" placeholder="Введите фамилию">
+                <div id="family-members-container">
+                    <div class="family-member">
+                        <div class="form-group">
+                            <label>Фамилия:</label>
+                            <input type="text" placeholder="Введите фамилию">
+                        </div>
+                        <div class="form-group">
+                            <label>Имя:</label>
+                            <input type="text" placeholder="Введите имя">
+                        </div>
+                        <div class="form-group">
+                            <label>Возраст:</label>
+                            <input type="number" min="1" placeholder="Введите возраст">
+                        </div>
+                        <div class="form-group">
+                            <label>Продукт:</label>
+                            <select required>
+                                <option value="" disabled selected>Выберите продукт</option>
+                                <option value="office">Microsoft Office 365</option>
+                                <option value="word">Microsoft Word</option>
+                                <option value="excel">Microsoft Excel</option>
+                                <option value="powerpoint">Microsoft PowerPoint</option>
+                                <option value="outlook">Microsoft Outlook</option>
+                                <option value="access">Microsoft Access</option>
+                                <option value="onenote">Microsoft OneNote</option>
+                                <option value="publisher">Microsoft Publisher</option>
+                                <option value="win11">Windows 11</option>
+                                <option value="win10">Windows 10</option>
+                                <option value="winserver">Windows Server</option>
+                                <option value="vs">Visual Studio</option>
+                                <option value="vscode">Visual Studio Code</option>
+                                <option value="azure">Microsoft Azure</option>
+                                <option value="sqlserver">SQL Server</option>
+                                <option value="dynamics">Dynamics 365</option>
+                                <option value="teams">Microsoft Teams</option>
+                                <option value="sharepoint">SharePoint</option>
+                                <option value="edge">Microsoft Edge</option>
+                                <option value="bing">Bing</option>
+                                <option value="xbox">Xbox</option>
+                                <option value="minecraft">Minecraft</option>
+                            </select>
+                        </div>
+                        <button type="button" class="remove-member">Удалить</button>
                     </div>
-                    <div class="form-group">
-                        <label>Имя:</label>
-                        <input type="text" placeholder="Введите имя">
-                    </div>
-                    <div class="form-group">
-                        <label>Возраст:</label>
-                        <input type="number" min="1" placeholder="Введите возраст">
-                    </div>
-                    <div class="form-group">
-                        <label>Пол:</label>
-                        <select required>
-                            <option value="" disabled selected>Выберите пол</option>
-                            <option value="male">Мужской</option>
-                            <option value="female">Женский</option>
-                        </select>
-                    </div>
-                    <button type="button" class="remove-member">Удалить</button>
                 </div>
                 
                 <button type="button" class="add-member">Добавить члена семьи</button>
@@ -113,30 +237,21 @@
     <footer id="footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3>Контакты</h3>
-                <a href="tel:+74842234567">+7 (4842) 23-45-67</a>
-                <a href="mailto:family@cosmos.ru">family@cosmos.ru</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Навигация</h3>
-                <div class="footer-navigation">
-                    <a href="index.html">Главная</a>
-                    <a href="index-light.html">Светлая тема</a>
-                    <a href="registration.html">Регистрация</a>
-                    <a href="competition.html">Конкурс</a>
-                    <a href="schedule.html">Расписание</a>
-                    <a href="account.html">Личный кабинет</a>
-                    <a href="404.html">404</a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
                 <h3>Социальные сети</h3>
                 <div class="social-links">
                     <a href="#" aria-label="ВКонтакте">ВК</a>
                     <a href="#" aria-label="Одноклассники">ОК</a>
                     <a href="#" aria-label="Телеграм">TG</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Навигация</h3>
+                <div class="footer-navigation">
+                    <a href="index.html">Главная</a>
+                    <a href="index-light.html">Светлая тема</a>
+                    <a href="competition.html">Конкурс</a>
+                    <a href="schedule.html">Расписание</a>
+                    <a href="account.html">Личный кабинет</a>
                 </div>
             </div>
         </div>
@@ -146,5 +261,6 @@
     </footer>
     
     <script src="scripts/theme-switcher.js"></script>
+    <script src="scripts/form-handlers.js"></script>
 </body>
 </html>

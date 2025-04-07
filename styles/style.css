@@ -763,6 +763,178 @@ copyright {
     box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
 }
 
+/* Стили для отображения гендерного соотношения */
+.ratio-display {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #A0AEC0;
+    text-align: center;
+    padding: 5px;
+    background-color: rgba(74, 85, 104, 0.1);
+    border-radius: 4px;
+}
+
+/* Настройка ползунков */
+input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+    background: #2D3748;
+    height: 6px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #4299E1;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #3182CE;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+body.light-theme input[type="range"] {
+    background: #E2E8F0;
+}
+
+/* Стили для выбора аватара */
+.avatar-selection {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.avatar-selection input[type="radio"] {
+    display: none;
+}
+
+.avatar-selection label {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.avatar-selection label img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.avatar-selection input[type="radio"]:checked + label {
+    border-color: #4299E1;
+}
+
+/* Стили для выбора цвета */
+input[type="color"] {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+input[type="color"]:hover {
+    transform: scale(1.1);
+}
+
+/* Стили для текстовой области */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #4299E1;
+    outline: none;
+}
+
+/* Стили для выбора даты */
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="date"]:focus {
+    border-color: #4299E1;
+    outline: none;
+}
+
+/* Стили для настроения */
+#mood-display {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #A0AEC0;
+    text-align: center;
+    padding: 5px;
+    background-color: rgba(74, 85, 104, 0.1);
+    border-radius: 4px;
+}
+
+/* Стили для выбора звезды */
+.star-selection {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.star-selection input[type="radio"] {
+    display: none;
+}
+
+.star-selection label {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+    font-size: 14px;
+    background-color: rgba(66, 153, 225, 0.1);
+}
+
+.star-selection input[type="radio"]:checked + label {
+    border-color: #4299E1;
+    background-color: rgba(66, 153, 225, 0.2);
+}
+
+/* Стили для мультивыбора навыков */
+#reg-space-skill {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #F7FAFC;
+    transition: border-color 0.3s ease;
+}
+
+#reg-space-skill:focus {
+    border-color: #4299E1;
+    outline: none;
+}
+
 /* Дополнительные медиа-запросы */
 @media (max-width: 1024px) {
     .competitions-grid {
