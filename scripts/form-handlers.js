@@ -1,264 +1,127 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Объявляем глобальные переменные для флага один раз
+    let isDrawing = false;
+    let selectedColor = '#000000';
+    const cellSize = 20;
+
     // Обработчик для формы регистрации
     const registrationForm = document.querySelector('.registration-form');
-    
-    if (registrationForm) {
-        // Связываем поле ввода возраста с ползунком
-        const ageInput = document.getElementById('reg-age');
-        const ageRange = document.getElementById('reg-age-range');
-        
-        if (ageInput && ageRange) {
-            ageRange.addEventListener('input', function() {
-                ageInput.value = ageRange.value;
-            });
-            
-            ageInput.addEventListener('input', function() {
-                ageRange.value = ageInput.value;
-            });
-        }
-        
-        // Обработчик для ползунка гендерного соотношения
-        const genderRatioSlider = document.getElementById('reg-gender-ratio');
-        const genderRatioDisplay = document.getElementById('gender-ratio-display');
-        
-        if (genderRatioSlider && genderRatioDisplay) {
-            genderRatioSlider.addEventListener('input', function() {
-                const malePercent = genderRatioSlider.value;
-                const femalePercent = 100 - malePercent;
-                genderRatioDisplay.textContent = `Мужчина ${malePercent}%, женщина ${femalePercent}%`;
-            });
-        }
-        
-        // Обработчик для добавления члена семьи
-        const addMemberBtn = registrationForm.querySelector('.add-member');
-        const familyMembersContainer = document.getElementById('family-members-container');
-        
-        if (addMemberBtn && familyMembersContainer) {
-            addMemberBtn.addEventListener('click', function() {
-                const memberTemplate = familyMembersContainer.querySelector('.family-member').cloneNode(true);
-                
-                // Очищаем значения полей
-                memberTemplate.querySelectorAll('input').forEach(input => {
-                    input.value = '';
-                });
-                
-                memberTemplate.querySelectorAll('select').forEach(select => {
-                    select.selectedIndex = 0;
-                });
-                
-                // Добавляем обработчик для кнопки удаления
-                const removeBtn = memberTemplate.querySelector('.remove-member');
-                if (removeBtn) {
-                    removeBtn.addEventListener('click', function() {
-                        memberTemplate.remove();
-                    });
-                }
-                
-                familyMembersContainer.appendChild(memberTemplate);
-            });
-        }
-        
-        // Добавляем обработчики для существующих кнопок удаления
-        const removeBtns = registrationForm.querySelectorAll('.remove-member');
-        removeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Проверяем, что это не последний член семьи
-                if (familyMembersContainer.querySelectorAll('.family-member').length > 1) {
-                    btn.closest('.family-member').remove();
-                } else {
-                    alert('Необходимо оставить как минимум одного члена семьи');
-                }
-            });
+
+
+    // Связываем поле ввода возраста с ползунком
+    const ageInput = document.getElementById('reg-age');
+    const ageRange = document.getElementById('reg-age-range');
+
+    if (ageInput && ageRange) {
+        ageRange.addEventListener('input', function () {
+            ageInput.value = ageRange.value;
         });
-        
-        // Обработка отправки формы
-        registrationForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-            const confirmPassword = document.getElementById('reg-password-confirm').value;
-            const agreement = document.getElementById('reg-agreement').checked;
-            
-            const errorMessage = registrationForm.querySelector('.validation-message.error');
-            const successMessage = registrationForm.querySelector('.validation-message.success');
-            
-            // Скрываем сообщения
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
-            
-            // Простая валидация
-            if (!email || !password || !confirmPassword || !agreement) {
-                errorMessage.textContent = 'Заполните все обязательные поля';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Пароли не совпадают';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            // Успешная регистрация
-            successMessage.style.display = 'block';
-            
-            // Сброс формы через 2 секунды
-            setTimeout(function() {
-                registrationForm.reset();
-                successMessage.style.display = 'none';
-            }, 2000);
+
+        ageInput.addEventListener('input', function () {
+            ageRange.value = ageInput.value;
         });
     }
 
-    // Обработчик для выбора аватара
-    const avatarInputs = document.querySelectorAll('.avatar-selection input[type="radio"]');
-    avatarInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Выбран аватар: ${this.value}`);
+    // Обработчик для ползунка гендерного соотношения
+    const genderRatioSlider = document.getElementById('reg-gender-ratio');
+    const genderRatioDisplay = document.getElementById('gender-ratio-display');
+
+    if (genderRatioSlider && genderRatioDisplay) {
+        genderRatioSlider.addEventListener('input', function () {
+            const malePercent = genderRatioSlider.value;
+            const femalePercent = 100 - malePercent;
+            genderRatioDisplay.textContent = `Мужчина ${malePercent}%, женщина ${femalePercent}%`;
+        });
+    }
+
+    // Обработчик для добавления члена семьи
+    const addMemberBtn = registrationForm.querySelector('.add-member');
+    const familyMembersContainer = document.getElementById('family-members-container');
+
+    if (addMemberBtn && familyMembersContainer) {
+        addMemberBtn.addEventListener('click', function () {
+            const memberTemplate = familyMembersContainer.querySelector('.family-member').cloneNode(true);
+
+            // Очищаем значения полей
+            memberTemplate.querySelectorAll('input').forEach(input => {
+                input.value = '';
+            });
+
+            memberTemplate.querySelectorAll('select').forEach(select => {
+                select.selectedIndex = 0;
+            });
+
+            // Добавляем обработчик для кнопки удаления
+            const removeBtn = memberTemplate.querySelector('.remove-member');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function () {
+                    memberTemplate.remove();
+                });
+            }
+
+            familyMembersContainer.appendChild(memberTemplate);
+        });
+    }
+
+    // Добавляем обработчики для существующих кнопок удаления
+    const removeBtns = registrationForm.querySelectorAll('.remove-member');
+    removeBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Проверяем, что это не последний член семьи
+            if (familyMembersContainer.querySelectorAll('.family-member').length > 1) {
+                btn.closest('.family-member').remove();
+            } else {
+                alert('Необходимо оставить как минимум одного члена семьи');
+            }
         });
     });
 
-    // Обработчик для выбора цвета
-    const colorInput = document.getElementById('reg-color');
-    if (colorInput) {
-        colorInput.addEventListener('input', function() {
-            console.log(`Выбран цвет: ${this.value}`);
-        });
-    }
+    // Обработка отправки формы
+    registrationForm.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-    // Обработчик для текстовой области хобби
-    const hobbiesTextarea = document.getElementById('reg-hobbies');
-    if (hobbiesTextarea) {
-        hobbiesTextarea.addEventListener('input', function() {
-            console.log(`Хобби: ${this.value}`);
-        });
-    }
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
 
-    // Обработчик для выбора даты рождения
-    const birthdayInput = document.getElementById('reg-birthday');
-    if (birthdayInput) {
-        birthdayInput.addEventListener('change', function() {
-            console.log(`Дата рождения: ${this.value}`);
-        });
-    }
+        // Простая валидация
+        if (!email || !password || !confirmPassword || !agreement) {
+            errorMessage.textContent = 'Заполните все обязательные поля';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+
+        // Успешная регистрация
+        successMessage.style.display = 'block';
+
+        setTimeout(function () {
+            registrationForm.reset();
+            successMessage.style.display = 'none';
+        }, 2000);
+    });
+
+
 
     // Обработчик для настроения
     const moodSlider = document.getElementById('reg-mood');
     const moodDisplay = document.getElementById('mood-display');
     if (moodSlider && moodDisplay) {
-        moodSlider.addEventListener('input', function() {
+        moodSlider.addEventListener('input', function () {
             moodDisplay.textContent = `Настроение: ${this.value}%`;
         });
     }
 
-    // Обработчик для выбора звезды
-    const starInputs = document.querySelectorAll('.star-selection input[type="radio"]');
-    starInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Выбрана звезда: ${this.value}`);
-        });
-    });
-
-    // Обработчик для мультивыбора навыков
-    const spaceSkillSelect = document.getElementById('reg-space-skill');
-    if (spaceSkillSelect) {
-        spaceSkillSelect.addEventListener('change', function() {
-            const selectedSkills = Array.from(this.selectedOptions).map(option => option.text);
-            console.log(`Выбранные навыки: ${selectedSkills.join(', ')}`);
-        });
-    }
-
-    // Обработчик для любимой космической еды
-    const spaceFoodInput = document.getElementById('reg-favorite-space-food');
-    if (spaceFoodInput) {
-        spaceFoodInput.addEventListener('input', function() {
-            console.log(`Любимая космическая еда: ${this.value}`);
-        });
-    }
-
-    // Обработчик для любимого созвездия
-    const constellationInput = document.getElementById('reg-favorite-constellation');
-    if (constellationInput) {
-        constellationInput.addEventListener('input', function() {
-            console.log(`Любимое созвездие: ${this.value}`);
-        });
-    }
-
-    // Обработчик для выбора любимого фильма
-    const favoriteMovieInput = document.getElementById('reg-favorite-movie');
-    if (favoriteMovieInput) {
-        favoriteMovieInput.addEventListener('input', function() {
-            console.log(`Любимый фильм: ${this.value}`);
-        });
-    }
-
-    // Обработчик для выбора музыкального жанра
-    const favoriteMusicSelect = document.getElementById('reg-favorite-music');
-    if (favoriteMusicSelect) {
-        favoriteMusicSelect.addEventListener('change', function() {
-            console.log(`Любимый музыкальный жанр: ${this.value}`);
-        });
-    }
-
-    // Обработчик для выбора времени года
-    const favoriteSeasonSelect = document.getElementById('reg-favorite-season');
-    if (favoriteSeasonSelect) {
-        favoriteSeasonSelect.addEventListener('change', function() {
-            console.log(`Любимое время года: ${this.value}`);
-        });
-    }
-
-    // Обработчик для выбора цвета
-    const favoriteColorInput = document.getElementById('reg-favorite-color');
-    if (favoriteColorInput) {
-        favoriteColorInput.addEventListener('input', function() {
-            console.log(`Любимый цвет: ${this.value}`);
-        });
-    }
-
-    // Обработчик для радиокнопок (домашние животные)
-    const petInputs = document.querySelectorAll('input[name="pet"]');
-    petInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Домашние животные: ${this.value === 'yes' ? 'Есть' : 'Нет'}`);
-        });
-    });
-
-    // Обработчик для радиокнопок (путешествия)
-    const travelInputs = document.querySelectorAll('input[name="travel"]');
-    travelInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Любите путешествовать: ${this.value === 'yes' ? 'Да' : 'Нет'}`);
-        });
-    });
-
-    // Обработчик для выбора космического объекта
-    const favoriteObjectInputs = document.querySelectorAll('input[name="favorite-object"]');
-    favoriteObjectInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Выбран любимый космический объект: ${this.value}`);
-        });
-    });
-
-    // Обработчик для выбора космического фильма
-    const favoriteSpaceMovieSelect = document.getElementById('favorite-space-movie');
-    if (favoriteSpaceMovieSelect) {
-        favoriteSpaceMovieSelect.addEventListener('change', function() {
-            console.log(`Выбран любимый космический фильм: ${this.value}`);
-        });
-    }
 
     // Обработчик для номера телефона - форматирование
     const phoneInput = document.getElementById('reg-phone');
     if (phoneInput) {
-        phoneInput.addEventListener('focus', function() {
+        phoneInput.addEventListener('focus', function () {
             if (!this.value) {
                 this.value = '+7 (';
             }
         });
 
-        phoneInput.addEventListener('input', function(e) {
+        phoneInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
             if (value.length > 0) {
                 value = value.substring(0, 11);
@@ -280,76 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Обработчик для ранга в Genshin Impact
-    const genshinRankSelect = document.getElementById('reg-genshin-rank');
-    if (genshinRankSelect) {
-        genshinRankSelect.addEventListener('change', function() {
-            console.log(`Выбран ранг в Genshin Impact: ${this.value}`);
-        });
-    }
-
-    // Обработчик для любимого персонажа Genshin Impact
-    const favoriteCharacterInput = document.getElementById('reg-favorite-character');
-    if (favoriteCharacterInput) {
-        favoriteCharacterInput.addEventListener('input', function() {
-            console.log(`Любимый персонаж Genshin Impact: ${this.value}`);
-        });
-    }
-
-    // Обработчик для любимых песен Lady Gaga
-    const ladyGagaSongs = document.getElementById('lady-gaga-songs');
-    if (ladyGagaSongs) {
-        ladyGagaSongs.addEventListener('change', function() {
-            const selectedSongs = Array.from(this.selectedOptions).map(option => option.text);
-            console.log(`Выбранные песни Lady Gaga: ${selectedSongs.join(', ')}`);
-        });
-    }
-
-    // Обработчик для любимой даты
-    const favoriteDateInput = document.getElementById('reg-favorite-date');
-    if (favoriteDateInput) {
-        favoriteDateInput.addEventListener('change', function() {
-            console.log(`Любимая дата: ${this.value}`);
-        });
-    }
-
-    // Обработчик для любимого времени
-    const favoriteTimeInput = document.getElementById('reg-favorite-time');
-    if (favoriteTimeInput) {
-        favoriteTimeInput.addEventListener('change', function() {
-            console.log(`Любимое время: ${this.value}`);
-        });
-    }
-
-    // Обработчик для любимой погоды
-    const favoriteWeatherSelect = document.getElementById('reg-favorite-weather');
-    if (favoriteWeatherSelect) {
-        favoriteWeatherSelect.addEventListener('change', function() {
-            console.log(`Любимая погода: ${this.value}`);
-        });
-    }
-
-    // Обработчик для выбора предмета для Марса
-    const marsItemInputs = document.querySelectorAll('input[name="mars-item"]');
-    marsItemInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Что бы взяли на Марс: ${this.value}`);
-        });
-    });
-
-    // Обработчик для выбора суперсилы
-    const superpowerSelect = document.getElementById('superpower');
-    if (superpowerSelect) {
-        superpowerSelect.addEventListener('change', function() {
-            console.log(`Выбранная суперсила: ${this.value}`);
-        });
-    }
 
     // Проверка обязательных галочек
     const requiredAgreements = document.querySelectorAll('.required-agreement');
     const registerButton = document.getElementById('register-button');
     const checkTranslationButton = document.getElementById('check-translation');
-    const chineseOptions = document.getElementById('chinese-options');
     const translationResult = document.getElementById('translation-result');
     const chineseTranslationInputs = document.querySelectorAll('input[name="chinese-translation"]');
 
@@ -357,11 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function shuffleTranslations() {
         const container = document.querySelector('.chinese-options');
         if (!container) return;
-        
+
         // Собираем все пары (радиокнопка + метка)
         const pairs = [];
         const inputs = container.querySelectorAll('input[type="radio"]');
-        
+
         inputs.forEach(input => {
             // Найдем соответствующую метку
             const label = document.querySelector(`label[for="${input.id}"]`);
@@ -373,30 +171,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
-        
+
         // Перемешиваем пары
         for (let i = pairs.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
         }
-        
+
         // Очищаем контейнер
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
-        
+
         // Добавляем перемешанные элементы обратно
         pairs.forEach(pair => {
             container.appendChild(pair.input);
             container.appendChild(pair.label);
         });
-        
-        // Заново добавляем обработчики событий
-        container.querySelectorAll('input[type="radio"]').forEach(input => {
-            input.addEventListener('change', function() {
-                console.log(`Выбран вариант перевода: ${this.value}`);
-            });
-        });
+
     }
 
     // Функция для проверки всех соглашений
@@ -412,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Слушатели событий для всех галочек
     requiredAgreements.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
+        checkbox.addEventListener('change', function () {
             if (checkAllAgreements()) {
                 checkTranslationButton.removeAttribute('disabled');
             } else {
@@ -422,12 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Добавляем обработчики для радиокнопок с китайским переводом
-    chineseTranslationInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log(`Выбран вариант перевода: ${this.value}`);
-        });
-    });
 
     // Обработчик кнопки проверки перевода
     if (checkTranslationButton) {
@@ -435,17 +221,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!checkAllAgreements()) {
             checkTranslationButton.setAttribute('disabled', 'disabled');
         }
-        
-        checkTranslationButton.addEventListener('click', function() {
+
+        checkTranslationButton.addEventListener('click', function () {
             const selectedTranslation = document.querySelector('input[name="chinese-translation"]:checked');
-            
+
             if (!selectedTranslation) {
                 translationResult.textContent = 'Пожалуйста, выберите вариант перевода';
                 translationResult.className = 'validation-message incorrect';
                 translationResult.style.display = 'block';
                 return;
             }
-            
+
             if (selectedTranslation.value === 'correct') {
                 translationResult.textContent = 'Правильно! Вы можете продолжить регистрацию.';
                 translationResult.className = 'validation-message correct';
@@ -454,76 +240,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 translationResult.textContent = 'Неправильно. Попробуйте еще раз.';
                 translationResult.className = 'validation-message incorrect';
                 registerButton.setAttribute('disabled', 'disabled');
-                
+
                 // Очищаем выбранный вариант
                 document.querySelectorAll('input[name="chinese-translation"]').forEach(input => {
                     input.checked = false;
                 });
-                
+
                 // Перемешиваем варианты ответа
                 setTimeout(shuffleTranslations, 500);
             }
-            
+
             translationResult.style.display = 'block';
         });
     }
 
     // Отключаем кнопку регистрации по умолчанию
-    if (registerButton) {
-        registerButton.setAttribute('disabled', 'disabled');
-    }
+    registerButton.setAttribute('disabled', 'disabled');
 
-    // Добавляем обработчики для новых рандомных вопросов
-    const starTrekSeasonInputs = document.querySelectorAll('input[name="favorite-season-trek"]');
-    if (starTrekSeasonInputs.length > 0) {
-        starTrekSeasonInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                console.log(`Выбран любимый сезон Звездного пути: ${this.value}`);
-            });
-        });
-    }
 
-    const spaceFoodInputs = document.querySelectorAll('input[name="space-food"]');
-    if (spaceFoodInputs.length > 0) {
-        spaceFoodInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                console.log(`Выбрана космическая еда: ${this.value}`);
-            });
-        });
-    }
-
-    const shipColorInputs = document.querySelectorAll('input[name="ship-color"]');
-    if (shipColorInputs.length > 0) {
-        shipColorInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                console.log(`Выбран цвет корабля: ${this.value}`);
-            });
-        });
-    }
-
-    const crewSizeInputs = document.querySelectorAll('input[name="crew-size"]');
-    if (crewSizeInputs.length > 0) {
-        crewSizeInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                console.log(`Выбран размер экипажа: ${this.value}`);
-            });
-        });
-    }
-
-    const spaceMusicInputs = document.querySelectorAll('input[name="space-music"]');
-    if (spaceMusicInputs.length > 0) {
-        spaceMusicInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                console.log(`Выбрана музыка для полета: ${this.value}`);
-            });
-        });
-    }
 
     // Тогглинг для блока "Паспортные и банковские данные"
     const togglePassportBank = document.getElementById('toggle-passport-bank');
     const passportBankContainer = document.getElementById('passport-bank-container');
     if (togglePassportBank && passportBankContainer) {
-        togglePassportBank.addEventListener('change', function() {
+        togglePassportBank.addEventListener('change', function () {
             passportBankContainer.style.display = this.checked ? 'block' : 'none';
         });
     }
@@ -531,100 +271,71 @@ document.addEventListener('DOMContentLoaded', function() {
     // Тогглинг для блока "Документы (СНИЛС/ИНН/водительские права)"
     const toggleDocuments = document.getElementById('toggle-documents');
     if (toggleDocuments && documentsCard) {
-        toggleDocuments.addEventListener('change', function() {
+        toggleDocuments.addEventListener('change', function () {
             documentsCard.style.display = this.checked ? 'block' : 'none';
         });
     }
 
     // Функциональность MBTI и переключения фигур
-    const mbtiFirst = document.getElementById('mbti-first'),
-          mbtiSecond = document.getElementById('mbti-second'),
-          mbtiThird = document.getElementById('mbti-third'),
-          mbtiFourth = document.getElementById('mbti-fourth'),
-          mbtiAlert = document.getElementById('mbti-alert'),
-          triangleCheckbox = document.getElementById('triangle-checkbox'),
-          shapeDisplay = document.getElementById('shape-display'),
-          borderRadiusSlider = document.getElementById('border-radius-slider'),
-          borderRadiusControl = document.getElementById('border-radius-control');
+    const
+        triangleCheckbox = document.getElementById('triangle-checkbox'),
+        shapeDisplay = document.getElementById('shape-display'),
+        borderRadiusSlider = document.getElementById('border-radius-slider');
 
-    if (mbtiFirst && mbtiSecond && mbtiThird && mbtiFourth && mbtiAlert && mbtiDescription) {
-        function updateMbtiDescription() {
-            if(mbtiFirst.value && mbtiSecond.value && mbtiThird.value && mbtiFourth.value) {
-                const mbtiCombined = mbtiFirst.value + mbtiSecond.value + mbtiThird.value + mbtiFourth.value;
-                let description = "";
-                switch(mbtiCombined) {
-                    case "ESTJ": description = "Рациональный, организованный, лидерский"; break;
-                    case "INFP": description = "Чуткий, мечтательный, идеалистичный"; break;
-                    default: description = `Ваш MBTI: ${mbtiCombined}`;
-                }
-                mbtiDescription.textContent = description;
-                mbtiAlert.style.display = 'block';
-            } else {
-                mbtiAlert.style.display = 'none';
-            }
+
+
+
+    // Проверяем начальное состояние при загрузке
+    if (triangleCheckbox.checked) {
+        shapeDisplay.classList.add('triangle');
+        // Выключаем элементы управления вместо скрытия
+        if (borderRadiusSlider) {
+            borderRadiusSlider.disabled = true;
         }
-        [mbtiFirst, mbtiSecond, mbtiThird, mbtiFourth].forEach(select => {
-            select.addEventListener('change', updateMbtiDescription);
-        });
     }
 
-    // Функциональность переключения фигур - исправленная версия (выключение вместо скрытия)
-    if (triangleCheckbox && shapeDisplay && borderRadiusControl) {
-        // Получаем ползунок для скругления
-        const borderRadiusSlider = document.getElementById('border-radius-slider');
-        
-        // Проверяем начальное состояние при загрузке
-        if (triangleCheckbox.checked) {
+    triangleCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            // Устанавливаем размеры контейнера до изменения класса
+            const containerHeight = shapeDisplay.parentElement.offsetHeight;
+            shapeDisplay.parentElement.style.minHeight = containerHeight + "px";
+
+            // Применяем класс треугольника
             shapeDisplay.classList.add('triangle');
+            shapeDisplay.style.borderRadius = '0';
+
             // Выключаем элементы управления вместо скрытия
             if (borderRadiusSlider) {
                 borderRadiusSlider.disabled = true;
             }
+        } else {
+            shapeDisplay.classList.remove('triangle');
+            shapeDisplay.style.borderRadius = borderRadiusSlider ? borderRadiusSlider.value + 'px' : '0';
+
+            // Включаем элементы управления
+            if (borderRadiusSlider) {
+                borderRadiusSlider.disabled = false;
+            }
         }
-        
-        triangleCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                // Устанавливаем размеры контейнера до изменения класса
-                const containerHeight = shapeDisplay.parentElement.offsetHeight;
-                shapeDisplay.parentElement.style.minHeight = containerHeight + "px";
-                
-                // Применяем класс треугольника
-                shapeDisplay.classList.add('triangle');
-                shapeDisplay.style.borderRadius = '0';
-                
-                // Выключаем элементы управления вместо скрытия
-                if (borderRadiusSlider) {
-                    borderRadiusSlider.disabled = true;
-                }
-            } else {
-                shapeDisplay.classList.remove('triangle');
-                shapeDisplay.style.borderRadius = borderRadiusSlider ? borderRadiusSlider.value + 'px' : '0';
-                
-                // Включаем элементы управления
-                if (borderRadiusSlider) {
-                    borderRadiusSlider.disabled = false;
-                }
+    });
+
+    if (borderRadiusSlider) {
+        borderRadiusSlider.addEventListener('input', function () {
+            if (!triangleCheckbox.checked) {
+                shapeDisplay.style.borderRadius = this.value + 'px';
             }
         });
-
-        if (borderRadiusSlider) {
-            borderRadiusSlider.addEventListener('input', function() {
-                if (!triangleCheckbox.checked) {
-                    shapeDisplay.style.borderRadius = this.value + 'px';
-                }
-            });
-        }
     }
+
 
     // Функциональность флага
     const flagCanvas = document.getElementById('flag-canvas'),
-          flagColorButtonsContainer = document.getElementById('flag-color-buttons'),
-          currentFlagColorDisplay = document.getElementById('current-flag-color'),
-          clearFlagButton = document.getElementById('clear-flag'),
-          flagTemplateInput = document.getElementById('flag-template');
+        flagColorButtonsContainer = document.getElementById('flag-color-buttons'),
+        currentFlagColorDisplay = document.getElementById('current-flag-color'),
+        clearFlagButton = document.getElementById('clear-flag'),
+        flagTemplateInput = document.getElementById('flag-template');
 
-    let currentFlagColor = '#000000',
-        isDrawing = false;
+    let currentFlagColor = '#000000';
 
     // Общие функции для флага
     function drawGrid(ctx, cellSize) {
@@ -640,33 +351,19 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.strokeStyle = "#ddd";
         ctx.stroke();
     }
-    const cellSize = 20;
     if (flagCanvas && flagColorButtonsContainer) {
         const ctx = flagCanvas.getContext('2d');
-        
-        const flagPalette = ['#000000','#FFFFFF','#FF0000','#00FF00','#0000FF','#FFFF00','#FF00FF','#00FFFF',
-                            '#800000','#008000','#000080','#808000','#800080','#008080','#C0C0C0','#808080'];
 
-        function drawGrid() {
-            ctx.beginPath();
-            for (let x = 0; x < flagCanvas.width; x += cellSize) {
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, flagCanvas.height);
-            }
-            for (let y = 0; y < flagCanvas.height; y += cellSize) {
-                ctx.moveTo(0, y);
-                ctx.lineTo(flagCanvas.width, y);
-            }
-            ctx.strokeStyle = "#ddd";
-            ctx.stroke();
-        }
-        drawGrid();
+        const flagPalette = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF',
+            '#800000', '#008000', '#000080', '#808000', '#800080', '#008080', '#C0C0C0', '#808080'];
+
+        drawGrid(ctx, cellSize);
 
         // Генерация кнопок выбора цвета
         flagPalette.forEach(color => {
             const btn = document.createElement('button');
             btn.style.backgroundColor = color;
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 currentFlagColor = color;
                 currentFlagColorDisplay.textContent = color;
             });
@@ -674,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Рисование по клику
-        flagCanvas.addEventListener('click', function(event) {
+        flagCanvas.addEventListener('click', function (event) {
             const rect = flagCanvas.getBoundingClientRect();
             const x = Math.floor((event.clientX - rect.left) / cellSize) * cellSize;
             const y = Math.floor((event.clientY - rect.top) / cellSize) * cellSize;
@@ -686,24 +383,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Очистка флага
         if (clearFlagButton) {
-            clearFlagButton.addEventListener('click', function() {
+            clearFlagButton.addEventListener('click', function () {
                 ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
-                drawGrid();
+                drawGrid(ctx, cellSize);
             });
         }
 
         // Загрузка шаблона
         if (flagTemplateInput) {
-            flagTemplateInput.addEventListener('change', function() {
+            flagTemplateInput.addEventListener('change', function () {
                 const file = this.files[0];
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const img = new Image();
-                        img.onload = function() {
+                        img.onload = function () {
                             ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
                             ctx.drawImage(img, 0, 0, flagCanvas.width, flagCanvas.height);
-                            drawGrid();
+                            drawGrid(ctx, cellSize);
                         }
                         img.src = e.target.result;
                     }
@@ -736,21 +433,21 @@ document.addEventListener('DOMContentLoaded', function() {
         flagCanvas.addEventListener('mousemove', draw);
         flagCanvas.addEventListener('mouseup', stopDrawing);
         flagCanvas.addEventListener('mouseout', stopDrawing);
-        
+
         // Инициализация сетки
         drawGrid(ctx, cellSize);
     }
 
     // Функциональность включения/отключения полей
     const enablePassportBank = document.getElementById('enable-passport-bank'),
-          passportBankCard = document.getElementById('passport-bank-card'),
-          enableDocuments = document.getElementById('enable-documents'),
-          documentsCard = document.getElementById('documents-card');
+        passportBankCard = document.getElementById('passport-bank-card'),
+        enableDocuments = document.getElementById('enable-documents'),
+        documentsCard = document.getElementById('documents-card');
 
     // Обработка карточки с паспортными данными
     if (enablePassportBank && passportBankCard) {
         const passportInputs = passportBankCard.querySelectorAll('input[type="text"], input[type="date"]');
-        enablePassportBank.addEventListener('change', function() {
+        enablePassportBank.addEventListener('change', function () {
             passportInputs.forEach(input => {
                 input.disabled = !this.checked;
             });
@@ -760,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обработка карточки с документами
     if (enableDocuments && documentsCard) {
         const documentInputs = documentsCard.querySelectorAll('input[type="text"]');
-        enableDocuments.addEventListener('change', function() {
+        enableDocuments.addEventListener('change', function () {
             documentInputs.forEach(input => {
                 input.disabled = !this.checked;
             });
@@ -768,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Обработчики для шкал характера
-    document.querySelectorAll('input[type="range"]').forEach(slider => {
+    document.querySelectorAll('.character-scales input[type="range"]').forEach(slider => {
         const valueDisplay = slider.previousElementSibling.querySelector('.scale-value');
         if (valueDisplay) {
             slider.addEventListener('input', () => {
@@ -777,7 +474,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Обработчики для MBTI
     // Обработчики для MBTI
     const mbtiToggleGroups = document.querySelectorAll('.mbti-toggle-group');
     const mbtiType = document.querySelector('.mbti-type');
@@ -801,11 +497,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function updateMBTI() {
-        const type = Array.from(document.querySelectorAll('.mbti-toggle.active'))
-            .map(t => t.dataset.value)
-            .join('');
-        
-        if (type.length === 4) {
+        const activeToggles = document.querySelectorAll('.mbti-toggle.active');
+        if (activeToggles.length === 4) {
+            const type = Array.from(activeToggles).map(t => t.dataset.value).join('');
             mbtiType.textContent = type;
             mbtiType.style.color = mbtiColors[type];
             mbtiDescription.style.backgroundColor = `${mbtiColors[type]}22`;
@@ -856,25 +550,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const { width, height } = ctx.canvas;
         const imageData = ctx.getImageData(0, 0, width, height);
         const data = imageData.data;
-    
+
         for (let y = 0; y < height; y += pixelSize) {
             for (let x = 0; x < width; x += pixelSize) {
                 // Центр квадрата
                 const centerX = Math.min(x + Math.floor(pixelSize / 2), width - 1);
                 const centerY = Math.min(y + Math.floor(pixelSize / 2), height - 1);
                 const centerIndex = (centerY * width + centerX) * 4;
-    
+
                 const r = data[centerIndex];
                 const g = data[centerIndex + 1];
                 const b = data[centerIndex + 2];
                 const a = data[centerIndex + 3];
-    
+
                 ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
                 ctx.fillRect(x, y, pixelSize, pixelSize);
             }
         }
     }
-    
+
     // Update flag template button functionality using pixelateCanvas
     document.querySelectorAll('.flag-template-buttons button').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -885,16 +579,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     ctx.fillStyle = color;
                     if (isCircle) {
                         ctx.beginPath();
-                        ctx.arc(x + width/2, y + height/2, width/2, 0, Math.PI * 2);
+                        ctx.arc(x + width / 2, y + height / 2, width / 2, 0, Math.PI * 2);
                         ctx.fill();
                     } else {
                         ctx.fillRect(x, y, width, height);
                     }
                 });
-                
+
                 // Apply pixelation effect with cellSize
                 pixelateCanvas(ctx, cellSize);
-                drawGrid();
+                drawGrid(ctx, cellSize);
             }
         });
     });
@@ -960,51 +654,45 @@ document.addEventListener('DOMContentLoaded', function() {
         mbtiToggleGroups.forEach(group => {
             const toggles = group.querySelectorAll('.mbti-toggle');
             toggles.forEach(toggle => {
-                toggle.addEventListener('click', function(e) {
+                toggle.addEventListener('click', function (e) {
                     // Предотвращаем отправку формы
                     e.preventDefault();
                     e.stopPropagation();
-                    
+
                     // Удаляем класс active у всех переключателей в этой группе
                     toggles.forEach(t => t.classList.remove('active'));
                     // Добавляем класс active текущему переключателю
                     this.classList.add('active');
-                    
+
                     // Обновляем отображение MBTI
                     updateMBTI();
-                    
-                    // Для диагностики
-                    console.log('MBTI toggle clicked:', this.dataset.value);
+
                 });
             });
         });
 
         function updateMBTI() {
             const activeToggles = document.querySelectorAll('.mbti-toggle.active');
-            console.log('Active toggles:', activeToggles.length);
-            
             if (activeToggles.length === 4) {
                 const type = Array.from(activeToggles).map(t => t.dataset.value).join('');
-                console.log('MBTI type:', type);
-                
+
                 // Обновляем тип личности
                 if (mbtiType) {
                     mbtiType.textContent = type;
-                    
+
                     if (mbtiColors[type]) {
                         mbtiType.style.color = mbtiColors[type];
                     }
                 }
-                
+
                 // Обновляем описание
                 if (mbtiDescription) {
                     mbtiDescription.textContent = mbtiDescriptions[type] || `Тип личности: ${type}`;
-                    
+
                     if (mbtiColors[type]) {
                         mbtiDescription.style.backgroundColor = `${mbtiColors[type]}22`;
                     }
-                    
-                    console.log('Updated description:', mbtiDescription.textContent);
+
                 }
             }
         }
@@ -1131,10 +819,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Форматирование СНИЛС по маске XXX-XXX-XXX YY
     const snilsInput = document.getElementById('snils');
     if (snilsInput) {
-        snilsInput.addEventListener('input', function(e) {
+        snilsInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
             if (value.length > 11) value = value.substring(0, 11);
-            
+
             let formattedValue = '';
             if (value.length > 0) {
                 formattedValue += value.substring(0, Math.min(3, value.length));
@@ -1155,7 +843,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Форматирование ИНН (12 цифр)
     const innInput = document.getElementById('inn');
     if (innInput) {
-        innInput.addEventListener('input', function(e) {
+        innInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
             if (value.length > 12) {
                 value = value.substring(0, 12);
@@ -1167,10 +855,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Форматирование водительских прав по маске XX XX XXXXXX
     const driverLicenseInput = document.getElementById('driver-license');
     if (driverLicenseInput) {
-        driverLicenseInput.addEventListener('input', function(e) {
+        driverLicenseInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
             if (value.length > 10) value = value.substring(0, 10);
-            
+
             let formattedValue = '';
             if (value.length > 0) {
                 formattedValue += value.substring(0, Math.min(2, value.length));
@@ -1186,28 +874,116 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Включение/отключение полей документов
+
     if (enableDocuments && documentsCard) {
         const documentInputs = documentsCard.querySelectorAll('input[type="text"]');
-        enableDocuments.addEventListener('change', function() {
+        enableDocuments.addEventListener('change', function () {
             documentInputs.forEach(input => {
                 input.disabled = !this.checked;
             });
         });
     }
 
+    // CAPTCHA функциональность
+
+    if (captchaNumber && captchaSliders.length > 0 && captchaSubmit) {
+        // Генерация случайного числа от 00000 до 99999
+        const generateCaptcha = () => {
+            const randomNumber = Math.floor(Math.random() * 100000).toString().padStart(5, '0');
+            captchaNumber.textContent = randomNumber;
+            return randomNumber;
+        };
+
+        let correctCaptcha = generateCaptcha();
+
+        // Обновление значения на дисплее при изменении слайдера
+        captchaSliders.forEach((slider, index) => {
+            slider.addEventListener('input', function () {
+                // Ничего не делаем, так как мы не обновляем отображение ввода
+            });
+        });
+
+        // Проверка CAPTCHA при нажатии кнопки
+        captchaSubmit.addEventListener('click', function () {
+            const input = Array.from(captchaSliders).map(slider => slider.value).join('');
+
+            if (input === correctCaptcha) {
+                captchaResult.textContent = 'Капча введена верно!';
+                captchaResult.className = 'validation-message success';
+                captchaResult.style.display = 'block';
+                // Генерируем новую капчу после успешного ввода
+                correctCaptcha = generateCaptcha();
+            } else {
+                captchaResult.textContent = 'Неверная капча. Попробуйте снова.';
+                captchaResult.className = 'validation-message error';
+                captchaResult.style.display = 'block';
+            }
+        });
+    }
+
+    // Функциональность кредитов
+
+    if (loansContainer && addLoanButton) {
+        addLoanButton.addEventListener('click', function () {
+            const loanTemplate = document.createElement('div');
+            loanTemplate.className = 'loan';
+            loanTemplate.innerHTML = `
+                <div class="form-group">
+                    <label>Тип кредита:</label>
+                    <select>
+                        <option value="" disabled selected>Выберите тип</option>
+                        <option value="mortgage">Ипотека</option>
+                        <option value="car">Автокредит</option>
+                        <option value="consumer">Потребительский</option>
+                        <option value="business">Бизнес-кредит</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Кредитор:</label>
+                    <input type="text" placeholder="Сбербанк">
+                </div>
+                <div class="form-group">
+                    <label>Сумма кредита:</label>
+                    <input type="number" placeholder="1000000 ₽">
+                </div>
+                <div class="form-group">
+                    <label>Дата открытия:</label>
+                    <input type="date">
+                </div>
+                <div class="form-group">
+                    <label>Статус:</label>
+                    <select>
+                        <option value="active" selected>Активен</option>
+                        <option value="closed">Закрыт</option>
+                        <option value="overdue">Просрочен</option>
+                    </select>
+                </div>
+                <button type="button" class="remove-loan">Удалить</button>
+            `;
+
+            loansContainer.appendChild(loanTemplate);
+
+            // Добавляем обработчик для кнопки удаления
+            const removeButton = loanTemplate.querySelector('.remove-loan');
+            removeButton.addEventListener('click', function () {
+                loanTemplate.remove();
+            });
+        });
+    }
+
     // Тест на реакцию
-    
+
     if (reactionStart && reactionTimer && reactionResult) {
         let timerInterval;
         let startTime;
         let isTimerRunning = false;
-        
+
         // Точность до миллисекунд
         const formatTime = (time) => {
             return time.toFixed(3);
         };
-        
-        reactionStart.addEventListener('click', function() {
+
+        reactionStart.addEventListener('click', function () {
             if (!isTimerRunning) {
                 // Запуск таймера
                 isTimerRunning = true;
@@ -1215,13 +991,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 reactionResult.textContent = '';
                 reactionResult.style.display = 'none';
                 startTime = Date.now();
-                
-                timerInterval = setInterval(function() {
+
+                timerInterval = setInterval(function () {
                     const elapsedTime = (Date.now() - startTime) / 1000;
                     const remainingTime = Math.max(10 - elapsedTime, 0);
-                    
+
                     reactionTimer.textContent = formatTime(remainingTime);
-                    
+
                     if (remainingTime <= 0) {
                         clearInterval(timerInterval);
                         isTimerRunning = false;
@@ -1236,10 +1012,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearInterval(timerInterval);
                 isTimerRunning = false;
                 reactionStart.textContent = 'Старт';
-                
+
                 const elapsedTime = (Date.now() - startTime) / 1000;
                 const deviation = Math.abs(10 - elapsedTime);
-                
+
                 reactionResult.textContent = `Ваш результат: ${formatTime(deviation)} секунд от идеальных 10 секунд`;
                 reactionResult.className = 'validation-message success';
                 reactionResult.style.display = 'block';
@@ -1250,44 +1026,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функциональность флага - исправленная
     const flagColorButtons = document.getElementById('flag-color-buttons');
     const flagTemplateButtons = document.querySelectorAll('.flag-template-buttons button');
-    
+
     if (flagCanvas) {
         const ctx = flagCanvas.getContext('2d');
-        const cellSize = 20; // Размер ячейки для рисования
-        let isDrawing = false;
         let selectedColor = '#000000';
-        
+
         // Шаблоны флагов - четкое определение для России, Германии, Франции, Японии и Италии
         const flagTemplates = {
             russia: [
-                {color: '#FFFFFF', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height / 3},
-                {color: '#0039A6', x: 0, y: flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3},
-                {color: '#D52B1E', x: 0, y: 2 * flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3}
+                { color: '#FFFFFF', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height / 3 },
+                { color: '#0039A6', x: 0, y: flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3 },
+                { color: '#D52B1E', x: 0, y: 2 * flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3 }
             ],
             germany: [
-                {color: '#000000', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height / 3},
-                {color: '#DD0000', x: 0, y: flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3},
-                {color: '#FFCE00', x: 0, y: 2 * flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3}
+                { color: '#000000', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height / 3 },
+                { color: '#DD0000', x: 0, y: flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3 },
+                { color: '#FFCE00', x: 0, y: 2 * flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3 }
             ],
             france: [
-                {color: '#0055A4', x: 0, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
-                {color: '#FFFFFF', x: flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
-                {color: '#EF4135', x: 2 * flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height}
+                { color: '#0055A4', x: 0, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height },
+                { color: '#FFFFFF', x: flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height },
+                { color: '#EF4135', x: 2 * flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height }
             ],
             japan: [
-                {color: '#FFFFFF', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height},
-                {color: '#BC002D', x: flagCanvas.width / 2 - flagCanvas.height * 0.3, y: flagCanvas.height / 2 - flagCanvas.height * 0.3, 
-                 radius: flagCanvas.height * 0.3, isCircle: true}
+                { color: '#FFFFFF', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height },
+                {
+                    color: '#BC002D', x: flagCanvas.width / 2 - flagCanvas.height * 0.3, y: flagCanvas.height / 2 - flagCanvas.height * 0.3,
+                    radius: flagCanvas.height * 0.3, isCircle: true
+                }
             ],
             italy: [
-                {color: '#009246', x: 0, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
-                {color: '#FFFFFF', x: flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
-                {color: '#CE2B37', x: 2 * flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height}
+                { color: '#009246', x: 0, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height },
+                { color: '#FFFFFF', x: flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height },
+                { color: '#CE2B37', x: 2 * flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height }
             ]
         };
-        
+
         // Функция для рисования сетки
-        function drawGrid() {
+        function drawGrid(ctx, cellSize) {
             ctx.beginPath();
             for (let x = 0; x <= flagCanvas.width; x += cellSize) {
                 ctx.moveTo(x, 0);
@@ -1300,27 +1076,27 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.strokeStyle = '#ddd';
             ctx.stroke();
         }
-        
+
         // Инициализация - очистка и рисование сетки
         function initCanvas() {
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, flagCanvas.width, flagCanvas.height);
-            drawGrid();
+            drawGrid(ctx, cellSize);
         }
-        
+
         // Применяем шаблон флага
         function applyFlagTemplate(template) {
             ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
-            
+
             if (!template || !flagTemplates[template]) {
                 console.error('Template not found:', template);
                 initCanvas();
                 return;
             }
-            
+
             flagTemplates[template].forEach(part => {
                 ctx.fillStyle = part.color;
-                
+
                 if (part.isCircle && part.radius) {
                     // Рисуем круг (для японского флага)
                     ctx.beginPath();
@@ -1331,16 +1107,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     ctx.fillRect(part.x, part.y, part.width, part.height);
                 }
             });
-            
+
             // Рисуем сетку поверх флага
-            drawGrid();
+            drawGrid(ctx, cellSize);
         }
-        
+
         // Создаем цветовую палитру кнопок
         if (flagColorButtons) {
-            const colors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', 
-                           '#800000', '#008000', '#000080', '#808000', '#800080', '#008080', '#C0C0C0', '#808080'];
-            
+            const colors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF',
+                '#800000', '#008000', '#000080', '#808000', '#800080', '#008080', '#C0C0C0', '#808080'];
+
             colors.forEach(color => {
                 const btn = document.createElement('button');
                 btn.style.backgroundColor = color;
@@ -1350,60 +1126,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.style.margin = '2px';
                 btn.style.cursor = 'pointer';
                 btn.style.border = color === '#FFFFFF' ? '1px solid #ddd' : 'none';
-                
-                btn.addEventListener('click', function() {
+
+                btn.addEventListener('click', function () {
                     selectedColor = color;
                     if (currentFlagColor) currentFlagColor.textContent = color;
                 });
-                
+
                 flagColorButtons.appendChild(btn);
             });
         }
-        
+
         // Обработчики событий для рисования
         if (flagCanvas) {
-            flagCanvas.addEventListener('mousedown', function(e) {
+            flagCanvas.addEventListener('mousedown', function (e) {
                 isDrawing = true;
                 drawPixel(e);
             });
-            
-            flagCanvas.addEventListener('mousemove', function(e) {
+
+            flagCanvas.addEventListener('mousemove', function (e) {
                 if (isDrawing) drawPixel(e);
             });
-            
-            flagCanvas.addEventListener('mouseup', function() {
+
+            flagCanvas.addEventListener('mouseup', function () {
                 isDrawing = false;
             });
-            
-            flagCanvas.addEventListener('mouseleave', function() {
+
+            flagCanvas.addEventListener('mouseleave', function () {
                 isDrawing = false;
             });
-            
+
             function drawPixel(e) {
                 const rect = flagCanvas.getBoundingClientRect();
                 const x = Math.floor((e.clientX - rect.left) / cellSize) * cellSize;
                 const y = Math.floor((e.clientY - rect.top) / cellSize) * cellSize;
-                
+
                 ctx.fillStyle = selectedColor;
                 ctx.fillRect(x, y, cellSize, cellSize);
-                
+
                 // Восстанавливаем границы ячейки
                 ctx.strokeStyle = '#ddd';
                 ctx.strokeRect(x, y, cellSize, cellSize);
             }
         }
-        
+
         // Обработчик для кнопки очистки
         if (clearFlagButton) {
-            clearFlagButton.addEventListener('click', function() {
+            clearFlagButton.addEventListener('click', function () {
                 initCanvas();
             });
         }
-        
+
         // Обработчики для кнопок шаблонов флагов
         if (flagTemplateButtons.length > 0) {
             flagTemplateButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const flagType = this.getAttribute('data-flag');
                     if (flagType) {
                         applyFlagTemplate(flagType);
@@ -1411,10 +1187,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
-        
+
         // Инициализируем холст при загрузке
         initCanvas();
     }
 
-    // ...existing code...
 });
