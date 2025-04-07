@@ -396,7 +396,46 @@
                             <textarea id="reg-hobbies" rows="3" placeholder="Например: чтение, программирование, путешествия"></textarea>
                         </div>
                     </div>
-                    
+
+                    <!-- Новая карточка: Паспортные и банковские данные -->
+                    <div class="form-card" style="background-color: rgba(200, 230, 230, 0.2);">
+                        <h3>Паспортные и банковские данные</h3>
+                        <div class="form-group-grouped">
+                            <div class="form-group">
+                                <label for="passport-number">Номер паспорта:</label>
+                                <input type="text" id="passport-number" placeholder="Введите номер паспорта">
+                            </div>
+                            <div class="form-group">
+                                <label for="passport-issue-date">Дата выдачи:</label>
+                                <input type="date" id="passport-issue-date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="passport-issued-by">Кем выдан паспорт:</label>
+                            <input type="text" id="passport-issued-by" placeholder="Введите орган, выдавший паспорт">
+                        </div>
+                        <div class="form-group-grouped">
+                            <div class="form-group">
+                                <label for="bank-account">Номер счета:</label>
+                                <input type="text" id="bank-account" placeholder="Введите номер счета">
+                            </div>
+                            <div class="form-group">
+                                <label for="bank-name">Название банка:</label>
+                                <input type="text" id="bank-name" placeholder="Введите название банка">
+                            </div>
+                        </div>
+                        <div class="form-group-grouped">
+                            <div class="form-group">
+                                <label for="bank-bik">БИК банка:</label>
+                                <input type="text" id="bank-bik" placeholder="Введите БИК">
+                            </div>
+                            <div class="form-group">
+                                <label for="bank-correspondent-account">Корреспондентский счет:</label>
+                                <input type="text" id="bank-correspondent-account" placeholder="Введите корр. счет">
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Члены семьи -->
                     <div class="form-card" style="background-color: rgba(230, 190, 190, 0.2);">
                         <h3>Члены семьи</h3>
@@ -438,6 +477,21 @@
                                     <div class="form-group">
                                         <label>Любимый космический напиток:</label>
                                         <input type="text" placeholder="Например: Космический кофе">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Дата рождения:</label>
+                                        <input type="date" placeholder="Введите дату рождения">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Пол:</label>
+                                        <select required>
+                                            <option value="" disabled selected>Выберите пол</option>
+                                            <option value="male">Мужской</option>
+                                            <option value="female">Женский</option>
+                                            <option value="other">Другой</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <button type="button" class="remove-member">Удалить</button>
