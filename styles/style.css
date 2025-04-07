@@ -1378,3 +1378,76 @@ button:disabled:hover {
     border-color: #4299E1;
     background-color: rgba(66, 153, 225, 0.2);
 }
+
+/* Стили для MBTI alert */
+.mbti-alert {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #F56565;
+    border-radius: 6px;
+    color: #F56565;
+    font-weight: bold;
+    min-height: 50px;
+}
+
+/* Центрирование и фиксированный размер для фигуры */
+#shape-display-container {
+    width: 150px;
+    height: 150px;
+}
+#shape-display {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Стили для треугольной фигуры */
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid #ccc;
+    background: none;
+}
+
+/* Стили для кнопок выбора цвета для флага */
+#flag-color-buttons button {
+   width: 30px;
+   height: 30px;
+   border: none;
+   margin: 2px;
+   cursor: pointer;
+}
+
+/* Стили для кнопки очистки флага */
+#clear-flag {
+   background-color: #FF5733;
+   color: #fff;
+   padding: 8px 12px;
+   border-radius: 6px;
+   border: none;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+#clear-flag:hover {
+   background-color: #E14D2A;
+}
+
+/* Стили для треугольной фигуры */
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid #ccc;
+    background: none;
+}
+
+/* Стили для флага (поле для рисования) */
+#flag-canvas {
+    background-color: #fff;
+}

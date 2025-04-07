@@ -518,4 +518,183 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Тогглинг для блока "Паспортные и банковские данные"
+    const togglePassportBank = document.getElementById('toggle-passport-bank');
+    const passportBankContainer = document.getElementById('passport-bank-container');
+    if (togglePassportBank && passportBankContainer) {
+        togglePassportBank.addEventListener('change', function() {
+            passportBankContainer.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+
+    // Тогглинг для блока "Документы (СНИЛС/ИНН/водительские права)"
+    const toggleDocuments = document.getElementById('toggle-documents');
+    if (toggleDocuments && documentsCard) {
+        toggleDocuments.addEventListener('change', function() {
+            documentsCard.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+
+    // Функциональность MBTI
+    const mbtiFirst = document.getElementById('mbti-first');
+    const mbtiSecond = document.getElementById('mbti-second');
+    const mbtiThird = document.getElementById('mbti-third');
+    const mbtiFourth = document.getElementById('mbti-fourth');
+    const mbtiAlert = document.getElementById('mbti-alert');
+    const mbtiDescription = document.getElementById('mbti-description');
+
+    if (mbtiFirst && mbtiSecond && mbtiThird && mbtiFourth && mbtiAlert && mbtiDescription) {
+        function updateMbtiDescription() {
+            if(mbtiFirst.value && mbtiSecond.value && mbtiThird.value && mbtiFourth.value) {
+                const mbtiCombined = mbtiFirst.value + mbtiSecond.value + mbtiThird.value + mbtiFourth.value;
+                let description = "";
+                switch(mbtiCombined) {
+                    case "ESTJ": description = "Рациональный, организованный, лидерский"; break;
+                    case "INFP": description = "Чуткий, мечтательный, идеалистичный"; break;
+                    default: description = `Ваш MBTI: ${mbtiCombined}`;
+                }
+                mbtiDescription.textContent = description;
+                mbtiAlert.style.display = 'block';
+            } else {
+                mbtiAlert.style.display = 'none';
+            }
+        }
+        [mbtiFirst, mbtiSecond, mbtiThird, mbtiFourth].forEach(select => {
+            select.addEventListener('change', updateMbtiDescription);
+        });
+    }
+
+    // Функциональность переключения фигур
+    const triangleCheckbox = document.getElementById('triangle-checkbox');
+    const shapeDisplay = document.getElementById('shape-display');
+    const borderRadiusSlider = document.getElementById('border-radius-slider');
+    const borderRadiusControl = document.getElementById('border-radius-control');
+
+    if (triangleCheckbox && shapeDisplay && borderRadiusControl) {
+        triangleCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                shapeDisplay.classList.add('triangle');
+                shapeDisplay.style.borderRadius = '0';
+                borderRadiusControl.style.display = 'none';
+            } else {
+                shapeDisplay.classList.remove('triangle');
+                borderRadiusControl.style.display = 'block';
+            }
+        });
+
+        if (borderRadiusSlider) {
+            borderRadiusSlider.addEventListener('input', function() {
+                if (!triangleCheckbox.checked) {
+                    shapeDisplay.style.borderRadius = this.value + 'px';
+                }
+            });
+        }
+    }
+
+    // Функциональность флага
+    const flagCanvas = document.getElementById('flag-canvas');
+    const flagColorButtonsContainer = document.getElementById('flag-color-buttons');
+    const currentFlagColorDisplay = document.getElementById('current-flag-color');
+    const clearFlagButton = document.getElementById('clear-flag');
+    const flagTemplateInput = document.getElementById('flag-template');
+    let currentFlagColor = '#000000';
+
+    if (flagCanvas && flagColorButtonsContainer) {
+        const ctx = flagCanvas.getContext('2d');
+        const cellSize = 20;
+        const flagPalette = ['#000000','#FFFFFF','#FF0000','#00FF00','#0000FF','#FFFF00','#FF00FF','#00FFFF',
+                            '#800000','#008000','#000080','#808000','#800080','#008080','#C0C0C0','#808080'];
+
+        function drawGrid() {
+            ctx.beginPath();
+            for (let x = 0; x < flagCanvas.width; x += cellSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, flagCanvas.height);
+            }
+            for (let y = 0; y < flagCanvas.height; y += cellSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(flagCanvas.width, y);
+            }
+            ctx.strokeStyle = "#ddd";
+            ctx.stroke();
+        }
+        drawGrid();
+
+        // Генерация кнопок выбора цвета
+        flagPalette.forEach(color => {
+            const btn = document.createElement('button');
+            btn.style.backgroundColor = color;
+            btn.addEventListener('click', function() {
+                currentFlagColor = color;
+                currentFlagColorDisplay.textContent = color;
+            });
+            flagColorButtonsContainer.appendChild(btn);
+        });
+
+        // Рисование по клику
+        flagCanvas.addEventListener('click', function(event) {
+            const rect = flagCanvas.getBoundingClientRect();
+            const x = Math.floor((event.clientX - rect.left) / cellSize) * cellSize;
+            const y = Math.floor((event.clientY - rect.top) / cellSize) * cellSize;
+            ctx.fillStyle = currentFlagColor;
+            ctx.fillRect(x, y, cellSize, cellSize);
+            ctx.strokeStyle = "#ddd";
+            ctx.strokeRect(x, y, cellSize, cellSize);
+        });
+
+        // Очистка флага
+        if (clearFlagButton) {
+            clearFlagButton.addEventListener('click', function() {
+                ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+                drawGrid();
+            });
+        }
+
+        // Загрузка шаблона
+        if (flagTemplateInput) {
+            flagTemplateInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+                            ctx.drawImage(img, 0, 0, flagCanvas.width, flagCanvas.height);
+                            drawGrid();
+                        }
+                        img.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    }
+
+    // Функциональность включения/отключения полей и переключения видимости
+    const enablePassportBank = document.getElementById('enable-passport-bank');
+    const passportBankCard = document.getElementById('passport-bank-card');
+    const enableDocuments = document.getElementById('enable-documents');
+    const documentsCard = document.getElementById('documents-card');
+
+    // Обработка карточки с паспортными данными
+    if (enablePassportBank && passportBankCard) {
+        const passportInputs = passportBankCard.querySelectorAll('input[type="text"], input[type="date"]');
+        enablePassportBank.addEventListener('change', function() {
+            passportInputs.forEach(input => {
+                input.disabled = !this.checked;
+            });
+        });
+    }
+
+    // Обработка карточки с документами
+    if (enableDocuments && documentsCard) {
+        const documentInputs = documentsCard.querySelectorAll('input[type="text"]');
+        enableDocuments.addEventListener('change', function() {
+            documentInputs.forEach(input => {
+                input.disabled = !this.checked;
+            });
+        });
+    }
 });

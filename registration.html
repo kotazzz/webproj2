@@ -397,42 +397,210 @@
                         </div>
                     </div>
 
-                    <!-- Новая карточка: Паспортные и банковские данные -->
-                    <div class="form-card" style="background-color: rgba(200, 230, 230, 0.2);">
-                        <h3>Паспортные и банковские данные</h3>
+                    <!-- Изменённая карточка: Паспортные и банковские данные -->
+                    <div class="form-card" id="passport-bank-card" style="background-color: rgba(200, 230, 230, 0.2);">
+                        <h3>
+                            Паспортные и банковские данные
+                            <label style="font-size:14px;">
+                                <input type="checkbox" id="enable-passport-bank"> Включить
+                            </label>
+                        </h3>
                         <div class="form-group-grouped">
                             <div class="form-group">
                                 <label for="passport-number">Номер паспорта:</label>
-                                <input type="text" id="passport-number" placeholder="Введите номер паспорта">
+                                <input type="text" id="passport-number" placeholder="Введите номер паспорта" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="passport-issue-date">Дата выдачи:</label>
-                                <input type="date" id="passport-issue-date">
+                                <input type="date" id="passport-issue-date" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="passport-issued-by">Кем выдан паспорт:</label>
-                            <input type="text" id="passport-issued-by" placeholder="Введите орган, выдавший паспорт">
+                            <input type="text" id="passport-issued-by" placeholder="Введите орган, выдавший паспорт" disabled>
                         </div>
                         <div class="form-group-grouped">
                             <div class="form-group">
                                 <label for="bank-account">Номер счета:</label>
-                                <input type="text" id="bank-account" placeholder="Введите номер счета">
+                                <input type="text" id="bank-account" placeholder="Введите номер счета" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="bank-name">Название банка:</label>
-                                <input type="text" id="bank-name" placeholder="Введите название банка">
+                                <input type="text" id="bank-name" placeholder="Введите название банка" disabled>
                             </div>
                         </div>
                         <div class="form-group-grouped">
                             <div class="form-group">
                                 <label for="bank-bik">БИК банка:</label>
-                                <input type="text" id="bank-bik" placeholder="Введите БИК">
+                                <input type="text" id="bank-bik" placeholder="Введите БИК" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="bank-correspondent-account">Корреспондентский счет:</label>
-                                <input type="text" id="bank-correspondent-account" placeholder="Введите корр. счет">
+                                <input type="text" id="bank-correspondent-account" placeholder="Введите корр. счет" disabled>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Изменённая карточка: Документы (СНИЛС/ИНН/водительские права) -->
+                    <div class="form-card" id="documents-card" style="background-color: rgba(210, 230, 200, 0.2);">
+                        <h3>
+                            Документы (СНИЛС/ИНН/вод. права)
+                            <label style="font-size:14px;">
+                                <input type="checkbox" id="enable-documents"> Включить
+                            </label>
+                        </h3>
+                        <div class="form-group">
+                            <label for="snils">СНИЛС:</label>
+                            <input type="text" id="snils" placeholder="Введите СНИЛС" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="inn">ИНН:</label>
+                            <input type="text" id="inn" placeholder="Введите ИНН" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="driver-license">Водительские права:</label>
+                            <input type="text" id="driver-license" placeholder="Введите данные водительских прав" disabled>
+                        </div>
+                    </div>
+                    
+                    <!-- Новый блок: Профиль MMORPG -->
+                    <div class="form-card" style="background-color: rgba(220, 230, 250, 0.2);" id="mmorpg-card">
+                        <h3>Профиль MMORPG</h3>
+                        <div class="form-group">
+                            <label for="mmorpg-class">Класс:</label>
+                            <select id="mmorpg-class" required>
+                                <option value="" disabled selected>Выберите класс</option>
+                                <option value="warrior">Воин</option>
+                                <option value="mage">Маг</option>
+                                <option value="rogue">Разбойник</option>
+                                <option value="archer">Лучник</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mmorpg-element">Стихия:</label>
+                            <select id="mmorpg-element" required>
+                                <option value="" disabled selected>Выберите стихию</option>
+                                <option value="fire">Огонь</option>
+                                <option value="water">Вода</option>
+                                <option value="earth">Земля</option>
+                                <option value="wind">Воздух</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mmorpg-nickname">Никнейм:</label>
+                            <input type="text" id="mmorpg-nickname" required placeholder="Введите никнейм">
+                        </div>
+                    </div>
+                    
+                    <!-- Новый блок: Мудрая цитата -->
+                    <div class="form-card" style="background-color: rgba(240, 230, 210, 0.2);" id="quote-card">
+                        <h3>Мудрая цитата</h3>
+                        <div class="form-group">
+                            <label for="wise-quote">Выберите цитату:</label>
+                            <select id="wise-quote" required>
+                                <option value="" disabled selected>Выберите цитату</option>
+                                <option value="quote1">Цитата 1</option>
+                                <option value="quote2">Цитата 2</option>
+                                <option value="quote3">Цитата 3</option>
+                                <option value="quote4">Цитата 4</option>
+                                <option value="quote5">Цитата 5</option>
+                                <option value="quote6">Цитата 6</option>
+                                <option value="quote7">Цитата 7</option>
+                                <option value="quote8">Цитата 8</option>
+                                <option value="quote9">Цитата 9</option>
+                                <option value="quote10">Цитата 10</option>
+                                <option value="quote11">Цитата 11</option>
+                                <option value="quote12">Цитата 12</option>
+                                <option value="quote13">Цитата 13</option>
+                                <option value="quote14">Цитата 14</option>
+                                <option value="quote15">Цитата 15</option>
+                                <option value="quote16">Цитата 16</option>
+                                <option value="quote17">Цитата 17</option>
+                                <option value="quote18">Цитата 18</option>
+                                <option value="quote19">Цитата 19</option>
+                                <option value="quote20">Цитата 20</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Новый блок: Шкалы характера -->
+                    <div class="form-card" style="background-color: rgba(210, 240, 220, 0.2);" id="character-scales">
+                        <h3>Шкалы характера</h3>
+                        <div class="form-group">
+                            <label for="kindness-scale">Доброта:</label>
+                            <input type="range" id="kindness-scale" min="0" max="100" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="bravery-scale">Смелость:</label>
+                            <input type="range" id="bravery-scale" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                    
+                    <!-- Изменённая карточка: MBTI с фиксированной высотой описания -->
+                    <div class="form-card" style="background-color: rgba(230, 220, 240, 0.2);" id="mbti-card">
+                        <h3>MBTI</h3>
+                        <div class="form-group">
+                            <label>Выберите MBTI:</label>
+                            <div class="mbti-groups">
+                                <select id="mbti-first" required>
+                                    <option value="" disabled selected>Выберите E или I</option>
+                                    <option value="E">E</option>
+                                    <option value="I">I</option>
+                                </select>
+                                <select id="mbti-second" required>
+                                    <option value="" disabled selected>Выберите S или N</option>
+                                    <option value="S">S</option>
+                                    <option value="N">N</option>
+                                </select>
+                                <select id="mbti-third" required>
+                                    <option value="" disabled selected>Выберите T или F</option>
+                                    <option value="T">T</option>
+                                    <option value="F">F</option>
+                                </select>
+                                <select id="mbti-fourth" required>
+                                    <option value="" disabled selected>Выберите J или P</option>
+                                    <option value="J">J</option>
+                                    <option value="P">P</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mbti-alert" id="mbti-alert" style="display:none; min-height:50px;">
+                            <p id="mbti-description"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Изменённая карточка: Любимая фигура -->
+                    <div class="form-card" style="background-color: rgba(250, 230, 210, 0.2);" id="favorite-shape-card">
+                        <h3>Любимая фигура</h3>
+                        <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+                            <input type="checkbox" id="triangle-checkbox">
+                            <label for="triangle-checkbox" style="margin:0;">Треугольник</label>
+                        </div>
+                        <div id="shape-display-container" style="display:flex; justify-content:center; align-items:center; width:150px; height:150px; margin:0 auto;">
+                            <div id="shape-display" style="width:100px; height:100px; background-color:#ccc;"></div>
+                        </div>
+                        <div class="form-group" id="border-radius-control">
+                            <label for="border-radius-slider">Скругление:</label>
+                            <input type="range" id="border-radius-slider" min="0" max="50" value="0">
+                        </div>
+                    </div>
+                    
+                    <!-- Изменённая карточка: Флаг -->
+                    <div class="form-card" style="background-color: rgba(220, 250, 240, 0.2);" id="create-country-card">
+                        <h3>Создать свою страну</h3>
+                        <div class="form-group">
+                            <label>Нарисуйте флаг:</label>
+                            <canvas id="flag-canvas" width="320" height="240" style="border:1px solid #000; image-rendering: pixelated;"></canvas>
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите цвет:</label>
+                            <div id="flag-color-buttons">
+                                <!-- кнопки выбираются скриптом -->
+                            </div>
+                            <div id="selected-flag-color" style="margin-top:5px;">Выбранный цвет: <span id="current-flag-color">#000000</span></div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="clear-flag">Очистить флаг</button>
                         </div>
                     </div>
 
