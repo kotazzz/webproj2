@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
     // Обработчик для любимой космической еды
     const spaceFoodInput = document.getElementById('reg-favorite-space-food');
     if (spaceFoodInput) {

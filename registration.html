@@ -54,14 +54,28 @@
                 <div class="form-group">
                     <label for="reg-product-category">Категория продукта:</label>
                     <select id="reg-product-category" required>
-                        <option value="" disabled selected>Выберите категорию продукта</option>
-                        <option value="office">Microsoft Office</option>
-                        <option value="os">Windows OS</option>
-                        <option value="dev">Visual Studio</option>
-                        <option value="cloud">Microsoft Azure</option>
-                        <option value="xbox">Xbox & Gaming</option>
-                        <option value="surface">Surface</option>
+                        <option value="" disabled selected>Выберите категорию продукта</option>  <option value="office">Microsoft Office 365</option>
+                        <option value="word">Microsoft Word</option>
+                        <option value="excel">Microsoft Excel</option>
+                        <option value="powerpoint">Microsoft PowerPoint</option>
+                        <option value="outlook">Microsoft Outlook</option>
+                        <option value="access">Microsoft Access</option>
+                        <option value="onenote">Microsoft OneNote</option>
+                        <option value="publisher">Microsoft Publisher</option>
+                        <option value="win11">Windows 11</option>
+                        <option value="win10">Windows 10</option>
+                        <option value="winserver">Windows Server</option>
+                        <option value="vs">Visual Studio</option>
+                        <option value="vscode">Visual Studio Code</option>
+                        <option value="azure">Microsoft Azure</option>
+                        <option value="sqlserver">SQL Server</option>
+                        <option value="dynamics">Dynamics 365</option>
                         <option value="teams">Microsoft Teams</option>
+                        <option value="sharepoint">SharePoint</option>
+                        <option value="edge">Microsoft Edge</option>
+                        <option value="bing">Bing</option>
+                        <option value="xbox">Xbox</option>
+                        <option value="minecraft">Minecraft</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -157,14 +171,19 @@
 
                 <div class="form-group">
                     <label for="reg-space-skill">Ваши навыки для космоса:</label>
-                    <select id="reg-space-skill" multiple>
+                    <select id="reg-space-skill" multiple size="6">
                         <option value="pilot">Пилотирование</option>
                         <option value="engineering">Инженерия</option>
                         <option value="science">Наука</option>
                         <option value="cooking">Кулинария</option>
                         <option value="communication">Коммуникация</option>
                         <option value="fitness">Физическая подготовка</option>
+                        <option value="navigation">Навигация</option>
+                        <option value="robotics">Робототехника</option>
+                        <option value="first-aid">Первая помощь</option>
+                        <option value="gardening">Космическое садоводство</option>
                     </select>
+                    <small class="hint">Удерживайте Ctrl (или Cmd на Mac), чтобы выбрать несколько навыков</small>
                 </div>
 
                 <div class="form-group">
@@ -175,45 +194,43 @@
                 <h3>Члены семьи</h3>
                 <div id="family-members-container">
                     <div class="family-member">
-                        <div class="form-group">
-                            <label>Фамилия:</label>
-                            <input type="text" placeholder="Введите фамилию">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Фамилия:</label>
+                                <input type="text" placeholder="Введите фамилию">
+                            </div>
+                            <div class="form-group">
+                                <label>Имя:</label>
+                                <input type="text" placeholder="Введите имя">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Имя:</label>
-                            <input type="text" placeholder="Введите имя">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Возраст:</label>
+                                <input type="number" min="1" placeholder="Введите возраст">
+                            </div>
+                            <div class="form-group">
+                                <label>Роль в команде:</label>
+                                <select required>
+                                    <option value="" disabled selected>Выберите роль</option>
+                                    <option value="pilot">Пилот</option>
+                                    <option value="engineer">Инженер</option>
+                                    <option value="scientist">Ученый</option>
+                                    <option value="medic">Медик</option>
+                                    <option value="chef">Шеф-повар</option>
+                                    <option value="navigator">Навигатор</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Возраст:</label>
-                            <input type="number" min="1" placeholder="Введите возраст">
-                        </div>
-                        <div class="form-group">
-                            <label>Продукт:</label>
-                            <select required>
-                                <option value="" disabled selected>Выберите продукт</option>
-                                <option value="office">Microsoft Office 365</option>
-                                <option value="word">Microsoft Word</option>
-                                <option value="excel">Microsoft Excel</option>
-                                <option value="powerpoint">Microsoft PowerPoint</option>
-                                <option value="outlook">Microsoft Outlook</option>
-                                <option value="access">Microsoft Access</option>
-                                <option value="onenote">Microsoft OneNote</option>
-                                <option value="publisher">Microsoft Publisher</option>
-                                <option value="win11">Windows 11</option>
-                                <option value="win10">Windows 10</option>
-                                <option value="winserver">Windows Server</option>
-                                <option value="vs">Visual Studio</option>
-                                <option value="vscode">Visual Studio Code</option>
-                                <option value="azure">Microsoft Azure</option>
-                                <option value="sqlserver">SQL Server</option>
-                                <option value="dynamics">Dynamics 365</option>
-                                <option value="teams">Microsoft Teams</option>
-                                <option value="sharepoint">SharePoint</option>
-                                <option value="edge">Microsoft Edge</option>
-                                <option value="bing">Bing</option>
-                                <option value="xbox">Xbox</option>
-                                <option value="minecraft">Minecraft</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Любимый космический фильм:</label>
+                                <input type="text" placeholder="Например: Интерстеллар">
+                            </div>
+                            <div class="form-group">
+                                <label>Любимый космический напиток:</label>
+                                <input type="text" placeholder="Например: Космический кофе">
+                            </div>
                         </div>
                         <button type="button" class="remove-member">Удалить</button>
                     </div>
