@@ -1043,60 +1043,42 @@ textarea:focus {
     padding: 40px;
 }
 
+/* Контейнер карточек в стиле Pinterest */
 .form-cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 20px;  /* Одинаковые отступы */
+    display: block;
+    column-count: 3;
+    column-gap: 20px;
     margin-bottom: 30px;
 }
 
+/* Обновляем стили для карточек */
 .form-card {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 20px;
+    vertical-align: top;
+    break-inside: avoid;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Модификаторы для разной высоты карточек */
-.form-card:empty,
-.form-card:not(:has(div)) {
-    max-height: 100px;  /* Низкие пустые карточки */
+.form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-.form-card:has(.fixed-height-select),
-.form-card:has(textarea),
-.form-card:has(.family-member) {
-    min-height: 400px;  /* Высокие карточки с определенным контентом */
-}
-
-.form-card:has(.avatar-selection) {
-    min-height: 300px;  /* Средние карточки */
-}
-
-/* Фиксированная высота для мультивыборов */
-.fixed-height-select {
-    height: 200px !important;
-    overflow-y: auto;
-}
-
-/* Адаптивность для широкой формы */
-@media (max-width: 1200px) {
+/* Адаптивные настройки */
+@media (max-width: 1400px) {
     .form-cards-container {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        column-count: 2;
     }
 }
 
-@media (max-width: 768px) {
-    .wide-form {
-        padding: 20px;
-    }
-    
+@media (max-width: 992px) {
     .form-cards-container {
-        grid-template-columns: 1fr;
+        column-count: 1;
     }
 }
 
@@ -1130,46 +1112,61 @@ textarea:focus {
 /* Стили для секции финальной проверки */
 .chinese-options {
     margin-bottom: 20px;
+    column-count: 3;
+    column-gap: 20px;
+    break-inside: avoid;
 }
 
-.chinese-options .radio-group {
+.chinese-answers {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    justify-content: space-between;
+    gap: 10px;
     margin-bottom: 15px;
 }
 
-.chinese-options .radio-group label {
-    font-size: 18px;
-    padding: 10px 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 180px;
-    width: calc(50% - 15px);
+.chinese-answers input[type="radio"] {
+    display: none;
+}
+
+.chinese-answers label {
+    display: inline-flex;
+    padding: 8px 16px;
     background-color: rgba(66, 153, 225, 0.1);
-    text-align: center;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
     transition: all 0.3s ease;
+    border: 2px solid transparent;
+    white-space: nowrap;
+    break-inside: avoid;
 }
 
-.chinese-options .radio-group label:hover {
+.chinese-answers label:hover {
     background-color: rgba(66, 153, 225, 0.2);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
-.chinese-options .radio-group label .translation {
-    font-size: 14px;
-    color: #A0AEC0;
-    margin-top: 5px;
-    font-style: italic;
-}
-
-.chinese-options .radio-group input[type="radio"]:checked + label {
-    border-color: #4299E1;
+.chinese-answers input[type="radio"]:checked + label {
     background-color: rgba(66, 153, 225, 0.3);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    border-color: #4299E1;
+    box-shadow: 0 2px 6px rgba(66, 153, 225, 0.2);
+}
+
+@media (max-width: 992px) {
+    .chinese-options {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .chinese-options {
+        column-count: 1;
+    }
+}
+
+/* Удалим ненужные старые стили */
+.horizontal-radio {
+    display: none;
 }
 
 .check-button {
@@ -1246,42 +1243,6 @@ button:disabled:hover {
     gap: 10px;
 }
 
-/* Горизонтальные радио-кнопки китайского перевода */
-.horizontal-radio {
-    display: block;  /* Изменено с flex на block */
-    margin: 20px 0;
-    line-height: 2;  /* Добавлен line-height для вертикальных отступов */
-}
-
-.horizontal-radio input[type="radio"] {
-    display: none;
-}
-
-.horizontal-radio label {
-    cursor: pointer;
-    padding: 8px 12px;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    background-color: rgba(66, 153, 225, 0.1);
-    font-size: 16px;
-    display: inline-block;  /* Изменено для inline отображения */
-    transition: all 0.3s ease;
-    margin: 0 8px 8px 0;  /* Отступы между метками */
-    min-width: auto;  /* Убрана фиксированная ширина */
-    width: auto;  /* Автоматическая ширина */
-}
-
-.check-button {
-    margin: 15px 0;
-    background-color: #4299E1;
-    color: white;
-    padding: 12px 20px;
-}
-
-.check-button:hover:not(:disabled) {
-    background-color: #3182CE;
-}
-
 /* Стили для подсказок и оповещений */
 .hint-message {
     margin: 20px 0 30px;  /* Увеличенный отступ снизу */
@@ -1309,4 +1270,100 @@ button:disabled:hover {
 
 .hint-message.warning:before {
     content: "⚠️";
+}
+
+/* Обновленная стилизация карточек формы в стиле Pinterest */
+.form-cards-container {
+    display: block;
+    column-count: 3;
+    column-gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Обновляем стили для карточек */
+.form-card {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 20px;
+    vertical-align: top;
+    break-inside: avoid;
+}
+
+/* Адаптивные настройки */
+@media (max-width: 1400px) {
+    .form-cards-container {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 992px) {
+    .form-cards-container {
+        column-count: 1;
+    }
+}
+
+/* Улучшенные стили для китайского теста */
+.chinese-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.chinese-options input[type="radio"] {
+    display: none;
+}
+
+.chinese-options label {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: rgba(66, 153, 225, 0.1);
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    margin-bottom: 8px;
+}
+
+.chinese-options label:hover {
+    background-color: rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+.chinese-options input[type="radio"]:checked + label {
+    background-color: rgba(66, 153, 225, 0.3);
+    border-color: #4299E1;
+    box-shadow: 0 2px 6px rgba(66, 153, 225, 0.2);
+}
+
+/* Удаляем старые стили для избежания конфликтов */
+.chinese-answers,
+.horizontal-radio {
+    display: none;
+}
+
+/* Обновленные стили для элементов формы внутри карточек */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.radio-group label {
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    background-color: rgba(66, 153, 225, 0.1);
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-bottom: 6px;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    border-color: #4299E1;
+    background-color: rgba(66, 153, 225, 0.2);
 }

@@ -355,12 +355,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция для перемешивания вариантов перевода
     function shuffleTranslations() {
-        const radioGroup = document.querySelector('.chinese-options .horizontal-radio');
-        if (!radioGroup) return;
+        const container = document.querySelector('.chinese-options');
+        if (!container) return;
         
         // Собираем все пары (радиокнопка + метка)
         const pairs = [];
-        const inputs = radioGroup.querySelectorAll('input[type="radio"]');
+        const inputs = container.querySelectorAll('input[type="radio"]');
         
         inputs.forEach(input => {
             // Найдем соответствующую метку
@@ -381,18 +381,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Очищаем контейнер
-        while (radioGroup.firstChild) {
-            radioGroup.removeChild(radioGroup.firstChild);
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
         }
         
         // Добавляем перемешанные элементы обратно
         pairs.forEach(pair => {
-            radioGroup.appendChild(pair.input);
-            radioGroup.appendChild(pair.label);
+            container.appendChild(pair.input);
+            container.appendChild(pair.label);
         });
         
         // Заново добавляем обработчики событий
-        radioGroup.querySelectorAll('input[type="radio"]').forEach(input => {
+        container.querySelectorAll('input[type="radio"]').forEach(input => {
             input.addEventListener('change', function() {
                 console.log(`Выбран вариант перевода: ${this.value}`);
             });
