@@ -998,3 +998,35 @@ textarea:focus {
         margin: 10px -15px;
     }
 }
+
+/* Стили для группировки полей формы */
+.form-group-grouped {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group-grouped .form-group {
+    flex: 1;
+}
+
+/* Стили для радиокнопок */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.radio-group label {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+    font-size: 14px;
+    background-color: rgba(66, 153, 225, 0.1);
+}
+
+.radio-group input[type="radio"]:checked + label {
+    border-color: #4299E1;
+    background-color: rgba(66, 153, 225, 0.2);
+}

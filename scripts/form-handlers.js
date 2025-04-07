@@ -232,4 +232,20 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Любите путешествовать: ${this.value === 'yes' ? 'Да' : 'Нет'}`);
         });
     });
+
+    // Обработчик для выбора космического объекта
+    const favoriteObjectInputs = document.querySelectorAll('input[name="favorite-object"]');
+    favoriteObjectInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log(`Выбран любимый космический объект: ${this.value}`);
+        });
+    });
+
+    // Обработчик для выбора космического фильма
+    const favoriteSpaceMovieSelect = document.getElementById('favorite-space-movie');
+    if (favoriteSpaceMovieSelect) {
+        favoriteSpaceMovieSelect.addEventListener('change', function() {
+            console.log(`Выбран любимый космический фильм: ${this.value}`);
+        });
+    }
 });
