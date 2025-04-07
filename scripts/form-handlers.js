@@ -568,12 +568,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Функциональность переключения фигур - исправленная версия
+    // Функциональность переключения фигур - исправленная версия (выключение вместо скрытия)
     if (triangleCheckbox && shapeDisplay && borderRadiusControl) {
+        // Получаем ползунок для скругления
+        const borderRadiusSlider = document.getElementById('border-radius-slider');
+        
         // Проверяем начальное состояние при загрузке
         if (triangleCheckbox.checked) {
             shapeDisplay.classList.add('triangle');
-            borderRadiusControl.style.display = 'none';
+            // Выключаем элементы управления вместо скрытия
+            if (borderRadiusSlider) {
+                borderRadiusSlider.disabled = true;
+            }
         }
         
         triangleCheckbox.addEventListener('change', function() {
@@ -585,11 +591,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Применяем класс треугольника
                 shapeDisplay.classList.add('triangle');
                 shapeDisplay.style.borderRadius = '0';
-                borderRadiusControl.style.display = 'none';
+                
+                // Выключаем элементы управления вместо скрытия
+                if (borderRadiusSlider) {
+                    borderRadiusSlider.disabled = true;
+                }
             } else {
                 shapeDisplay.classList.remove('triangle');
-                shapeDisplay.style.borderRadius = borderRadiusSlider.value + 'px';
-                borderRadiusControl.style.display = 'block';
+                shapeDisplay.style.borderRadius = borderRadiusSlider ? borderRadiusSlider.value + 'px' : '0';
+                
+                // Включаем элементы управления
+                if (borderRadiusSlider) {
+                    borderRadiusSlider.disabled = false;
+                }
             }
         });
 

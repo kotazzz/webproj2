@@ -219,17 +219,20 @@ form input[type="submit"]:hover {
 /* Согласие на обработку - исправленное */
 .checkbox-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Change from center to flex-start */
     margin-bottom: 15px;
+    gap: 10px; /* Add consistent gap */
 }
 
 .checkbox-container input[type="checkbox"] {
     width: 18px;
     height: 18px;
     margin-right: 10px;
+    margin-top: 2px; /* Add a small top margin for better alignment */
     flex-shrink: 0;
     cursor: pointer;
     accent-color: #4299E1; /* Добавляем цвет для всех чекбоксов */
+    margin: 3px 0 0 0; /* Reset margins except small top offset */
 }
 
 .checkbox-container label {
@@ -237,6 +240,9 @@ form input[type="submit"]:hover {
     margin-bottom: 0;
     color: #E2E8F0; /* Делаем более контрастным */
     cursor: pointer;
+    padding-top: 1px; /* Slight padding to align with checkbox */
+    margin: 0; /* Reset margins */
+    flex: 1; /* Allow label to wrap */
 }
 
 /* Встроенное видео */
@@ -812,6 +818,33 @@ body.light-theme input[type="range"] {
     background: #E2E8F0;
 }
 
+body.dark-theme input[type="range"] {
+    background: #4A5568; /* Darker color for better contrast */
+    height: 6px;
+    border-radius: 3px;
+}
+
+body.dark-theme input[type="range"]::-webkit-slider-thumb {
+    background: #4299E1;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
+body.dark-theme input[type="range"]::-moz-range-thumb {
+    background: #4299E1;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
+body.dark-theme input[type="range"]::-ms-thumb {
+    background: #4299E1;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
 /* Стили для выбора аватара */
 .avatar-selection {
     display: flex;
@@ -939,6 +972,12 @@ textarea:focus {
 #reg-space-skill:focus {
     border-color: #4299E1;
     outline: none;
+}
+
+#reg-space-skill {
+    background-color: inherit;
+    color: inherit;
+    border: 1px solid currentColor;
 }
 
 .hint {
@@ -1093,24 +1132,40 @@ textarea:focus {
     gap: 10px;
 }
 
+.agreements-section .checkbox-container {
+    align-items: flex-start;
+}
+
+.agreements-section .checkbox-container input[type="checkbox"] {
+    margin-top: 3px;
+}
+
 .checkbox-container {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    align-items: flex-start; /* Change from center to flex-start */
+    margin-bottom: 15px;
+    gap: 10px; /* Add consistent gap */
 }
 
 .checkbox-container input[type="checkbox"] {
     width: 18px;
     height: 18px;
     margin-right: 10px;
+    margin-top: 2px; /* Add a small top margin for better alignment */
     flex-shrink: 0;
+    cursor: pointer;
+    accent-color: #4299E1; /* Добавляем цвет для всех чекбоксов */
+    margin: 3px 0 0 0; /* Reset margins except small top offset */
 }
 
 .checkbox-container label {
     font-size: 13px;
     margin-bottom: 0;
-    color: #A0AEC0;
+    color: #E2E8F0; /* Делаем более контрастным */
     cursor: pointer;
+    padding-top: 1px; /* Slight padding to align with checkbox */
+    margin: 0; /* Reset margins */
+    flex: 1; /* Allow label to wrap */
 }
 
 /* Стили для секции финальной проверки */
@@ -1909,6 +1964,26 @@ body.dark-theme select option {
     color: #E2E8F0;
 }
 
+body.dark-theme select,
+body.dark-theme #reg-space-skill {
+    background-color: #2D3748;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+body.dark-theme select[multiple],
+body.dark-theme #reg-space-skill {
+    background-color: #2D3748;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+body.dark-theme select[multiple] option:checked,
+body.dark-theme #reg-space-skill option:checked {
+    background: #4A5568 linear-gradient(0deg, #4A5568 0%, #4A5568 100%);
+    color: #E2E8F0;
+}
+
 /* --- Светлая тема --- */
 body.light-theme {
     background-color: #FFFFFF;
@@ -1961,6 +2036,71 @@ select option {
     padding: 8px;
 }
 
+body.dark-theme select {
+    background-color: #2D3748;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+body.light-theme select {
+    background-color: #FFFFFF;
+    color: #2D3748;
+    border-color: #E2E8F0;
+}
+
+/* Fix input field styling for dark theme */
+body.dark-theme input[type="text"],
+body.dark-theme input[type="email"],
+body.dark-theme input[type="password"], 
+body.dark-theme input[type="tel"],
+body.dark-theme input[type="number"],
+body.dark-theme input[type="date"],
+body.dark-theme input[type="time"],
+body.dark-theme textarea {
+    background-color: #2D3748;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+    color: #A0AEC0;
+}
+
+body.light-theme input[type="text"],
+body.light-theme input[type="email"],
+body.light-theme input[type="password"],
+body.light-theme input[type="tel"],
+body.light-theme input[type="number"],
+body.light-theme input[type="date"],
+body.light-theme input[type="time"],
+body.light-theme textarea {
+    background-color: #FFFFFF;
+    color: #2D3748;
+    border-color: #E2E8F0;
+}
+
+/* Fix select options consistency */
+select option {
+    padding: 8px;
+}
+
+body.dark-theme select option {
+    background-color: #2D3748;
+    color: #E2E8F0;
+}
+
+body.light-theme select option {
+    background-color: #FFFFFF;
+    color: #2D3748;
+}
+
+/* Style for disabled border radius control inputs */
+input[type="range"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* Переопределяем стили для мультиселекта */
 select[multiple] {
     height: auto;
@@ -1994,4 +2134,22 @@ form label {
 
 .mbti-toggle:focus {
     outline: none;
+}
+
+/* Fix for "включить" checkboxes in card headers */
+h3 label {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    font-weight: normal;
+    gap: 5px;
+}
+
+h3 label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    margin-top: 0;
+    accent-color: #4299E1;
+    margin: 0;
 }
