@@ -523,61 +523,73 @@
                         </div>
                     </div>
                     
-                    <!-- Новый блок: Шкалы характера -->
+                    <!-- Обновленный блок: Шкалы характера -->
                     <div class="form-card" style="background-color: rgba(210, 240, 220, 0.2);" id="character-scales">
                         <h3>Шкалы характера</h3>
                         <div class="form-group">
-                            <label for="kindness-scale">Доброта:</label>
+                            <label for="kindness-scale">Доброта: <span class="scale-value">50</span>%</label>
                             <input type="range" id="kindness-scale" min="0" max="100" value="50">
                         </div>
                         <div class="form-group">
-                            <label for="bravery-scale">Смелость:</label>
+                            <label for="bravery-scale">Смелость: <span class="scale-value">50</span>%</label>
                             <input type="range" id="bravery-scale" min="0" max="100" value="50">
                         </div>
+                        <div class="form-group">
+                            <label for="wisdom-scale">Мудрость: <span class="scale-value">50</span>%</label>
+                            <input type="range" id="wisdom-scale" min="0" max="100" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="charisma-scale">Харизма: <span class="scale-value">50</span>%</label>
+                            <input type="range" id="charisma-scale" min="0" max="100" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="intelligence-scale">Интеллект: <span class="scale-value">50</span>%</label>
+                            <input type="range" id="intelligence-scale" min="0" max="100" value="50">
+                        </div>
                     </div>
                     
-                    <!-- Изменённая карточка: MBTI с фиксированной высотой описания -->
+                    <!-- Обновленный блок: MBTI -->
                     <div class="form-card" style="background-color: rgba(230, 220, 240, 0.2);" id="mbti-card">
                         <h3>MBTI</h3>
-                        <div class="form-group">
-                            <label>Выберите MBTI:</label>
-                            <div class="mbti-groups">
-                                <select id="mbti-first" required>
-                                    <option value="" disabled selected>Выберите E или I</option>
-                                    <option value="E">E</option>
-                                    <option value="I">I</option>
-                                </select>
-                                <select id="mbti-second" required>
-                                    <option value="" disabled selected>Выберите S или N</option>
-                                    <option value="S">S</option>
-                                    <option value="N">N</option>
-                                </select>
-                                <select id="mbti-third" required>
-                                    <option value="" disabled selected>Выберите T или F</option>
-                                    <option value="T">T</option>
-                                    <option value="F">F</option>
-                                </select>
-                                <select id="mbti-fourth" required>
-                                    <option value="" disabled selected>Выберите J или P</option>
-                                    <option value="J">J</option>
-                                    <option value="P">P</option>
-                                </select>
+                        <div class="mbti-toggles">
+                            <div class="mbti-toggle-group">
+                                <div class="mbti-toggle" data-value="E">E</div>
+                                <div class="mbti-toggle" data-value="I">I</div>
+                                <div class="mbti-label">Экстраверсия / Интроверсия</div>
+                            </div>
+                            <div class="mbti-toggle-group">
+                                <div class="mbti-toggle" data-value="S">S</div>
+                                <div class="mbti-toggle" data-value="N">N</div>
+                                <div class="mbti-label">Сенсорика / Интуиция</div>
+                            </div>
+                            <div class="mbti-toggle-group">
+                                <div class="mbti-toggle" data-value="T">T</div>
+                                <div class="mbti-toggle" data-value="F">F</div>
+                                <div class="mbti-label">Мышление / Чувство</div>
+                            </div>
+                            <div class="mbti-toggle-group">
+                                <div class="mbti-toggle" data-value="J">J</div>
+                                <div class="mbti-toggle" data-value="P">P</div>
+                                <div class="mbti-label">Суждение / Восприятие</div>
                             </div>
                         </div>
-                        <div class="mbti-alert" id="mbti-alert" style="display:none; min-height:50px;">
-                            <p id="mbti-description"></p>
+                        <div class="mbti-result">
+                            <div class="mbti-type">Выберите тип</div>
+                            <p class="mbti-description">Описание появится после выбора всех параметров</p>
                         </div>
                     </div>
                     
-                    <!-- Изменённая карточка: Любимая фигура -->
+                    <!-- Обновленный блок: Любимая фигура -->
                     <div class="form-card" style="background-color: rgba(250, 230, 210, 0.2);" id="favorite-shape-card">
                         <h3>Любимая фигура</h3>
-                        <div class="form-group" style="display:flex; align-items:center; gap:10px;">
-                            <input type="checkbox" id="triangle-checkbox">
-                            <label for="triangle-checkbox" style="margin:0;">Треугольник</label>
+                        <div class="shape-controls">
+                            <label class="shape-toggle">
+                                <input type="checkbox" id="triangle-checkbox">
+                                <span class="shape-toggle-label">Треугольник</span>
+                            </label>
                         </div>
-                        <div id="shape-display-container" style="display:flex; justify-content:center; align-items:center; width:150px; height:150px; margin:0 auto;">
-                            <div id="shape-display" style="width:100px; height:100px; background-color:#ccc;"></div>
+                        <div class="shape-container">
+                            <div class="shape" id="shape-display"></div>
                         </div>
                         <div class="form-group" id="border-radius-control">
                             <label for="border-radius-slider">Скругление:</label>
@@ -585,19 +597,27 @@
                         </div>
                     </div>
                     
-                    <!-- Изменённая карточка: Флаг -->
+                    <!-- Обновленный блок: Флаг -->
                     <div class="form-card" style="background-color: rgba(220, 250, 240, 0.2);" id="create-country-card">
                         <h3>Создать свою страну</h3>
                         <div class="form-group">
                             <label>Нарисуйте флаг:</label>
-                            <canvas id="flag-canvas" width="320" height="240" style="border:1px solid #000; image-rendering: pixelated;"></canvas>
+                            <canvas id="flag-canvas" width="320" height="240"></canvas>
                         </div>
                         <div class="form-group">
                             <label>Выберите цвет:</label>
-                            <div id="flag-color-buttons">
-                                <!-- кнопки выбираются скриптом -->
+                            <div id="flag-color-buttons"></div>
+                            <div id="selected-flag-color">Выбранный цвет: <span id="current-flag-color">#000000</span></div>
+                        </div>
+                        <div class="form-group flag-templates">
+                            <label>Шаблоны флагов:</label>
+                            <div class="flag-template-buttons">
+                                <button type="button" data-flag="russia">Россия</button>
+                                <button type="button" data-flag="germany">Германия</button>
+                                <button type="button" data-flag="france">Франция</button>
+                                <button type="button" data-flag="japan">Япония</button>
+                                <button type="button" data-flag="italy">Италия</button>
                             </div>
-                            <div id="selected-flag-color" style="margin-top:5px;">Выбранный цвет: <span id="current-flag-color">#000000</span></div>
                         </div>
                         <div class="form-group">
                             <button type="button" id="clear-flag">Очистить флаг</button>

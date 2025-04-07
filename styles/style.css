@@ -65,7 +65,7 @@ input:focus, select:focus, textarea:focus {
 /* Темная тема */
 body.dark-theme {
     background-color: #121212;
-    color: #ffffff;
+    color: #E2E8F0;
 }
 
 header, footer {
@@ -228,12 +228,15 @@ form input[type="submit"]:hover {
     height: 18px;
     margin-right: 10px;
     flex-shrink: 0;
+    cursor: pointer;
+    accent-color: #4299E1; /* Добавляем цвет для всех чекбоксов */
 }
 
 .checkbox-container label {
     font-size: 13px;
     margin-bottom: 0;
-    color: #4A5568;
+    color: #E2E8F0; /* Делаем более контрастным */
+    cursor: pointer;
 }
 
 /* Встроенное видео */
@@ -1226,7 +1229,7 @@ button:disabled:hover {
 .agreements-section h3, .final-check-section h3 {
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px солид rgba(255, 255, 255, 0.2);
     color: #4299E1;
 }
 
@@ -1410,7 +1413,7 @@ button:disabled:hover {
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
-    border-bottom: 100px solid #ccc;
+    border-bottom: 100px солид #ccc;
     background: none;
 }
 
@@ -1439,15 +1442,483 @@ button:disabled:hover {
 
 /* Стили для треугольной фигуры */
 .triangle {
+    width: 0 !important; /* Принудительно переопределяем */
+    height: 0 !important; /* Принудительно переопределяем */
+    border-left: 50px solid transparent !important;
+    border-right: 50px solid transparent !important;
+    border-bottom: 100px solid #ccc !important;
+    background: none !important;
+    border-radius: 0 !important;
+}
+
+/* Стили для флага (поле для рисования) */
+#flag-canvas {
+    background-color: #fff;
+}
+
+/* Стили для шкал характера */
+.scale-value {
+    font-weight: bold;
+    color: #4299E1;
+}
+
+/* Стили для MBTI */
+.mbti-toggles {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.mbti-toggle-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.mbti-toggle {
+    width: 60px;
+    height: 40px;
+    border: 2px solid #4299E1;
+    background: none;
+    color: #E2E8F0; /* Делаем более контрастным */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.mbti-toggle.active {
+    background: #4299E1;
+    color: white;
+}
+
+.mbti-label {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #FFFFFF; /* Максимальный контраст для темной темы */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Тень для большей читаемости */
+}
+
+body.light-theme .mbti-label {
+    color: #2D3748; /* Темный текст для светлой темы */
+    text-shadow: none;
+}
+
+.mbti-result {
+    background: rgba(66, 153, 225, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 100px;
+}
+
+.mbti-type {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #4299E1; /* По умолчанию синий */
+}
+
+.mbti-description {
+    margin: 0;
+    line-height: 1.5;
+    color: #FFFFFF; /* Максимальный контраст */
+    font-size: 16px;
+}
+
+body.light-theme .mbti-description {
+    color: #2D3748; /* Темный текст для светлой темы */
+}
+
+/* Стили для фигуры */
+.shape-controls {
+    margin-bottom: 20px;
+}
+
+.shape-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.shape-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #4299E1;
+}
+
+.shape-toggle-label {
+    margin: 0;
+    color: #FFFFFF; /* Максимальный контраст */
+    font-size: 16px;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Тень для лучшей читаемости */
+}
+
+body.light-theme .shape-toggle-label {
+    color: #2D3748; /* Темный текст для светлой темы */
+    text-shadow: none;
+}
+
+.shape-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.shape {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.shape.triangle {
     width: 0;
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
     border-bottom: 100px solid #ccc;
     background: none;
+    transition: none;
 }
 
-/* Стили для флага (поле для рисования) */
+/* Стили для флага */
+.flag-templates {
+    margin: 15px 0;
+}
+
+.flag-template-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flag-template-buttons button {
+    padding: 8px 16px;
+    background: #4299E1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.flag-template-buttons button:hover {
+    background: #3182CE;
+}
+
 #flag-canvas {
-    background-color: #fff;
+    background: white;
+    border: 1px solid #000;
+    cursor: crosshair;
+}
+
+/* Улучшенные стили для радиокнопок и меток */
+.radio-group label {
+    color: #E2E8F0; /* Делаем более контрастным */
+    background-color: rgba(66, 153, 225, 0.2); /* Делаем фон немного темнее */
+    font-weight: 500; /* Делаем шрифт жирнее */
+    padding: 8px 12px;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: rgba(66, 153, 225, 0.6); /* Более контрастный фон для выбранного элемента */
+    color: #FFFFFF; /* Белый текст на выбранном элементе */
+    border-color: #63B3ED; /* Более яркая рамка */
+}
+
+.radio-group label:hover {
+    background-color: rgba(66, 153, 225, 0.4); /* Более контрастный фон при наведении */
+}
+
+/* Улучшенные стили для китайских опций */
+.chinese-options label {
+    color: #E2E8F0; /* Делаем более контрастным */
+    background-color: rgba(66, 153, 225, 0.2); /* Делаем фон немного темнее */
+    font-weight: 500; /* Делаем шрифт жирнее */
+}
+
+.chinese-options input[type="radio"]:checked + label {
+    background-color: rgba(66, 153, 225, 0.6); /* Более контрастный фон для выбранного элемента */
+    color: #FFFFFF; /* Белый текст на выбранном элементе */
+}
+
+/* Улучшенный стиль для выпадающего списка цитат */
+select#wise-quote {
+    color: #E2E8F0; /* Делаем более контрастным */
+    background-color: rgba(45, 55, 72, 0.8); /* Делаем фон темнее */
+}
+
+/* Улучшенные стили для формы выбора фигуры */
+.shape-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+}
+
+.shape {
+    width: 100px;
+    height: 100px;
+    background-color: #4A90E2; /* Более контрастный цвет фигуры */
+    transition: all 0.3s ease;
+    position: absolute;
+}
+
+/* Улучшенные стили для треугольника */
+.triangle {
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 50px solid transparent !important;
+    border-right: 50px solid transparent !important;
+    border-bottom: 100px solid #4A90E2 !important; /* Тот же контрастный цвет */
+    background: none !important;
+    border-radius: 0 !important;
+}
+
+/* Улучшенные стили для чекбоксов и лейблов */
+.shape-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.shape-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #4299E1;
+}
+
+.shape-toggle-label {
+    margin: 0;
+    color: #FFFFFF; /* Максимально контрастный цвет */
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Улучшенные стили для радиокнопок и меток с усиленным контрастом */
+.radio-group label {
+    color: #FFFFFF; /* Белый текст для максимального контраста */
+    background-color: rgba(66, 153, 225, 0.4); /* Более заметный фон */
+    font-weight: 600; /* Более жирный шрифт для лучшей читаемости */
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Добавляем слабую рамку */
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: rgba(66, 153, 225, 0.8); /* Гораздо более заметный фон для выбранного элемента */
+    color: #FFFFFF; /* Белый текст на выбранном элементе */
+    border-color: #FFFFFF; /* Белая рамка для контраста */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Мягкое свечение для выделения */
+}
+
+.radio-group label:hover {
+    background-color: rgba(66, 153, 225, 0.6); /* Более контрастный фон при наведении */
+    transform: translateY(-2px); /* Небольшой эффект поднятия для интерактивности */
+}
+
+/* Улучшенные стили для китайских опций */
+.chinese-options label {
+    color: #FFFFFF; /* Максимальный контраст */
+    background-color: rgba(66, 153, 225, 0.4); /* Более заметный фон */
+    font-weight: 600; /* Более жирный шрифт */
+}
+
+.chinese-options input[type="radio"]:checked + label {
+    background-color: rgba(66, 153, 225, 0.8);
+    border: 2px solid white; /* Более заметная рамка */
+}
+
+/* Улучшенные стили для MBTI кнопок */
+.mbti-toggle {
+    width: 60px;
+    height: 40px;
+    border: 2px solid #4299E1;
+    background-color: rgba(66, 153, 225, 0.2); /* Добавляем немного фона */
+    color: #FFFFFF; /* Максимальный контраст */
+    font-weight: bold;
+    font-size: 18px; /* Увеличиваем шрифт */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Предотвращаем поведение кнопки по умолчанию */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.mbti-toggle.active {
+    background-color: #4299E1;
+    color: white;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Подсветка активной кнопки */
+}
+
+.mbti-label {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #FFFFFF; /* Максимальный контраст */
+}
+
+/* Улучшенные стили для характеристик формы */
+form label {
+    color: #FFFFFF; /* Максимальный контраст */
+    font-weight: 500; /* Более жирный шрифт */
+    margin-bottom: 5px;
+}
+
+.hint {
+    color: #FFFFFF; /* Более контрастный текст для подсказок */
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Улучшенные стили для выпадающего списка цитат и других селектов */
+select {
+    color: #FFFFFF; /* Контрастный текст */
+    background-color: rgba(45, 55, 72, 0.9); /* Более темный и непрозрачный фон */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Видимая рамка */
+}
+
+select option {
+    background-color: #2D3748; /* Темный фон для опций */
+    color: #FFFFFF; /* Белый текст для опций */
+}
+
+/* --- Тёмная тема --- */
+body.dark-theme {
+    background-color: #121212;
+    color: #E2E8F0;
+}
+
+body.dark-theme header,
+body.dark-theme footer {
+    background-color: #1A202C;
+    color: #E2E8F0;
+}
+
+body.dark-theme a {
+    color: #E2E8F0;
+}
+
+body.dark-theme a:hover {
+    color: #4299E1;
+}
+
+body.dark-theme form {
+    background-color: #2D3748;
+    color: #E2E8F0;
+}
+
+body.dark-theme form label {
+    color: #E2E8F0; /* Исправляем цвет текста меток */
+}
+
+body.dark-theme .hint {
+    color: #E2E8F0;
+}
+
+body.dark-theme select,
+body.dark-theme select option {
+    background-color: #2D3748;
+    color: #E2E8F0;
+}
+
+/* --- Светлая тема --- */
+body.light-theme {
+    background-color: #FFFFFF;
+    color: #2D3748;
+}
+
+body.light-theme header,
+body.light-theme footer {
+    background-color: #F7FAFC;
+    color: #2D3748;
+}
+
+body.light-theme a {
+    color: #2D3748;
+}
+
+body.light-theme a:hover {
+    color: #3182CE;
+}
+
+body.light-theme form {
+    background-color: #FFFFFF;
+    color: #2D3748;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme form label {
+    color: #4A5568; /* Темный текст для светлой темы */
+}
+
+body.light-theme .hint {
+    color: #4A5568;
+}
+
+body.light-theme select,
+body.light-theme select option {
+    background-color: #FFFFFF;
+    color: #2D3748;
+    border-color: #E2E8F0;
+}
+
+/* Исправления для выпадающих списков */
+select, 
+select[multiple] {
+    appearance: auto; /* Возвращаем стандартный вид селектам */
+    padding: 8px 12px;
+}
+
+select option {
+    padding: 8px;
+}
+
+/* Переопределяем стили для мультиселекта */
+select[multiple] {
+    height: auto;
+    min-height: 100px;
+}
+
+/* Общие исправления для меток форм */
+form label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Улучшенные стили для MBTI кнопок */
+.mbti-toggle {
+    width: 60px;
+    height: 40px;
+    border: 2px solid #4299E1;
+    background-color: rgba(66, 153, 225, 0.2);
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+    /* Предотвращаем поведение кнопки по умолчанию */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.mbti-toggle:focus {
+    outline: none;
 }

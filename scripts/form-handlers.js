@@ -536,13 +536,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Функциональность MBTI
-    const mbtiFirst = document.getElementById('mbti-first');
-    const mbtiSecond = document.getElementById('mbti-second');
-    const mbtiThird = document.getElementById('mbti-third');
-    const mbtiFourth = document.getElementById('mbti-fourth');
-    const mbtiAlert = document.getElementById('mbti-alert');
-    const mbtiDescription = document.getElementById('mbti-description');
+    // Функциональность MBTI и переключения фигур
+    const mbtiFirst = document.getElementById('mbti-first'),
+          mbtiSecond = document.getElementById('mbti-second'),
+          mbtiThird = document.getElementById('mbti-third'),
+          mbtiFourth = document.getElementById('mbti-fourth'),
+          mbtiAlert = document.getElementById('mbti-alert'),
+          triangleCheckbox = document.getElementById('triangle-checkbox'),
+          shapeDisplay = document.getElementById('shape-display'),
+          borderRadiusSlider = document.getElementById('border-radius-slider'),
+          borderRadiusControl = document.getElementById('border-radius-control');
 
     if (mbtiFirst && mbtiSecond && mbtiThird && mbtiFourth && mbtiAlert && mbtiDescription) {
         function updateMbtiDescription() {
@@ -565,20 +568,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Функциональность переключения фигур
-    const triangleCheckbox = document.getElementById('triangle-checkbox');
-    const shapeDisplay = document.getElementById('shape-display');
-    const borderRadiusSlider = document.getElementById('border-radius-slider');
-    const borderRadiusControl = document.getElementById('border-radius-control');
-
+    // Функциональность переключения фигур - исправленная версия
     if (triangleCheckbox && shapeDisplay && borderRadiusControl) {
+        // Проверяем начальное состояние при загрузке
+        if (triangleCheckbox.checked) {
+            shapeDisplay.classList.add('triangle');
+            borderRadiusControl.style.display = 'none';
+        }
+        
         triangleCheckbox.addEventListener('change', function() {
             if (this.checked) {
+                // Устанавливаем размеры контейнера до изменения класса
+                const containerHeight = shapeDisplay.parentElement.offsetHeight;
+                shapeDisplay.parentElement.style.minHeight = containerHeight + "px";
+                
+                // Применяем класс треугольника
                 shapeDisplay.classList.add('triangle');
                 shapeDisplay.style.borderRadius = '0';
                 borderRadiusControl.style.display = 'none';
             } else {
                 shapeDisplay.classList.remove('triangle');
+                shapeDisplay.style.borderRadius = borderRadiusSlider.value + 'px';
                 borderRadiusControl.style.display = 'block';
             }
         });
@@ -593,12 +603,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Функциональность флага
-    const flagCanvas = document.getElementById('flag-canvas');
-    const flagColorButtonsContainer = document.getElementById('flag-color-buttons');
-    const currentFlagColorDisplay = document.getElementById('current-flag-color');
-    const clearFlagButton = document.getElementById('clear-flag');
-    const flagTemplateInput = document.getElementById('flag-template');
-    let currentFlagColor = '#000000';
+    const flagCanvas = document.getElementById('flag-canvas'),
+          flagColorButtonsContainer = document.getElementById('flag-color-buttons'),
+          currentFlagColorDisplay = document.getElementById('current-flag-color'),
+          clearFlagButton = document.getElementById('clear-flag'),
+          flagTemplateInput = document.getElementById('flag-template');
+
+    let currentFlagColor = '#000000',
+        isDrawing = false;
+
+    // Общие функции для флага
+    function drawGrid(ctx, cellSize) {
+        ctx.beginPath();
+        for (let x = 0; x < flagCanvas.width; x += cellSize) {
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, flagCanvas.height);
+        }
+        for (let y = 0; y < flagCanvas.height; y += cellSize) {
+            ctx.moveTo(0, y);
+            ctx.lineTo(flagCanvas.width, y);
+        }
+        ctx.strokeStyle = "#ddd";
+        ctx.stroke();
+    }
 
     if (flagCanvas && flagColorButtonsContainer) {
         const ctx = flagCanvas.getContext('2d');
@@ -670,13 +697,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = flagCanvas.getBoundingClientRect();
+            const x = Math.floor((e.clientX - rect.left) / cellSize) * cellSize;
+            const y = Math.floor((e.clientY - rect.top) / cellSize) * cellSize;
+            ctx.fillStyle = currentFlagColor;
+            ctx.fillRect(x, y, cellSize, cellSize);
+            ctx.strokeStyle = "#ddd";
+            ctx.strokeRect(x, y, cellSize, cellSize);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        flagCanvas.addEventListener('mousedown', startDrawing);
+        flagCanvas.addEventListener('mousemove', draw);
+        flagCanvas.addEventListener('mouseup', stopDrawing);
+        flagCanvas.addEventListener('mouseout', stopDrawing);
+        
+        // Инициализация сетки
+        drawGrid(ctx, cellSize);
     }
 
-    // Функциональность включения/отключения полей и переключения видимости
-    const enablePassportBank = document.getElementById('enable-passport-bank');
-    const passportBankCard = document.getElementById('passport-bank-card');
-    const enableDocuments = document.getElementById('enable-documents');
-    const documentsCard = document.getElementById('documents-card');
+    // Функциональность включения/отключения полей
+    const enablePassportBank = document.getElementById('enable-passport-bank'),
+          passportBankCard = document.getElementById('passport-bank-card'),
+          enableDocuments = document.getElementById('enable-documents'),
+          documentsCard = document.getElementById('documents-card');
 
     // Обработка карточки с паспортными данными
     if (enablePassportBank && passportBankCard) {
@@ -696,5 +751,180 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.disabled = !this.checked;
             });
         });
+    }
+
+    // Обработчики для шкал характера
+    document.querySelectorAll('input[type="range"]').forEach(slider => {
+        const valueDisplay = slider.previousElementSibling.querySelector('.scale-value');
+        if (valueDisplay) {
+            slider.addEventListener('input', () => {
+                valueDisplay.textContent = slider.value;
+            });
+        }
+    });
+
+    // Обработчики для MBTI
+    // Обработчики для MBTI
+    const mbtiToggleGroups = document.querySelectorAll('.mbti-toggle-group');
+    const mbtiType = document.querySelector('.mbti-type');
+    const mbtiToggleDescription = document.querySelector('.mbti-description');
+    const mbtiColors = {
+        'ISTJ': '#4A90E2', 'ISFJ': '#50E3C2', 'INFJ': '#B8E986', 'INTJ': '#F5A623',
+        'ISTP': '#7ED321', 'ISFP': '#417505', 'INFP': '#9013FE', 'INTP': '#BD10E0',
+        'ESTP': '#D0021B', 'ESFP': '#F5A623', 'ENFP': '#7ED321', 'ENTP': '#4A90E2',
+        'ESTJ': '#50E3C2', 'ESFJ': '#B8E986', 'ENFJ': '#F5A623', 'ENTJ': '#9013FE'
+    };
+
+    mbtiToggleGroups.forEach(group => {
+        const toggles = group.querySelectorAll('.mbti-toggle');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggles.forEach(t => t.classList.remove('active'));
+                toggle.classList.add('active');
+                updateMBTI();
+            });
+        });
+    });
+
+    function updateMBTI() {
+        const type = Array.from(document.querySelectorAll('.mbti-toggle.active'))
+            .map(t => t.dataset.value)
+            .join('');
+        
+        if (type.length === 4) {
+            mbtiType.textContent = type;
+            mbtiType.style.color = mbtiColors[type];
+            mbtiDescription.style.backgroundColor = `${mbtiColors[type]}22`;
+            mbtiToggleDescription.style.backgroundColor = `${mbtiColors[type]}22`;
+            // Добавьте описания для каждого типа
+            const descriptions = {
+                'ISTJ': 'Ответственный и организованный',
+                'ISFJ': 'Заботливый и внимательный к деталям',
+                // ...добавьте остальные описания
+            };
+            mbtiToggleDescription.textContent = descriptions[type] || `Тип личности: ${type}`;
+        }
+    }
+
+    // Обновленное рисование флага
+    const ctx = flagCanvas.getContext('2d');
+
+    // Шаблоны флагов
+    const flagTemplates = {
+        russia: [
+            { color: '#FFFFFF', y: 0, height: 80 },
+            { color: '#0039A6', y: 80, height: 80 },
+            { color: '#D52B1E', y: 160, height: 80 }
+        ],
+        germany: [
+            { color: '#000000', y: 0, height: 80 },
+            { color: '#DD0000', y: 80, height: 80 },
+            { color: '#FFCE00', y: 160, height: 80 }
+        ],
+        // Добавьте остальные шаблоны
+    };
+
+    document.querySelectorAll('.flag-template-buttons button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const template = flagTemplates[btn.dataset.flag];
+            if (template) {
+                template.forEach(({color, y, height}) => {
+                    ctx.fillStyle = color;
+                    ctx.fillRect(0, y, flagCanvas.width, height);
+                });
+                drawGrid();
+            }
+        });
+    });
+
+    flagCanvas.addEventListener('mousedown', startDrawing);
+    flagCanvas.addEventListener('mousemove', draw);
+    flagCanvas.addEventListener('mouseup', stopDrawing);
+    flagCanvas.addEventListener('mouseout', stopDrawing);
+
+    function startDrawing(e) {
+        isDrawing = true;
+        draw(e);
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+        const rect = flagCanvas.getBoundingClientRect();
+        const x = Math.floor((e.clientX - rect.left) / cellSize) * cellSize;
+        const y = Math.floor((e.clientY - rect.top) / cellSize) * cellSize;
+        ctx.fillStyle = currentFlagColor;
+        ctx.fillRect(x, y, cellSize, cellSize);
+        ctx.strokeStyle = "#ddd";
+        ctx.strokeRect(x, y, cellSize, cellSize);
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+    }
+
+    // Обработчики для MBTI - исправленная версия с предотвращением отправки формы
+    const mbtiToggleGroups = document.querySelectorAll('.mbti-toggle-group');
+    const mbtiType = document.querySelector('.mbti-type');
+    const mbtiDescription = document.querySelector('.mbti-description');
+
+    if (mbtiToggleGroups && mbtiType && mbtiDescription) {
+        // Полные описания для всех 16 типов MBTI
+        const mbtiDescriptions = {
+            'ISTJ': 'Ответственный, организованный, практичный и надежный',
+            'ISFJ': 'Заботливый, внимательный к деталям, верный и трудолюбивый',
+            'INFJ': 'Интуитивный, идеалистичный, стремящийся к гармонии',
+            'INTJ': 'Стратегически мыслящий, независимый, логичный',
+            'ISTP': 'Наблюдательный, практичный, способный решать проблемы',
+            'ISFP': 'Творческий, чувствительный, спокойный и гармоничный',
+            'INFP': 'Мечтательный, идеалистичный, руководствуется ценностями',
+            'INTP': 'Аналитический, логичный, концептуальный мыслитель',
+            'ESTP': 'Энергичный, импульсивный, ориентированный на действие',
+            'ESFP': 'Общительный, энергичный, спонтанный и игривый',
+            'ENFP': 'Энтузиаст, креативный, общительный и вдохновенный',
+            'ENTP': 'Изобретательный, предприимчивый, адаптивный',
+            'ESTJ': 'Организованный, эффективный, практичный руководитель',
+            'ESFJ': 'Заботливый, общительный, гармоничный и ответственный',
+            'ENFJ': 'Вдохновляющий, харизматичный, чуткий и идеалистичный',
+            'ENTJ': 'Решительный, логичный, стратегический лидер'
+        };
+
+        const mbtiColors = {
+            'ISTJ': '#4A90E2', 'ISFJ': '#50E3C2', 'INFJ': '#B8E986', 'INTJ': '#F5A623',
+            'ISTP': '#7ED321', 'ISFP': '#417505', 'INFP': '#9013FE', 'INTP': '#BD10E0',
+            'ESTP': '#D0021B', 'ESFP': '#F5A623', 'ENFP': '#7ED321', 'ENTP': '#4A90E2',
+            'ESTJ': '#50E3C2', 'ESFJ': '#B8E986', 'ENFJ': '#F5A623', 'ENTJ': '#9013FE'
+        };
+
+        mbtiToggleGroups.forEach(group => {
+            const toggles = group.querySelectorAll('.mbti-toggle');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    // Предотвращаем отправку формы
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    toggles.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    updateMBTI();
+                });
+            });
+        });
+
+        function updateMBTI() {
+            const activeToggles = document.querySelectorAll('.mbti-toggle.active');
+            if (activeToggles.length === 4) {
+                const type = Array.from(activeToggles).map(t => t.dataset.value).join('');
+                
+                mbtiType.textContent = type;
+                
+                if (mbtiColors[type]) {
+                    mbtiType.style.color = mbtiColors[type];
+                    mbtiDescription.style.backgroundColor = `${mbtiColors[type]}22`;
+                }
+                
+                // Используем сохраненные описания для всех типов
+                mbtiDescription.textContent = mbtiDescriptions[type] || `Тип личности: ${type}`;
+            }
+        }
     }
 });
