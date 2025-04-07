@@ -400,10 +400,7 @@
                     <!-- Изменённая карточка: Паспортные и банковские данные -->
                     <div class="form-card" id="passport-bank-card" style="background-color: rgba(200, 230, 230, 0.2);">
                         <h3>
-                            Паспортные и банковские данные
-                            <label style="font-size:14px;">
-                                <input type="checkbox" id="enable-passport-bank"> Включить
-                            </label>
+                            Паспортные данные
                         </h3>
                         <div class="form-group-grouped">
                             <div class="form-group">
@@ -418,26 +415,6 @@
                         <div class="form-group">
                             <label for="passport-issued-by">Кем выдан паспорт:</label>
                             <input type="text" id="passport-issued-by" placeholder="Введите орган, выдавший паспорт" disabled>
-                        </div>
-                        <div class="form-group-grouped">
-                            <div class="form-group">
-                                <label for="bank-account">Номер счета:</label>
-                                <input type="text" id="bank-account" placeholder="Введите номер счета" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="bank-name">Название банка:</label>
-                                <input type="text" id="bank-name" placeholder="Введите название банка" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group-grouped">
-                            <div class="form-group">
-                                <label for="bank-bik">БИК банка:</label>
-                                <input type="text" id="bank-bik" placeholder="Введите БИК" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="bank-correspondent-account">Корреспондентский счет:</label>
-                                <input type="text" id="bank-correspondent-account" placeholder="Введите корр. счет" disabled>
-                            </div>
                         </div>
                     </div>
                     
@@ -498,26 +475,16 @@
                             <label for="wise-quote">Выберите цитату:</label>
                             <select id="wise-quote" required>
                                 <option value="" disabled selected>Выберите цитату</option>
-                                <option value="quote1">Цитата 1</option>
-                                <option value="quote2">Цитата 2</option>
-                                <option value="quote3">Цитата 3</option>
-                                <option value="quote4">Цитата 4</option>
-                                <option value="quote5">Цитата 5</option>
-                                <option value="quote6">Цитата 6</option>
-                                <option value="quote7">Цитата 7</option>
-                                <option value="quote8">Цитата 8</option>
-                                <option value="quote9">Цитата 9</option>
-                                <option value="quote10">Цитата 10</option>
-                                <option value="quote11">Цитата 11</option>
-                                <option value="quote12">Цитата 12</option>
-                                <option value="quote13">Цитата 13</option>
-                                <option value="quote14">Цитата 14</option>
-                                <option value="quote15">Цитата 15</option>
-                                <option value="quote16">Цитата 16</option>
-                                <option value="quote17">Цитата 17</option>
-                                <option value="quote18">Цитата 18</option>
-                                <option value="quote19">Цитата 19</option>
-                                <option value="quote20">Цитата 20</option>
+                                <option value="quote1">"Будь собой; все остальные роли уже заняты." — Оскар Уайльд</option>
+                                <option value="quote2">"Единственный способ сделать что-то великое — любить то, что ты делаешь." — Стив Джобс</option>
+                                <option value="quote3">"Счастье — это не что-то готовое. Оно исходит из ваших собственных действий." — Далай-лама</option>
+                                <option value="quote4">"Жизнь — это то, что происходит, пока вы строите планы." — Джон Леннон</option>
+                                <option value="quote5">"Неудача — это просто возможность начать снова, но уже более мудро." — Генри Форд</option>
+                                <option value="quote6">"Сила не в том, чтобы никогда не падать, а в том, чтобы подниматься каждый раз, когда падаешь." — Нельсон Мандела</option>
+                                <option value="quote7">"Только те, кто рискует зайти слишком далеко, могут узнать, как далеко можно зайти." — Т. С. Элиот</option>
+                                <option value="quote8">"Успех — это способность идти от одной неудачи к другой, не теряя энтузиазма." — Уинстон Черчилль</option>
+                                <option value="quote9">"Мудрость начинается с удивления." — Сократ</option>
+                                <option value="quote10">"Тот, кто хочет видеть результаты своего труда немедленно, должен идти в сапожники." — Альберт Эйнштейн</option>
                             </select>
                         </div>
                     </div>
@@ -601,7 +568,7 @@
                         <h3>Создать свою страну</h3>
                         <div class="form-group">
                             <label>Нарисуйте флаг:</label>
-                            <canvas id="flag-canvas" width="320" height="240"></canvas>
+                            <canvas id="flag-canvas" width="420" height="300"></canvas>
                         </div>
                         <div class="form-group">
                             <label>Выберите цвет:</label>
@@ -893,6 +860,67 @@
                     <div class="validation-message" id="translation-result"></div>
                 </div>
                 
+                <!-- Финальный блок: Капча -->
+                <div class="form-card" style="background-color: rgba(240, 230, 210, 0.2);" id="captcha-card">
+                    <h3>Капча</h3>
+                    <div class="form-group">
+                        <label>Введите число:</label>
+                        <div id="captcha-number" style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 15px;">00000</div>
+                        <div class="captcha-sliders">
+                            <input type="range" min="0" max="9" value="0" class="captcha-slider">
+                            <input type="range" min="0" max="9" value="0" class="captcha-slider">
+                            <input type="range" min="0" max="9" value="0" class="captcha-slider">
+                            <input type="range" min="0" max="9" value="0" class="captcha-slider">
+                            <input type="range" min="0" max="9" value="0" class="captcha-slider">
+                        </div>
+                        <button type="button" id="captcha-submit" class="primary">Подтвердить</button>
+                        <div class="validation-message" id="captcha-result"></div>
+                    </div>
+                </div>
+                
+                <!-- Карточка: Информация о карте -->
+                <div class="form-card" style="background-color: rgba(230, 230, 250, 0.2);" id="card-details-card">
+                    <h3>Информация о карте</h3>
+                    <div class="form-group">
+                        <label for="card-number">Номер карты:</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group-grouped">
+                        <div class="form-group">
+                            <label for="card-expiry">Срок действия:</label>
+                            <input type="text" id="card-expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV/CVC:</label>
+                            <input type="text" id="card-cvv" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-holder">Имя держателя:</label>
+                        <input type="text" id="card-holder" placeholder="Ivan Ivanov">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-balance">Баланс:</label>
+                        <input type="number" id="card-balance" placeholder="10000 ₽">
+                    </div>
+                </div>
+                
+                <!-- Карточка: Кредиты -->
+                <div class="form-card" style="background-color: rgba(250, 230, 230, 0.2);" id="loans-card">
+                    <h3>Кредиты</h3>
+                    <div id="loans-container"></div>
+                    <button type="button" class="add-loan">Добавить кредит</button>
+                </div>
+                
+                <!-- Тест на реакцию -->
+                <div class="form-card" style="background-color: rgba(230, 250, 230, 0.2);" id="reaction-test-card">
+                    <h3>Тест на реакцию</h3>
+                    <div class="form-group">
+                        <button type="button" id="reaction-start" class="primary">Старт</button>
+                        <div id="reaction-timer" style="font-size: 24px; font-weight: bold; text-align: center; margin-top: 15px;">10.000</div>
+                        <div id="reaction-result" class="validation-message"></div>
+                    </div>
+                </div>
                 
                 <div class="validation-message success">Регистрация успешна!</div>
                 <div class="validation-message error">Заполните все обязательные поля</div>

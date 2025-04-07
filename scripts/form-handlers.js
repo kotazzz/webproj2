@@ -640,10 +640,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.strokeStyle = "#ddd";
         ctx.stroke();
     }
-
+    const cellSize = 20;
     if (flagCanvas && flagColorButtonsContainer) {
         const ctx = flagCanvas.getContext('2d');
-        const cellSize = 20;
+        
         const flagPalette = ['#000000','#FFFFFF','#FF0000','#00FF00','#0000FF','#FFFF00','#FF00FF','#00FFFF',
                             '#800000','#008000','#000080','#808000','#800080','#008080','#C0C0C0','#808080'];
 
@@ -826,33 +826,81 @@ document.addEventListener('DOMContentLoaded', function() {
     // Шаблоны флагов
     const flagTemplates = {
         russia: [
-            { color: '#FFFFFF', y: 0, height: 80 },
-            { color: '#0039A6', y: 80, height: 80 },
-            { color: '#D52B1E', y: 160, height: 80 }
+            { color: '#FFFFFF', y: 0, height: 100 },
+            { color: '#0039A6', y: 100, height: 100 },
+            { color: '#D52B1E', y: 200, height: 100 }
         ],
         germany: [
-            { color: '#000000', y: 0, height: 80 },
-            { color: '#DD0000', y: 80, height: 80 },
-            { color: '#FFCE00', y: 160, height: 80 }
+            { color: '#000000', y: 0, height: 100 },
+            { color: '#DD0000', y: 100, height: 100 },
+            { color: '#FFCE00', y: 200, height: 100 }
         ],
         france: [
-            { color: '#0055A4', x: 0, width: 106.67 },
-            { color: '#FFFFFF', x: 106.67, width: 106.67 },
-            { color: '#EF4135', x: 213.34, width: 106.67 }
+            { color: '#0055A4', x: 0, width: 140 },
+            { color: '#FFFFFF', x: 140, width: 140 },
+            { color: '#EF4135', x: 280, width: 140 }
         ],
         japan: [
             { color: '#FFFFFF', x: 0, y: 0, width: 320, height: 240 },
-            { color: '#BC002D', x: 120, y: 60, width: 80, height: 80, isCircle: true }
+            { color: '#BC002D', x: 140, y: 80, width: 140, height: 140, isCircle: true }
         ],
         italy: [
-            { color: '#009246', x: 0, width: 106.67 },
-            { color: '#FFFFFF', x: 106.67, width: 106.67 },
-            { color: '#CE2B37', x: 213.34, width: 106.67 }
+            { color: '#009246', x: 0, width: 140 },
+            { color: '#FFFFFF', x: 140, width: 140 },
+            { color: '#CE2B37', x: 280, width: 140 }
         ]
     };
 
+    // Define cellSize globally
+    function pixelateCanvas(ctx, pixelSize) {
+        const { width, height } = ctx.canvas;
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+    
+        for (let y = 0; y < height; y += pixelSize) {
+            for (let x = 0; x < width; x += pixelSize) {
+                // Центр квадрата
+                const centerX = Math.min(x + Math.floor(pixelSize / 2), width - 1);
+                const centerY = Math.min(y + Math.floor(pixelSize / 2), height - 1);
+                const centerIndex = (centerY * width + centerX) * 4;
+    
+                const r = data[centerIndex];
+                const g = data[centerIndex + 1];
+                const b = data[centerIndex + 2];
+                const a = data[centerIndex + 3];
+    
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+                ctx.fillRect(x, y, pixelSize, pixelSize);
+            }
+        }
+    }
+    
+    // Update flag template button functionality using pixelateCanvas
     document.querySelectorAll('.flag-template-buttons button').forEach(btn => {
         btn.addEventListener('click', () => {
+            const template = flagTemplates[btn.dataset.flag];
+            if (template) {
+                ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+                template.forEach(({ color, x = 0, y = 0, width = flagCanvas.width, height = flagCanvas.height, isCircle = false }) => {
+                    ctx.fillStyle = color;
+                    if (isCircle) {
+                        ctx.beginPath();
+                        ctx.arc(x + width/2, y + height/2, width/2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillRect(x, y, width, height);
+                    }
+                });
+                
+                // Apply pixelation effect with cellSize
+                pixelateCanvas(ctx, cellSize);
+                drawGrid();
+            }
+        });
+    });
+
+    flagCanvas.addEventListener('mousedown', startDrawing);
+    flagCanvas.addEventListener('mousemove', draw);
     flagCanvas.addEventListener('mouseup', stopDrawing);
     flagCanvas.addEventListener('mouseout', stopDrawing);
 
@@ -960,5 +1008,123 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+    }
+
+    // CAPTCHA functionality
+    const captchaNumber = document.getElementById('captcha-number');
+    const captchaSliders = document.querySelectorAll('.captcha-slider');
+    const captchaSubmit = document.getElementById('captcha-submit');
+    const captchaResult = document.getElementById('captcha-result');
+
+    if (captchaNumber && captchaSliders && captchaSubmit) {
+        const generateCaptcha = () => {
+            const randomNumber = String(Math.floor(Math.random() * 100000)).padStart(5, '0');
+            captchaNumber.textContent = randomNumber;
+        };
+
+        const getCaptchaInput = () => Array.from(captchaSliders).map(slider => slider.value).join('');
+
+        captchaSubmit.addEventListener('click', () => {
+            const input = getCaptchaInput();
+            if (input === captchaNumber.textContent) {
+                captchaResult.textContent = 'Капча введена верно!';
+                captchaResult.className = 'validation-message success';
+            } else {
+                captchaResult.textContent = 'Неверная капча. Попробуйте снова.';
+                captchaResult.className = 'validation-message error';
+            }
+        });
+
+        generateCaptcha();
+    }
+
+    // Loans functionality
+    const loansContainer = document.getElementById('loans-container');
+    const addLoanButton = document.querySelector('.add-loan');
+
+    if (loansContainer && addLoanButton) {
+        addLoanButton.addEventListener('click', () => {
+            const loanTemplate = `
+                <div class="loan">
+                    <div class="form-group">
+                        <label>Тип кредита:</label>
+                        <select>
+                            <option value="" disabled selected>Выберите тип</option>
+                            <option value="mortgage">Ипотека</option>
+                            <option value="car">Автокредит</option>
+                            <option value="consumer">Потребительский</option>
+                            <option value="business">Бизнес-кредит</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Кредитор:</label>
+                        <input type="text" placeholder="Сбербанк">
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма кредита:</label>
+                        <input type="number" placeholder="1000000 ₽">
+                    </div>
+                    <div class="form-group">
+                        <label>Дата открытия:</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Статус:</label>
+                        <select>
+                            <option value="active">Активен</option>
+                            <option value="closed">Закрыт</option>
+                            <option value="overdue">Просрочен</option>
+                        </select>
+                    </div>
+                    <button type="button" class="remove-loan">Удалить</button>
+                </div>
+            `;
+            const loanElement = document.createElement('div');
+            loanElement.innerHTML = loanTemplate;
+            loansContainer.appendChild(loanElement);
+
+            loanElement.querySelector('.remove-loan').addEventListener('click', () => {
+                loanElement.remove();
+            });
+        });
+    }
+
+    // Reaction test functionality
+    const reactionStart = document.getElementById('reaction-start');
+    const reactionTimer = document.getElementById('reaction-timer');
+    const reactionResult = document.getElementById('reaction-result');
+
+    if (reactionStart && reactionTimer) {
+        let timerInterval;
+        let startTime;
+
+        reactionStart.addEventListener('click', () => {
+            if (reactionStart.textContent === 'Старт') {
+                reactionStart.textContent = 'Стоп';
+                reactionResult.textContent = '';
+                startTime = Date.now();
+                reactionTimer.textContent = '10.000';
+
+                timerInterval = setInterval(() => {
+                    const elapsed = (Date.now() - startTime) / 1000;
+                    const remaining = Math.max(10 - elapsed, 0).toFixed(3);
+                    reactionTimer.textContent = remaining;
+
+                    if (remaining <= 0) {
+                        clearInterval(timerInterval);
+                        reactionStart.textContent = 'Старт';
+                        reactionResult.textContent = 'Время вышло!';
+                        reactionResult.className = 'validation-message error';
+                    }
+                }, 10);
+            } else {
+                clearInterval(timerInterval);
+                const elapsed = (Date.now() - startTime) / 1000;
+                const difference = Math.abs(10 - elapsed).toFixed(3);
+                reactionStart.textContent = 'Старт';
+                reactionResult.textContent = `Ваш результат: ${difference} секунд.`;
+                reactionResult.className = 'validation-message success';
+            }
+        });
     }
 });

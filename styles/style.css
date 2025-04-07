@@ -794,6 +794,8 @@ input[type="range"] {
     height: 6px;
     border-radius: 3px;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -2147,4 +2149,51 @@ h3 label input[type="checkbox"] {
     margin-top: 0;
     accent-color: #4299E1;
     margin: 0;
+}
+
+/* Стили для CAPTCHA */
+.captcha-sliders {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.captcha-slider {
+    width: 50px;
+    transform: rotate(-90deg);
+}
+
+/* Стили для займов */
+.loan {
+    border: 1px dashed #4299E1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.loan .remove-loan {
+    margin-top: 10px;
+    background-color: #FC8181;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.loan .remove-loan:hover {
+    background-color: #E53E3E;
+}
+
+/* Стили для теста на реакцию */
+#reaction-timer {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#reaction-result {
+    margin-top: 15px;
 }
