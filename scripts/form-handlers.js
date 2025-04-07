@@ -1127,4 +1127,294 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Форматирование СНИЛС по маске XXX-XXX-XXX YY
+    const snilsInput = document.getElementById('snils');
+    if (snilsInput) {
+        snilsInput.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.substring(0, 11);
+            
+            let formattedValue = '';
+            if (value.length > 0) {
+                formattedValue += value.substring(0, Math.min(3, value.length));
+                if (value.length > 3) {
+                    formattedValue += '-' + value.substring(3, Math.min(6, value.length));
+                    if (value.length > 6) {
+                        formattedValue += '-' + value.substring(6, Math.min(9, value.length));
+                        if (value.length > 9) {
+                            formattedValue += ' ' + value.substring(9, 11);
+                        }
+                    }
+                }
+            }
+            this.value = formattedValue;
+        });
+    }
+
+    // Форматирование ИНН (12 цифр)
+    const innInput = document.getElementById('inn');
+    if (innInput) {
+        innInput.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 12) {
+                value = value.substring(0, 12);
+            }
+            this.value = value;
+        });
+    }
+
+    // Форматирование водительских прав по маске XX XX XXXXXX
+    const driverLicenseInput = document.getElementById('driver-license');
+    if (driverLicenseInput) {
+        driverLicenseInput.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.substring(0, 10);
+            
+            let formattedValue = '';
+            if (value.length > 0) {
+                formattedValue += value.substring(0, Math.min(2, value.length));
+                if (value.length > 2) {
+                    formattedValue += ' ' + value.substring(2, Math.min(4, value.length));
+                    if (value.length > 4) {
+                        formattedValue += ' ' + value.substring(4, 10);
+                    }
+                }
+            }
+            this.value = formattedValue;
+        });
+    }
+
+    // Включение/отключение полей документов
+    if (enableDocuments && documentsCard) {
+        const documentInputs = documentsCard.querySelectorAll('input[type="text"]');
+        enableDocuments.addEventListener('change', function() {
+            documentInputs.forEach(input => {
+                input.disabled = !this.checked;
+            });
+        });
+    }
+
+    // Тест на реакцию
+    
+    if (reactionStart && reactionTimer && reactionResult) {
+        let timerInterval;
+        let startTime;
+        let isTimerRunning = false;
+        
+        // Точность до миллисекунд
+        const formatTime = (time) => {
+            return time.toFixed(3);
+        };
+        
+        reactionStart.addEventListener('click', function() {
+            if (!isTimerRunning) {
+                // Запуск таймера
+                isTimerRunning = true;
+                reactionStart.textContent = 'Стоп';
+                reactionResult.textContent = '';
+                reactionResult.style.display = 'none';
+                startTime = Date.now();
+                
+                timerInterval = setInterval(function() {
+                    const elapsedTime = (Date.now() - startTime) / 1000;
+                    const remainingTime = Math.max(10 - elapsedTime, 0);
+                    
+                    reactionTimer.textContent = formatTime(remainingTime);
+                    
+                    if (remainingTime <= 0) {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                        reactionStart.textContent = 'Старт';
+                        reactionResult.textContent = 'Время вышло!';
+                        reactionResult.className = 'validation-message error';
+                        reactionResult.style.display = 'block';
+                    }
+                }, 10); // Обновляем каждые 10 мс для точности
+            } else {
+                // Остановка таймера
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                reactionStart.textContent = 'Старт';
+                
+                const elapsedTime = (Date.now() - startTime) / 1000;
+                const deviation = Math.abs(10 - elapsedTime);
+                
+                reactionResult.textContent = `Ваш результат: ${formatTime(deviation)} секунд от идеальных 10 секунд`;
+                reactionResult.className = 'validation-message success';
+                reactionResult.style.display = 'block';
+            }
+        });
+    }
+
+    // Функциональность флага - исправленная
+    const flagColorButtons = document.getElementById('flag-color-buttons');
+    const flagTemplateButtons = document.querySelectorAll('.flag-template-buttons button');
+    
+    if (flagCanvas) {
+        const ctx = flagCanvas.getContext('2d');
+        const cellSize = 20; // Размер ячейки для рисования
+        let isDrawing = false;
+        let selectedColor = '#000000';
+        
+        // Шаблоны флагов - четкое определение для России, Германии, Франции, Японии и Италии
+        const flagTemplates = {
+            russia: [
+                {color: '#FFFFFF', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height / 3},
+                {color: '#0039A6', x: 0, y: flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3},
+                {color: '#D52B1E', x: 0, y: 2 * flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3}
+            ],
+            germany: [
+                {color: '#000000', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height / 3},
+                {color: '#DD0000', x: 0, y: flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3},
+                {color: '#FFCE00', x: 0, y: 2 * flagCanvas.height / 3, width: flagCanvas.width, height: flagCanvas.height / 3}
+            ],
+            france: [
+                {color: '#0055A4', x: 0, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
+                {color: '#FFFFFF', x: flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
+                {color: '#EF4135', x: 2 * flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height}
+            ],
+            japan: [
+                {color: '#FFFFFF', x: 0, y: 0, width: flagCanvas.width, height: flagCanvas.height},
+                {color: '#BC002D', x: flagCanvas.width / 2 - flagCanvas.height * 0.3, y: flagCanvas.height / 2 - flagCanvas.height * 0.3, 
+                 radius: flagCanvas.height * 0.3, isCircle: true}
+            ],
+            italy: [
+                {color: '#009246', x: 0, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
+                {color: '#FFFFFF', x: flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height},
+                {color: '#CE2B37', x: 2 * flagCanvas.width / 3, y: 0, width: flagCanvas.width / 3, height: flagCanvas.height}
+            ]
+        };
+        
+        // Функция для рисования сетки
+        function drawGrid() {
+            ctx.beginPath();
+            for (let x = 0; x <= flagCanvas.width; x += cellSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, flagCanvas.height);
+            }
+            for (let y = 0; y <= flagCanvas.height; y += cellSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(flagCanvas.width, y);
+            }
+            ctx.strokeStyle = '#ddd';
+            ctx.stroke();
+        }
+        
+        // Инициализация - очистка и рисование сетки
+        function initCanvas() {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, flagCanvas.width, flagCanvas.height);
+            drawGrid();
+        }
+        
+        // Применяем шаблон флага
+        function applyFlagTemplate(template) {
+            ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+            
+            if (!template || !flagTemplates[template]) {
+                console.error('Template not found:', template);
+                initCanvas();
+                return;
+            }
+            
+            flagTemplates[template].forEach(part => {
+                ctx.fillStyle = part.color;
+                
+                if (part.isCircle && part.radius) {
+                    // Рисуем круг (для японского флага)
+                    ctx.beginPath();
+                    ctx.arc(part.x + part.radius, part.y + part.radius, part.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    // Рисуем прямоугольник
+                    ctx.fillRect(part.x, part.y, part.width, part.height);
+                }
+            });
+            
+            // Рисуем сетку поверх флага
+            drawGrid();
+        }
+        
+        // Создаем цветовую палитру кнопок
+        if (flagColorButtons) {
+            const colors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', 
+                           '#800000', '#008000', '#000080', '#808000', '#800080', '#008080', '#C0C0C0', '#808080'];
+            
+            colors.forEach(color => {
+                const btn = document.createElement('button');
+                btn.style.backgroundColor = color;
+                btn.setAttribute('data-color', color);
+                btn.style.width = '30px';
+                btn.style.height = '30px';
+                btn.style.margin = '2px';
+                btn.style.cursor = 'pointer';
+                btn.style.border = color === '#FFFFFF' ? '1px solid #ddd' : 'none';
+                
+                btn.addEventListener('click', function() {
+                    selectedColor = color;
+                    if (currentFlagColor) currentFlagColor.textContent = color;
+                });
+                
+                flagColorButtons.appendChild(btn);
+            });
+        }
+        
+        // Обработчики событий для рисования
+        if (flagCanvas) {
+            flagCanvas.addEventListener('mousedown', function(e) {
+                isDrawing = true;
+                drawPixel(e);
+            });
+            
+            flagCanvas.addEventListener('mousemove', function(e) {
+                if (isDrawing) drawPixel(e);
+            });
+            
+            flagCanvas.addEventListener('mouseup', function() {
+                isDrawing = false;
+            });
+            
+            flagCanvas.addEventListener('mouseleave', function() {
+                isDrawing = false;
+            });
+            
+            function drawPixel(e) {
+                const rect = flagCanvas.getBoundingClientRect();
+                const x = Math.floor((e.clientX - rect.left) / cellSize) * cellSize;
+                const y = Math.floor((e.clientY - rect.top) / cellSize) * cellSize;
+                
+                ctx.fillStyle = selectedColor;
+                ctx.fillRect(x, y, cellSize, cellSize);
+                
+                // Восстанавливаем границы ячейки
+                ctx.strokeStyle = '#ddd';
+                ctx.strokeRect(x, y, cellSize, cellSize);
+            }
+        }
+        
+        // Обработчик для кнопки очистки
+        if (clearFlagButton) {
+            clearFlagButton.addEventListener('click', function() {
+                initCanvas();
+            });
+        }
+        
+        // Обработчики для кнопок шаблонов флагов
+        if (flagTemplateButtons.length > 0) {
+            flagTemplateButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const flagType = this.getAttribute('data-flag');
+                    if (flagType) {
+                        applyFlagTemplate(flagType);
+                    }
+                });
+            });
+        }
+        
+        // Инициализируем холст при загрузке
+        initCanvas();
+    }
+
+    // ...existing code...
 });
