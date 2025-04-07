@@ -2161,6 +2161,120 @@ h3 label input[type="checkbox"] {
 
 .captcha-slider {
     width: 50px;
+    height: 150px;
+    transform: rotate(-90deg);
+    margin: 50px 0;
+}
+
+#captcha-number {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: rgba(66, 153, 225, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    letter-spacing: 5px;
+}
+
+#captcha-submit {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Стили для займов */
+.loan {
+    border: 1px dashed #4299E1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: rgba(66, 153, 225, 0.05);
+}
+
+.loan .form-group {
+    margin-bottom: 10px;
+}
+
+.loan .remove-loan {
+    margin-top: 15px;
+    background-color: #FC8181;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.loan .remove-loan:hover {
+    background-color: #E53E3E;
+}
+
+.add-loan {
+    width: 100%;
+    background-color: #4299E1;
+    color: white;
+    margin-top: 10px;
+}
+
+.add-loan:hover {
+    background-color: #3182CE;
+}
+
+/* Стили для теста на реакцию */
+#reaction-timer {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin: 25px 0;
+    font-family: monospace;
+    background-color: rgba(66, 153, 225, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+#reaction-start {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+}
+
+#reaction-result {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Улучшения для форматированных полей */
+#snils, #inn, #driver-license, #card-number, #card-expiry, #card-cvv {
+    font-family: monospace;
+    letter-spacing: 1px;
+    text-align: center;
+    background-color: rgba(66, 153, 225, 0.05);
+}
+
+#card-details-card {
+    background-color: rgba(90, 140, 230, 0.15) !important;
+}
+
+#loans-card {
+    background-color: rgba(230, 120, 120, 0.15) !important;
+}
+
+#reaction-test-card {
+    background-color: rgba(120, 230, 120, 0.15) !important;
+}
+
+/* Стили для CAPTCHA */
+.captcha-sliders {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.captcha-slider {
+    width: 50px;
     transform: rotate(-90deg);
 }
 
