@@ -23,330 +23,447 @@
         </nav>
     </header>
     
-    <main class="container">
+    <main class="container wide-container">
         <section class="section">
             <h1>Регистрация</h1>
-            <form class="registration-form">
-                <div class="form-group-grouped">
-                    <div class="form-group">
-                        <label for="reg-email">Email:</label>
-                        <input type="email" id="reg-email" required placeholder="Введите ваш email">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-name">Имя:</label>
-                        <input type="text" id="reg-name" required placeholder="Введите ваше имя">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-surname">Фамилия:</label>
-                        <input type="text" id="reg-surname" required placeholder="Введите вашу фамилию">
-                    </div>
-                </div>
-                <div class="form-group-grouped">
-                    <div class="form-group">
-                        <label for="reg-age">Возраст:</label>
-                        <input type="number" id="reg-age" required min="1" placeholder="Введите ваш возраст">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-birthday">Дата рождения:</label>
-                        <input type="date" id="reg-birthday" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="reg-age-range">Возраст:</label>
-                    <input type="range" id="reg-age-range" min="1" max="100" value="30">
-                </div>
-                
-                <div class="form-group">
-                    <label for="reg-gender-ratio">Гендерное соотношение:</label>
-                    <input type="range" id="reg-gender-ratio" min="0" max="100" value="50">
-                    <div class="ratio-display" id="gender-ratio-display">Мужчина 50%, женщина 50%</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="reg-product-category">Категория продукта:</label>
-                    <select id="reg-product-category" required>
-                        <option value="" disabled selected>Выберите категорию продукта</option>  <option value="office">Microsoft Office 365</option>
-                        <option value="word">Microsoft Word</option>
-                        <option value="excel">Microsoft Excel</option>
-                        <option value="powerpoint">Microsoft PowerPoint</option>
-                        <option value="outlook">Microsoft Outlook</option>
-                        <option value="access">Microsoft Access</option>
-                        <option value="onenote">Microsoft OneNote</option>
-                        <option value="publisher">Microsoft Publisher</option>
-                        <option value="win11">Windows 11</option>
-                        <option value="win10">Windows 10</option>
-                        <option value="winserver">Windows Server</option>
-                        <option value="vs">Visual Studio</option>
-                        <option value="vscode">Visual Studio Code</option>
-                        <option value="azure">Microsoft Azure</option>
-                        <option value="sqlserver">SQL Server</option>
-                        <option value="dynamics">Dynamics 365</option>
-                        <option value="teams">Microsoft Teams</option>
-                        <option value="sharepoint">SharePoint</option>
-                        <option value="edge">Microsoft Edge</option>
-                        <option value="bing">Bing</option>
-                        <option value="xbox">Xbox</option>
-                        <option value="minecraft">Minecraft</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="reg-password">Пароль:</label>
-                    <input type="password" id="reg-password" required placeholder="Введите пароль">
-                </div>
-                <div class="form-group">
-                    <label for="reg-password-confirm">Повторите пароль:</label>
-                    <input type="password" id="reg-password-confirm" required placeholder="Подтвердите пароль">
-                </div>
-                
-                <div class="form-group">
-                    <label>Семейная фотография:</label>
-                    <div class="file-upload">
-                        <input type="file" id="reg-photo" accept="image/*">
-                        <label for="reg-photo" class="file-upload-label">Выберите файл</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-avatar">Выберите аватар:</label>
-                    <div class="avatar-selection">
-                        <input type="radio" id="avatar1" name="avatar" value="astronaut" required>
-                        <label for="avatar1">
-                            <img src="https://4glaza.ru/upload/medialibrary/abb/sc3l8n9w4f3jl36bu86aq3i8e210o6wx/articles-astronavt-i-kosmonavt-v-chem-raznica.jpg" alt="Аватар астронавта">
-                        </label>
-                        <input type="radio" id="avatar2" name="avatar" value="rocket">
-                        <label for="avatar2">
-                            <img src="https://thumbs.dreamstime.com/z/%D1%80%D0%B0%D0%BA%D0%B5%D1%82%D0%B0-40502665.jpg" alt="Аватар ракеты">
-                        </label>
-                        <input type="radio" id="avatar3" name="avatar" value="planet">
-                        <label for="avatar3">
-                            <img src="https://universemagazine.com/wp-content/uploads/2024/02/rings-960-h-640.jpg" alt="Аватар планеты">
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-color">Выберите любимый цвет:</label>
-                    <input type="color" id="reg-color" value="#4299E1">
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-hobbies">Ваши хобби:</label>
-                    <textarea id="reg-hobbies" rows="3" placeholder="Например: чтение, программирование, путешествия"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="reg-mood">Ваше настроение:</label>
-                    <input type="range" id="reg-mood" min="0" max="100" value="50">
-                    <div class="ratio-display" id="mood-display">Настроение: 50%</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-planet">Любимая планета:</label>
-                    <select id="reg-favorite-planet" required>
-                        <option value="" disabled selected>Выберите планету</option>
-                        <option value="mercury">Меркурий</option>
-                        <option value="venus">Венера</option>
-                        <option value="earth">Земля</option>
-                        <option value="mars">Марс</option>
-                        <option value="jupiter">Юпитер</option>
-                        <option value="saturn">Сатурн</option>
-                        <option value="uranus">Уран</option>
-                        <option value="neptune">Нептун</option>
-                        <option value="pluto">Плутон</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-space-food">Любимая космическая еда:</label>
-                    <input type="text" id="reg-favorite-space-food" placeholder="Например: сублимированное мороженое">
-                </div>
-
-                <div class="form-group">
-                    <label>Выберите любимую звезду:</label>
-                    <div class="star-selection">
-                        <input type="radio" id="star1" name="star" value="sirius" required>
-                        <label for="star1">Сириус</label>
-                        <input type="radio" id="star2" name="star" value="vega">
-                        <label for="star2">Вега</label>
-                        <input type="radio" id="star3" name="star" value="polaris">
-                        <label for="star3">Полярная звезда</label>
-                        <input type="radio" id="star4" name="star" value="betelgeuse">
-                        <label for="star4">Бетельгейзе</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-space-skill">Ваши навыки для космоса:</label>
-                    <select id="reg-space-skill" multiple size="6">
-                        <option value="pilot">Пилотирование</option>
-                        <option value="engineering">Инженерия</option>
-                        <option value="science">Наука</option>
-                        <option value="cooking">Кулинария</option>
-                        <option value="communication">Коммуникация</option>
-                        <option value="fitness">Физическая подготовка</option>
-                        <option value="navigation">Навигация</option>
-                        <option value="robotics">Робототехника</option>
-                        <option value="first-aid">Первая помощь</option>
-                        <option value="gardening">Космическое садоводство</option>
-                    </select>
-                    <small class="hint">Удерживайте Ctrl (или Cmd на Mac), чтобы выбрать несколько навыков</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-constellation">Любимое созвездие:</label>
-                    <input type="text" id="reg-favorite-constellation" placeholder="Например: Орион">
-                </div>
-                
-                <div class="form-group">
-                    <label for="reg-favorite-movie">Ваш любимый фильм:</label>
-                    <input type="text" id="reg-favorite-movie" placeholder="Например: Властелин колец">
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-music">Ваш любимый музыкальный жанр:</label>
-                    <select id="reg-favorite-music" required>
-                        <option value="" disabled selected>Выберите жанр</option>
-                        <option value="rock">Рок</option>
-                        <option value="pop">Поп</option>
-                        <option value="jazz">Джаз</option>
-                        <option value="classical">Классическая музыка</option>
-                        <option value="hiphop">Хип-хоп</option>
-                        <option value="electronic">Электронная музыка</option>
-                        <option value="folk">Фолк</option>
-                        <option value="metal">Метал</option>
-                        <option value="blues">Блюз</option>
-                        <option value="reggae">Регги</option>
-                        <option value="country">Кантри</option>
-                        <option value="indie">Инди</option>
-                        <option value="punk">Панк</option>
-                        <option value="soul">Соул</option>
-                        <option value="disco">Диско</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-food">Ваше любимое блюдо:</label>
-                    <input type="text" id="reg-favorite-food" placeholder="Например: Пицца">
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-pet">У вас есть домашние животные?</label>
-                    <div class="radio-group">
-                        <input type="radio" id="pet-yes" name="pet" value="yes" required>
-                        <label for="pet-yes">Да</label>
-                        <input type="radio" id="pet-no" name="pet" value="no">
-                        <label for="pet-no">Нет</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-season">Ваше любимое время года:</label>
-                    <select id="reg-favorite-season" required>
-                        <option value="" disabled selected>Выберите время года</option>
-                        <option value="spring">Весна</option>
-                        <option value="summer">Лето</option>
-                        <option value="autumn">Осень</option>
-                        <option value="winter">Зима</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-hobby">Ваше любимое хобби:</label>
-                    <textarea id="reg-favorite-hobby" rows="3" placeholder="Например: рисование, чтение, спорт"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-favorite-color">Ваш любимый цвет (нет, другой любимый цвет):</label>
-                    <input type="color" id="reg-favorite-color" value="#FF5733">
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-travel">Вы любите путешествовать?</label>
-                    <div class="radio-group">
-                        <input type="radio" id="travel-yes" name="travel" value="yes" required>
-                        <label for="travel-yes">Да</label>
-                        <input type="radio" id="travel-no" name="travel" value="no">
-                        <label for="travel-no">Нет</label>
-                    </div>
-                </div>
-                
-                <h3>Члены семьи</h3>
-                <div id="family-members-container">
-                    <div class="family-member">
-                        <div class="form-row">
+            <form class="registration-form wide-form">
+                <div class="form-cards-container">
+                    <!-- Основная информация -->
+                    <div class="form-card" style="background-color: rgba(173, 216, 230, 0.2);">
+                        <h3>Основная информация</h3>
+                        <div class="form-group-grouped">
                             <div class="form-group">
-                                <label>Фамилия:</label>
-                                <input type="text" placeholder="Введите фамилию">
+                                <label for="reg-email">Email:</label>
+                                <input type="email" id="reg-email" required placeholder="Введите ваш email">
                             </div>
                             <div class="form-group">
-                                <label>Имя:</label>
-                                <input type="text" placeholder="Введите имя">
+                                <label for="reg-name">Имя:</label>
+                                <input type="text" id="reg-name" required placeholder="Введите ваше имя">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-surname">Фамилия:</label>
+                                <input type="text" id="reg-surname" required placeholder="Введите вашу фамилию">
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-phone">Телефон:</label>
+                            <input type="tel" id="reg-phone" placeholder="+7 (___) ___-__-__" pattern="\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}">
+                        </div>
+                        <div class="form-group-grouped">
                             <div class="form-group">
-                                <label>Возраст:</label>
-                                <input type="number" min="1" placeholder="Введите возраст">
+                                <label for="reg-password">Пароль:</label>
+                                <input type="password" id="reg-password" required placeholder="Введите пароль">
                             </div>
                             <div class="form-group">
-                                <label>Роль в команде:</label>
-                                <select required>
-                                    <option value="" disabled selected>Выберите роль</option>
-                                    <option value="pilot">Пилот</option>
-                                    <option value="engineer">Инженер</option>
-                                    <option value="scientist">Ученый</option>
-                                    <option value="medic">Медик</option>
-                                    <option value="chef">Шеф-повар</option>
-                                    <option value="navigator">Навигатор</option>
-                                </select>
+                                <label for="reg-password-confirm">Повторите пароль:</label>
+                                <input type="password" id="reg-password-confirm" required placeholder="Подтвердите пароль">
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-group-grouped">
                             <div class="form-group">
-                                <label>Любимый космический фильм:</label>
-                                <input type="text" placeholder="Например: Интерстеллар">
+                                <label for="reg-age">Возраст:</label>
+                                <input type="number" id="reg-age" required min="1" placeholder="Введите ваш возраст">
                             </div>
                             <div class="form-group">
-                                <label>Любимый космический напиток:</label>
-                                <input type="text" placeholder="Например: Космический кофе">
+                                <label for="reg-birthday">Дата рождения:</label>
+                                <input type="date" id="reg-birthday" required>
                             </div>
                         </div>
-                        <button type="button" class="remove-member">Удалить</button>
+                        <div class="form-group">
+                            <label for="reg-age-range">Возраст:</label>
+                            <input type="range" id="reg-age-range" min="1" max="100" value="30">
+                        </div>
                     </div>
-                </div>
-                
-                <button type="button" class="add-member">Добавить члена семьи</button>
-                
-                <h3>Случайные вопросы</h3>
-                <div class="form-group">
-                    <label>Какой ваш любимый космический объект?</label>
-                    <div class="radio-group">
-                        <input type="radio" id="object1" name="favorite-object" value="blackhole" required>
-                        <label for="object1">Черная дыра</label>
-                        <input type="radio" id="object2" name="favorite-object" value="nebula">
-                        <label for="object2">Туманность</label>
-                        <input type="radio" id="object3" name="favorite-object" value="galaxy">
-                        <label for="object3">Галактика</label>
-                        <input type="radio" id="object4" name="favorite-object" value="star">
-                        <label for="object4">Звезда</label>
+                    
+                    <!-- Место жительства -->
+                    <div class="form-card" style="background-color: rgba(230, 190, 173, 0.2);">
+                        <h3>Место жительства</h3>
+                        <div class="form-group">
+                            <label for="reg-country">Страна:</label>
+                            <input type="text" id="reg-country" placeholder="Введите вашу страну">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-city">Город:</label>
+                            <input type="text" id="reg-city" placeholder="Введите ваш город">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-street">Улица:</label>
+                            <input type="text" id="reg-street" placeholder="Введите улицу">
+                        </div>
+                        <div class="form-group-grouped">
+                            <div class="form-group">
+                                <label for="reg-house">Дом:</label>
+                                <input type="text" id="reg-house" placeholder="Номер дома">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-apartment">Квартира:</label>
+                                <input type="text" id="reg-apartment" placeholder="Номер квартиры">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-postal">Почтовый индекс:</label>
+                                <input type="text" id="reg-postal" placeholder="Индекс">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Какой ваш любимый космический фильм?</label>
-                    <select id="favorite-space-movie" required>
-                        <option value="" disabled selected>Выберите фильм</option>
-                        <option value="interstellar">Интерстеллар</option>
-                        <option value="gravity">Гравитация</option>
-                        <option value="martian">Марсианин</option>
-                        <option value="starwars">Звездные войны</option>
-                        <option value="startrek">Звездный путь</option>
-                        <option value="apollo13">Аполлон 13</option>
-                    </select>
-                </div>
-                
-                <div class="checkbox-container">
-                    <input type="checkbox" id="reg-agreement" required>
-                    <label for="reg-agreement">Я согласен на обработку персональных данных</label>
+                    
+                    <!-- Игровая информация -->
+                    <div class="form-card" style="background-color: rgba(173, 230, 190, 0.2);">
+                        <h3>Игровая информация</h3>
+                        <div class="form-group">
+                            <label for="reg-genshin-rank">Ранг приключений в Genshin Impact:</label>
+                            <select id="reg-genshin-rank">
+                                <option value="" disabled selected>Выберите ранг</option>
+                                <option value="1-10">1-10</option>
+                                <option value="11-20">11-20</option>
+                                <option value="21-30">21-30</option>
+                                <option value="31-40">31-40</option>
+                                <option value="41-50">41-50</option>
+                                <option value="51-60">51-60</option>
+                                <option value="60+">60+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-character">Любимый персонаж Genshin Impact:</label>
+                            <input type="text" id="reg-favorite-character" placeholder="Например: Дилюк">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-product-category">Категория продукта:</label>
+                            <select id="reg-product-category" required>
+                                <option value="" disabled selected>Выберите категорию продукта</option>  
+                                <option value="office">Microsoft Office 365</option>
+                                <option value="word">Microsoft Word</option>
+                                <option value="excel">Microsoft Excel</option>
+                                <option value="powerpoint">Microsoft PowerPoint</option>
+                                <option value="outlook">Microsoft Outlook</option>
+                                <option value="access">Microsoft Access</option>
+                                <option value="onenote">Microsoft OneNote</option>
+                                <option value="publisher">Microsoft Publisher</option>
+                                <option value="win11">Windows 11</option>
+                                <option value="win10">Windows 10</option>
+                                <option value="winserver">Windows Server</option>
+                                <option value="vs">Visual Studio</option>
+                                <option value="vscode">Visual Studio Code</option>
+                                <option value="azure">Microsoft Azure</option>
+                                <option value="sqlserver">SQL Server</option>
+                                <option value="dynamics">Dynamics 365</option>
+                                <option value="teams">Microsoft Teams</option>
+                                <option value="sharepoint">SharePoint</option>
+                                <option value="edge">Microsoft Edge</option>
+                                <option value="bing">Bing</option>
+                                <option value="xbox">Xbox</option>
+                                <option value="minecraft">Minecraft</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Любимые песни Lady Gaga -->
+                    <div class="form-card" style="background-color: rgba(230, 173, 219, 0.2);">
+                        <h3>Любимые песни Lady Gaga</h3>
+                        <div class="form-group">
+                            <label for="lady-gaga-songs">Выберите любимые песни Lady Gaga:</label>
+                            <select id="lady-gaga-songs" multiple size="10" class="fixed-height-select">
+                                <option value="poker-face">Poker Face</option>
+                                <option value="bad-romance">Bad Romance</option>
+                                <option value="born-this-way">Born This Way</option>
+                                <option value="just-dance">Just Dance</option>
+                                <option value="shallow">Shallow</option>
+                                <option value="telephone">Telephone</option>
+                                <option value="paparazzi">Paparazzi</option>
+                                <option value="alejandro">Alejandro</option>
+                                <option value="applause">Applause</option>
+                                <option value="million-reasons">Million Reasons</option>
+                                <option value="edge-of-glory">The Edge of Glory</option>
+                                <option value="judas">Judas</option>
+                                <option value="perfect-illusion">Perfect Illusion</option>
+                                <option value="you-and-i">You and I</option>
+                                <option value="rain-on-me">Rain On Me</option>
+                                <option value="stupid-love">Stupid Love</option>
+                            </select>
+                            <small class="hint">Удерживайте Ctrl (или Cmd на Mac), чтобы выбрать несколько песен</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Временные предпочтения -->
+                    <div class="form-card" style="background-color: rgba(190, 173, 230, 0.2);">
+                        <h3>Временные предпочтения</h3>
+                        <div class="form-group">
+                            <label for="reg-favorite-date">Любимая дата:</label>
+                            <input type="date" id="reg-favorite-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-time">Любимое время:</label>
+                            <input type="time" id="reg-favorite-time">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-weather">Любимая погода:</label>
+                            <select id="reg-favorite-weather">
+                                <option value="" disabled selected>Выберите погоду</option>
+                                <option value="sunny">Солнечно</option>
+                                <option value="rainy">Дождливо</option>
+                                <option value="cloudy">Облачно</option>
+                                <option value="snowy">Снежно</option>
+                                <option value="foggy">Туманно</option>
+                                <option value="windy">Ветрено</option>
+                                <option value="stormy">Штормовая</option>
+                                <option value="hot">Жаркая</option>
+                                <option value="cold">Холодная</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-season">Ваше любимое время года:</label>
+                            <select id="reg-favorite-season" required>
+                                <option value="" disabled selected>Выберите время года</option>
+                                <option value="spring">Весна</option>
+                                <option value="summer">Лето</option>
+                                <option value="autumn">Осень</option>
+                                <option value="winter">Зима</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Визуальные предпочтения -->
+                    <div class="form-card" style="background-color: rgba(230, 228, 173, 0.2);">
+                        <h3>Визуальные предпочтения</h3>
+                        <div class="form-group">
+                            <label for="reg-avatar">Выберите аватар:</label>
+                            <div class="avatar-selection">
+                                <input type="radio" id="avatar1" name="avatar" value="astronaut" required>
+                                <label for="avatar1">
+                                    <img src="https://4glaza.ru/upload/medialibrary/abb/sc3l8n9w4f3jl36bu86aq3i8e210o6wx/articles-astronavt-i-kosmonavt-v-chem-raznica.jpg" alt="Аватар астронавта">
+                                </label>
+                                <input type="radio" id="avatar2" name="avatar" value="rocket">
+                                <label for="avatar2">
+                                    <img src="https://thumbs.dreamstime.com/z/%D1%80%D0%B0%D0%BA%D0%B5%D1%82%D0%B0-40502665.jpg" alt="Аватар ракеты">
+                                </label>
+                                <input type="radio" id="avatar3" name="avatar" value="planet">
+                                <label for="avatar3">
+                                    <img src="https://universemagazine.com/wp-content/uploads/2024/02/rings-960-h-640.jpg" alt="Аватар планеты">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-color">Выберите любимый цвет:</label>
+                            <input type="color" id="reg-color" value="#4299E1">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-color">Ваш другой любимый цвет:</label>
+                            <input type="color" id="reg-favorite-color" value="#FF5733">
+                        </div>
+                        <div class="form-group">
+                            <label>Семейная фотография:</label>
+                            <div class="file-upload">
+                                <input type="file" id="reg-photo" accept="image/*">
+                                <label for="reg-photo" class="file-upload-label">Выберите файл</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Рандомные вопросы -->
+                    <div class="form-card" style="background-color: rgba(173, 216, 173, 0.2);">
+                        <h3>Рандомные вопросы</h3>
+                        <div class="form-group">
+                            <label>Какой ваш любимый космический объект?</label>
+                            <div class="radio-group">
+                                <input type="radio" id="object1" name="favorite-object" value="blackhole" required>
+                                <label for="object1">Черная дыра</label>
+                                <input type="radio" id="object2" name="favorite-object" value="nebula">
+                                <label for="object2">Туманность</label>
+                                <input type="radio" id="object3" name="favorite-object" value="galaxy">
+                                <label for="object3">Галактика</label>
+                                <input type="radio" id="object4" name="favorite-object" value="star">
+                                <label for="object4">Звезда</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Какой ваш любимый космический фильм?</label>
+                            <select id="favorite-space-movie" required>
+                                <option value="" disabled selected>Выберите фильм</option>
+                                <option value="interstellar">Интерстеллар</option>
+                                <option value="gravity">Гравитация</option>
+                                <option value="martian">Марсианин</option>
+                                <option value="starwars">Звездные войны</option>
+                                <option value="startrek">Звездный путь</option>
+                                <option value="apollo13">Аполлон 13</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Что бы вы взяли с собой на Марс?</label>
+                            <div class="radio-group">
+                                <input type="radio" id="mars-item1" name="mars-item" value="book">
+                                <label for="mars-item1">Книгу</label>
+                                <input type="radio" id="mars-item2" name="mars-item" value="music">
+                                <label for="mars-item2">Музыку</label>
+                                <input type="radio" id="mars-item3" name="mars-item" value="photo">
+                                <label for="mars-item3">Фотографию</label>
+                                <input type="radio" id="mars-item4" name="mars-item" value="plant">
+                                <label for="mars-item4">Растение</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Если бы вы были супергероем, какую силу вы бы выбрали?</label>
+                            <select id="superpower">
+                                <option value="" disabled selected>Выберите суперсилу</option>
+                                <option value="flight">Полет</option>
+                                <option value="invisibility">Невидимость</option>
+                                <option value="telekinesis">Телекинез</option>
+                                <option value="telepathy">Телепатия</option>
+                                <option value="time-control">Контроль времени</option>
+                                <option value="healing">Исцеление</option>
+                                <option value="super-strength">Суперсила</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Предпочтения -->
+                    <div class="form-card" style="background-color: rgba(216, 173, 230, 0.2);">
+                        <h3>Предпочтения</h3>
+                        <div class="form-group">
+                            <label for="reg-favorite-planet">Любимая планета:</label>
+                            <select id="reg-favorite-planet" required>
+                                <option value="" disabled selected>Выберите планету</option>
+                                <option value="mercury">Меркурий</option>
+                                <option value="venus">Венера</option>
+                                <option value="earth">Земля</option>
+                                <option value="mars">Марс</option>
+                                <option value="jupiter">Юпитер</option>
+                                <option value="saturn">Сатурн</option>
+                                <option value="uranus">Уран</option>
+                                <option value="neptune">Нептун</option>
+                                <option value="pluto">Плутон</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-space-food">Любимая космическая еда:</label>
+                            <input type="text" id="reg-favorite-space-food" placeholder="Например: сублимированное мороженое">
+                        </div>
+                        <div class="form-group">
+                            <label>Выберите любимую звезду:</label>
+                            <div class="star-selection">
+                                <input type="radio" id="star1" name="star" value="sirius" required>
+                                <label for="star1">Сириус</label>
+                                <input type="radio" id="star2" name="star" value="vega">
+                                <label for="star2">Вега</label>
+                                <input type="radio" id="star3" name="star" value="polaris">
+                                <label for="star3">Полярная звезда</label>
+                                <input type="radio" id="star4" name="star" value="betelgeuse">
+                                <label for="star4">Бетельгейзе</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-favorite-music">Ваш любимый музыкальный жанр:</label>
+                            <select id="reg-favorite-music" required>
+                                <option value="" disabled selected>Выберите жанр</option>
+                                <option value="rock">Рок</option>
+                                <option value="pop">Поп</option>
+                                <option value="jazz">Джаз</option>
+                                <option value="classical">Классическая музыка</option>
+                                <option value="hiphop">Хип-хоп</option>
+                                <option value="electronic">Электронная музыка</option>
+                                <option value="folk">Фолк</option>
+                                <option value="metal">Метал</option>
+                                <option value="blues">Блюз</option>
+                                <option value="reggae">Регги</option>
+                                <option value="country">Кантри</option>
+                                <option value="indie">Инди</option>
+                                <option value="punk">Панк</option>
+                                <option value="soul">Соул</option>
+                                <option value="disco">Диско</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Навыки -->
+                    <div class="form-card" style="background-color: rgba(173, 190, 230, 0.2);">
+                        <h3>Навыки</h3>
+                        <div class="form-group">
+                            <label for="reg-space-skill">Ваши навыки для космоса:</label>
+                            <select id="reg-space-skill" multiple size="10" class="fixed-height-select">
+                                <option value="pilot">Пилотирование</option>
+                                <option value="engineering">Инженерия</option>
+                                <option value="science">Наука</option>
+                                <option value="cooking">Кулинария</option>
+                                <option value="communication">Коммуникация</option>
+                                <option value="fitness">Физическая подготовка</option>
+                                <option value="navigation">Навигация</option>
+                                <option value="robotics">Робототехника</option>
+                                <option value="first-aid">Первая помощь</option>
+                                <option value="gardening">Космическое садоводство</option>
+                            </select>
+                            <small class="hint">Удерживайте Ctrl (или Cmd на Mac), чтобы выбрать несколько навыков</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-hobbies">Ваши хобби:</label>
+                            <textarea id="reg-hobbies" rows="3" placeholder="Например: чтение, программирование, путешествия"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Члены семьи -->
+                    <div class="form-card" style="background-color: rgba(230, 190, 190, 0.2);">
+                        <h3>Члены семьи</h3>
+                        <div id="family-members-container">
+                            <div class="family-member">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Фамилия:</label>
+                                        <input type="text" placeholder="Введите фамилию">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Имя:</label>
+                                        <input type="text" placeholder="Введите имя">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Возраст:</label>
+                                        <input type="number" min="1" placeholder="Введите возраст">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Роль в команде:</label>
+                                        <select required>
+                                            <option value="" disabled selected>Выберите роль</option>
+                                            <option value="pilot">Пилот</option>
+                                            <option value="engineer">Инженер</option>
+                                            <option value="scientist">Ученый</option>
+                                            <option value="medic">Медик</option>
+                                            <option value="chef">Шеф-повар</option>
+                                            <option value="navigator">Навигатор</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Любимый космический фильм:</label>
+                                        <input type="text" placeholder="Например: Интерстеллар">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Любимый космический напиток:</label>
+                                        <input type="text" placeholder="Например: Космический кофе">
+                                    </div>
+                                </div>
+                                <button type="button" class="remove-member">Удалить</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-member">Добавить члена семьи</button>
+                    </div>
+                    
+                    <!-- Дополнительно -->
+                    <div class="form-card" style="background-color: rgba(190, 230, 216, 0.2);">
+                        <h3>Дополнительно</h3>
+                        <div class="form-group">
+                            <label for="reg-gender-ratio">Гендерное соотношение:</label>
+                            <input type="range" id="reg-gender-ratio" min="0" max="100" value="50">
+                            <div class="ratio-display" id="gender-ratio-display">Мужчина 50%, женщина 50%</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-mood">Ваше настроение:</label>
+                            <input type="range" id="reg-mood" min="0" max="100" value="50">
+                            <div class="ratio-display" id="mood-display">Настроение: 50%</div>
+                        </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="reg-agreement" required>
+                            <label for="reg-agreement">Я согласен на обработку персональных данных</label>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="validation-message success">Регистрация успешна!</div>

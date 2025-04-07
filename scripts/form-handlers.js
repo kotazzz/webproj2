@@ -248,4 +248,100 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Выбран любимый космический фильм: ${this.value}`);
         });
     }
+
+    // Обработчик для номера телефона - форматирование
+    const phoneInput = document.getElementById('reg-phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('focus', function() {
+            if (!this.value) {
+                this.value = '+7 (';
+            }
+        });
+
+        phoneInput.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                value = value.substring(0, 11);
+                let formattedValue = '+7';
+                if (value.length > 1) {
+                    formattedValue += ' (' + value.substring(1, 4);
+                    if (value.length > 4) {
+                        formattedValue += ') ' + value.substring(4, 7);
+                        if (value.length > 7) {
+                            formattedValue += '-' + value.substring(7, 9);
+                            if (value.length > 9) {
+                                formattedValue += '-' + value.substring(9, 11);
+                            }
+                        }
+                    }
+                }
+                this.value = formattedValue;
+            }
+        });
+    }
+
+    // Обработчик для ранга в Genshin Impact
+    const genshinRankSelect = document.getElementById('reg-genshin-rank');
+    if (genshinRankSelect) {
+        genshinRankSelect.addEventListener('change', function() {
+            console.log(`Выбран ранг в Genshin Impact: ${this.value}`);
+        });
+    }
+
+    // Обработчик для любимого персонажа Genshin Impact
+    const favoriteCharacterInput = document.getElementById('reg-favorite-character');
+    if (favoriteCharacterInput) {
+        favoriteCharacterInput.addEventListener('input', function() {
+            console.log(`Любимый персонаж Genshin Impact: ${this.value}`);
+        });
+    }
+
+    // Обработчик для любимых песен Lady Gaga
+    const ladyGagaSongs = document.getElementById('lady-gaga-songs');
+    if (ladyGagaSongs) {
+        ladyGagaSongs.addEventListener('change', function() {
+            const selectedSongs = Array.from(this.selectedOptions).map(option => option.text);
+            console.log(`Выбранные песни Lady Gaga: ${selectedSongs.join(', ')}`);
+        });
+    }
+
+    // Обработчик для любимой даты
+    const favoriteDateInput = document.getElementById('reg-favorite-date');
+    if (favoriteDateInput) {
+        favoriteDateInput.addEventListener('change', function() {
+            console.log(`Любимая дата: ${this.value}`);
+        });
+    }
+
+    // Обработчик для любимого времени
+    const favoriteTimeInput = document.getElementById('reg-favorite-time');
+    if (favoriteTimeInput) {
+        favoriteTimeInput.addEventListener('change', function() {
+            console.log(`Любимое время: ${this.value}`);
+        });
+    }
+
+    // Обработчик для любимой погоды
+    const favoriteWeatherSelect = document.getElementById('reg-favorite-weather');
+    if (favoriteWeatherSelect) {
+        favoriteWeatherSelect.addEventListener('change', function() {
+            console.log(`Любимая погода: ${this.value}`);
+        });
+    }
+
+    // Обработчик для выбора предмета для Марса
+    const marsItemInputs = document.querySelectorAll('input[name="mars-item"]');
+    marsItemInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log(`Что бы взяли на Марс: ${this.value}`);
+        });
+    });
+
+    // Обработчик для выбора суперсилы
+    const superpowerSelect = document.getElementById('superpower');
+    if (superpowerSelect) {
+        superpowerSelect.addEventListener('change', function() {
+            console.log(`Выбранная суперсила: ${this.value}`);
+        });
+    }
 });
