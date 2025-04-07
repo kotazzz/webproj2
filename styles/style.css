@@ -187,7 +187,7 @@ form {
     padding: 30px;
     background-color: #2D3748;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.815);
 }
 
 body.light-theme form {
@@ -1049,14 +1049,15 @@ textarea:focus {
     column-count: 3;
     column-gap: 20px;
     margin-bottom: 30px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Обновляем стили для карточек */
 .form-card {
-    display: inline-block;
-    width: 100%;
+    display: block;
+    width: auto;
     margin: 0 0 20px;
-    vertical-align: top;
     break-inside: avoid;
     padding: 20px;
     border-radius: 12px;
@@ -1278,15 +1279,25 @@ button:disabled:hover {
     column-count: 3;
     column-gap: 20px;
     margin-bottom: 30px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Обновляем стили для карточек */
 .form-card {
-    display: inline-block;
-    width: 100%;
+    display: block;
+    width: auto;
     margin: 0 0 20px;
-    vertical-align: top;
     break-inside: avoid;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Адаптивные настройки */
