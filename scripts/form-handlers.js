@@ -344,4 +344,106 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Выбранная суперсила: ${this.value}`);
         });
     }
+
+    // Проверка обязательных галочек
+    const requiredAgreements = document.querySelectorAll('.required-agreement');
+    const registerButton = document.getElementById('register-button');
+    const checkTranslationButton = document.getElementById('check-translation');
+    const chineseOptions = document.getElementById('chinese-options');
+    const translationResult = document.getElementById('translation-result');
+    
+    // Функция для перемешивания вариантов перевода
+    function shuffleTranslations() {
+        const options = Array.from(document.querySelectorAll('input[name="chinese-translation"]'));
+        const labels = Array.from(document.querySelectorAll('label[for^="chinese"]'));
+        const parent = options[0].parentNode;
+        
+        // Создаем пары радиокнопка-метка для сохранения связи
+        let pairs = options.map((option, index) => {
+            return { 
+                option: option, 
+                label: labels[index],
+                value: option.value
+            };
+        });
+        
+        // Перемешиваем пары
+        for (let i = pairs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+        }
+        
+        // Очищаем контейнер
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        
+        // Добавляем перемешанные элементы обратно
+        pairs.forEach(pair => {
+            parent.appendChild(pair.option);
+            parent.appendChild(pair.label);
+        });
+    }
+
+    // Функция для проверки всех соглашений
+    function checkAllAgreements() {
+        let allChecked = true;
+        requiredAgreements.forEach(checkbox => {
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
+        });
+        return allChecked;
+    }
+
+    // Слушатели событий для всех галочек
+    requiredAgreements.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (checkAllAgreements()) {
+                checkTranslationButton.removeAttribute('disabled');
+            } else {
+                checkTranslationButton.setAttribute('disabled', 'disabled');
+                registerButton.setAttribute('disabled', 'disabled');
+            }
+        });
+    });
+
+    // Обработчик кнопки проверки перевода
+    if (checkTranslationButton) {
+        // Первоначально кнопка должна быть отключена
+        if (!checkAllAgreements()) {
+            checkTranslationButton.setAttribute('disabled', 'disabled');
+        }
+        
+        checkTranslationButton.addEventListener('click', function() {
+            const selectedTranslation = document.querySelector('input[name="chinese-translation"]:checked');
+            
+            if (!selectedTranslation) {
+                translationResult.textContent = 'Пожалуйста, выберите вариант перевода';
+                translationResult.className = 'validation-message incorrect';
+                translationResult.style.display = 'block';
+                return;
+            }
+            
+            if (selectedTranslation.value === 'correct') {
+                translationResult.textContent = 'Правильно! Вы можете продолжить регистрацию.';
+                translationResult.className = 'validation-message correct';
+                registerButton.removeAttribute('disabled');
+            } else {
+                translationResult.textContent = 'Неправильно. Попробуйте еще раз.';
+                translationResult.className = 'validation-message incorrect';
+                registerButton.setAttribute('disabled', 'disabled');
+                
+                // Перемешиваем варианты ответа
+                setTimeout(shuffleTranslations, 500);
+            }
+            
+            translationResult.style.display = 'block';
+        });
+    }
+
+    // Отключаем кнопку регистрации по умолчанию
+    if (registerButton) {
+        registerButton.setAttribute('disabled', 'disabled');
+    }
 });

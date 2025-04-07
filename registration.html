@@ -459,9 +459,82 @@
                             <input type="range" id="reg-mood" min="0" max="100" value="50">
                             <div class="ratio-display" id="mood-display">Настроение: 50%</div>
                         </div>
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="reg-agreement" required>
-                            <label for="reg-agreement">Я согласен на обработку персональных данных</label>
+                    </div>
+
+                    <!-- Обязательные соглашения -->
+                    <div class="form-card" style="background-color: rgba(230, 200, 160, 0.2);">
+                        <h3>Обязательные соглашения</h3>
+                        <div class="agreements-container">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-1" class="required-agreement" required>
+                                <label for="reg-agreement-1">Я согласен на обработку персональных данных</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-2" class="required-agreement" required>
+                                <label for="reg-agreement-2">Я согласен с политикой конфиденциальности</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-3" class="required-agreement" required>
+                                <label for="reg-agreement-3">Я согласен с условиями использования</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-4" class="required-agreement" required>
+                                <label for="reg-agreement-4">Я подтверждаю, что мне больше 18 лет</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-5" class="required-agreement" required>
+                                <label for="reg-agreement-5">Я согласен получать рекламные материалы</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-6" class="required-agreement" required>
+                                <label for="reg-agreement-6">Я согласен с правилами участия в конкурсах</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-7" class="required-agreement" required>
+                                <label for="reg-agreement-7">Я разрешаю использовать мои фотографии</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-8" class="required-agreement" required>
+                                <label for="reg-agreement-8">Я подтверждаю правдивость предоставленных данных</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-9" class="required-agreement" required>
+                                <label for="reg-agreement-9">Я согласен с правилами публикации контента</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-10" class="required-agreement" required>
+                                <label for="reg-agreement-10">Я прочитал и принял правила сообщества</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-11" class="required-agreement" required>
+                                <label for="reg-agreement-11">Я согласен с политикой использования файлов cookie</label>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="reg-agreement-12" class="required-agreement" required>
+                                <label for="reg-agreement-12">Я согласен получать уведомления по электронной почте</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Финальная проверка -->
+                    <div class="form-card" style="background-color: rgba(255, 200, 200, 0.2);">
+                        <h3>Финальная проверка</h3>
+                        <div class="form-group">
+                            <label for="chinese-translation">Как по-китайски "Моя семья - мой космос"?</label>
+                            <div class="chinese-options" id="chinese-options">
+                                <div class="radio-group">
+                                    <input type="radio" id="chinese1" name="chinese-translation" value="wrong1">
+                                    <label for="chinese1">我的宇宙是冰淇淋</label>
+                                    <input type="radio" id="chinese2" name="chinese-translation" value="wrong2">
+                                    <label for="chinese2">太空是非常大的</label>
+                                    <input type="radio" id="chinese3" name="chinese-translation" value="correct">
+                                    <label for="chinese3">我的家庭 - 我的宇宙</label>
+                                    <input type="radio" id="chinese4" name="chinese-translation" value="wrong3">
+                                    <label for="chinese4">月亮是美丽的</label>
+                                </div>
+                            </div>
+                            <button type="button" id="check-translation" class="check-button">Проверить перевод</button>
+                            <div class="validation-message" id="translation-result"></div>
                         </div>
                     </div>
                 </div>
@@ -469,7 +542,7 @@
                 <div class="validation-message success">Регистрация успешна!</div>
                 <div class="validation-message error">Заполните все обязательные поля</div>
                 
-                <button type="submit" class="primary">Зарегистрироваться</button>
+                <button type="submit" class="primary" id="register-button" disabled>Зарегистрироваться</button>
             </form>
         </section>
     </main>
