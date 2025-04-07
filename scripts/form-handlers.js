@@ -355,47 +355,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция для перемешивания вариантов перевода
     function shuffleTranslations() {
-        const radioGroup = document.querySelector('.horizontal-radio');
+        const radioGroup = document.querySelector('.chinese-options .horizontal-radio');
         if (!radioGroup) return;
         
-        const container = radioGroup.parentNode;
-        
-        // Собираем все пары инпут+метка
+        // Собираем все пары (радиокнопка + метка)
         const pairs = [];
         const inputs = radioGroup.querySelectorAll('input[type="radio"]');
         
         inputs.forEach(input => {
-            const label = radioGroup.querySelector(`label[for="${input.id}"]`);
+            // Найдем соответствующую метку
+            const label = document.querySelector(`label[for="${input.id}"]`);
             if (label) {
                 pairs.push({
-                    input: input,
-                    label: label
+                    input: input.cloneNode(true),
+                    label: label.cloneNode(true),
+                    value: input.value
                 });
             }
         });
         
-        // Клонируем и перемешиваем пары
-        const shuffledPairs = [...pairs];
-        for (let i = shuffledPairs.length - 1; i > 0; i--) {
+        // Перемешиваем пары
+        for (let i = pairs.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [shuffledPairs[i], shuffledPairs[j]] = [shuffledPairs[j], shuffledPairs[i]];
+            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
         }
         
-        // Создаем новую группу радиокнопок
-        const newRadioGroup = document.createElement('div');
-        newRadioGroup.className = 'radio-group horizontal-radio';
+        // Очищаем контейнер
+        while (radioGroup.firstChild) {
+            radioGroup.removeChild(radioGroup.firstChild);
+        }
         
-        // Добавляем элементы в перемешанном порядке
-        shuffledPairs.forEach(pair => {
-            newRadioGroup.appendChild(pair.input);
-            newRadioGroup.appendChild(pair.label);
+        // Добавляем перемешанные элементы обратно
+        pairs.forEach(pair => {
+            radioGroup.appendChild(pair.input);
+            radioGroup.appendChild(pair.label);
         });
         
-        // Заменяем старую группу радиокнопок на новую
-        radioGroup.replaceWith(newRadioGroup);
-        
-        // Повторное добавление обработчиков
-        document.querySelectorAll('input[name="chinese-translation"]').forEach(input => {
+        // Заново добавляем обработчики событий
+        radioGroup.querySelectorAll('input[type="radio"]').forEach(input => {
             input.addEventListener('change', function() {
                 console.log(`Выбран вариант перевода: ${this.value}`);
             });
@@ -474,5 +471,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Отключаем кнопку регистрации по умолчанию
     if (registerButton) {
         registerButton.setAttribute('disabled', 'disabled');
+    }
+
+    // Добавляем обработчики для новых рандомных вопросов
+    const starTrekSeasonInputs = document.querySelectorAll('input[name="favorite-season-trek"]');
+    if (starTrekSeasonInputs.length > 0) {
+        starTrekSeasonInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                console.log(`Выбран любимый сезон Звездного пути: ${this.value}`);
+            });
+        });
+    }
+
+    const spaceFoodInputs = document.querySelectorAll('input[name="space-food"]');
+    if (spaceFoodInputs.length > 0) {
+        spaceFoodInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                console.log(`Выбрана космическая еда: ${this.value}`);
+            });
+        });
+    }
+
+    const shipColorInputs = document.querySelectorAll('input[name="ship-color"]');
+    if (shipColorInputs.length > 0) {
+        shipColorInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                console.log(`Выбран цвет корабля: ${this.value}`);
+            });
+        });
+    }
+
+    const crewSizeInputs = document.querySelectorAll('input[name="crew-size"]');
+    if (crewSizeInputs.length > 0) {
+        crewSizeInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                console.log(`Выбран размер экипажа: ${this.value}`);
+            });
+        });
+    }
+
+    const spaceMusicInputs = document.querySelectorAll('input[name="space-music"]');
+    if (spaceMusicInputs.length > 0) {
+        spaceMusicInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                console.log(`Выбрана музыка для полета: ${this.value}`);
+            });
+        });
     }
 });

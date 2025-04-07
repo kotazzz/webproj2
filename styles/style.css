@@ -1046,7 +1046,7 @@ textarea:focus {
 .form-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 20px;
+    gap: 20px;  /* Одинаковые отступы */
     margin-bottom: 30px;
 }
 
@@ -1055,17 +1055,26 @@ textarea:focus {
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.form-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+/* Модификаторы для разной высоты карточек */
+.form-card:empty,
+.form-card:not(:has(div)) {
+    max-height: 100px;  /* Низкие пустые карточки */
 }
 
-.form-card h3 {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+.form-card:has(.fixed-height-select),
+.form-card:has(textarea),
+.form-card:has(.family-member) {
+    min-height: 400px;  /* Высокие карточки с определенным контентом */
+}
+
+.form-card:has(.avatar-selection) {
+    min-height: 300px;  /* Средние карточки */
 }
 
 /* Фиксированная высота для мультивыборов */
@@ -1239,10 +1248,9 @@ button:disabled:hover {
 
 /* Горизонтальные радио-кнопки китайского перевода */
 .horizontal-radio {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: block;  /* Изменено с flex на block */
     margin: 20px 0;
+    line-height: 2;  /* Добавлен line-height для вертикальных отступов */
 }
 
 .horizontal-radio input[type="radio"] {
@@ -1251,23 +1259,16 @@ button:disabled:hover {
 
 .horizontal-radio label {
     cursor: pointer;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: 2px solid transparent;
     border-radius: 6px;
     background-color: rgba(66, 153, 225, 0.1);
     font-size: 16px;
-    display: inline-block;
+    display: inline-block;  /* Изменено для inline отображения */
     transition: all 0.3s ease;
-}
-
-.horizontal-radio label:hover {
-    background-color: rgba(66, 153, 225, 0.2);
-}
-
-.horizontal-radio input[type="radio"]:checked + label {
-    border-color: #4299E1;
-    background-color: rgba(66, 153, 225, 0.3);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 8px 8px 0;  /* Отступы между метками */
+    min-width: auto;  /* Убрана фиксированная ширина */
+    width: auto;  /* Автоматическая ширина */
 }
 
 .check-button {
@@ -1279,4 +1280,33 @@ button:disabled:hover {
 
 .check-button:hover:not(:disabled) {
     background-color: #3182CE;
+}
+
+/* Стили для подсказок и оповещений */
+.hint-message {
+    margin: 20px 0 30px;  /* Увеличенный отступ снизу */
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: rgba(97, 174, 238, 0.2);
+    color: #61aeee;
+    border: 1px dashed #61aeee;
+    display: flex;
+    align-items: center;
+}
+
+.hint-message:before {
+    content: "💡";
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.hint-message.warning {
+    background-color: rgba(255, 188, 87, 0.15);
+    color: #FFA000;  /* Более контрастный желтый */
+    border-color: #FFA000;
+}
+
+.hint-message.warning:before {
+    content: "⚠️";
 }

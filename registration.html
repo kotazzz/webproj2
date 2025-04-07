@@ -460,11 +460,107 @@
                             <div class="ratio-display" id="mood-display">Настроение: 50%</div>
                         </div>
                     </div>
+                    
+                <!-- Дополнительные рандомные вопросы -->
+                <div class="form-card" style="background-color: rgba(180, 210, 180, 0.1);">
+                    <h3>Еще больше рандомных вопросов</h3>
+                    
+                    <div class="form-group">
+                        <label>Ваш любимый сезон в сериале "Звездный путь"?</label>
+                        <div class="radio-group horizontal-radio">
+                            <input type="radio" id="season1" name="favorite-season-trek" value="tos">
+                            <label for="season1">Оригинальный сериал</label>
+                            <input type="radio" id="season2" name="favorite-season-trek" value="tng">
+                            <label for="season2">Новое поколение</label>
+                            <input type="radio" id="season3" name="favorite-season-trek" value="ds9">
+                            <label for="season3">Глубокий космос 9</label>
+                            <input type="radio" id="season4" name="favorite-season-trek" value="voyager">
+                            <label for="season4">Вояджер</label>
+                            <input type="radio" id="season5" name="favorite-season-trek" value="enterprise">
+                            <label for="season5">Энтерпрайз</label>
+                            <input type="radio" id="season6" name="favorite-season-trek" value="discovery">
+                            <label for="season6">Дискавери</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Какое блюдо вы бы взяли в космос?</label>
+                        <div class="radio-group horizontal-radio">
+                            <input type="radio" id="food1" name="space-food" value="pizza">
+                            <label for="food1">Пицца</label>
+                            <input type="radio" id="food2" name="space-food" value="soup">
+                            <label for="food2">Суп</label>
+                            <input type="radio" id="food3" name="space-food" value="salad">
+                            <label for="food3">Салат</label>
+                            <input type="radio" id="food4" name="space-food" value="burger">
+                            <label for="food4">Бургер</label>
+                            <input type="radio" id="food5" name="space-food" value="sushi">
+                            <label for="food5">Суши</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Какой цвет должен быть у вашего космического корабля?</label>
+                        <div class="radio-group horizontal-radio">
+                            <input type="radio" id="ship-color1" name="ship-color" value="white">
+                            <label for="ship-color1">Белый</label>
+                            <input type="radio" id="ship-color2" name="ship-color" value="black">
+                            <label for="ship-color2">Чёрный</label>
+                            <input type="radio" id="ship-color3" name="ship-color" value="silver">
+                            <label for="ship-color3">Серебряный</label>
+                            <input type="radio" id="ship-color4" name="ship-color" value="red">
+                            <label for="ship-color4">Красный</label>
+                            <input type="radio" id="ship-color5" name="ship-color" value="gold">
+                            <label for="ship-color5">Золотой</label>
+                            <input type="radio" id="ship-color6" name="ship-color" value="green">
+                            <label for="ship-color6">Зелёный</label>
+                            <input type="radio" id="ship-color7" name="ship-color" value="blue">
+                            <label for="ship-color7">Синий</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Какое количество экипажа должно быть на вашем космическом корабле?</label>
+                        <div class="radio-group horizontal-radio">
+                            <input type="radio" id="crew1" name="crew-size" value="solo">
+                            <label for="crew1">Только я (1 человек)</label>
+                            <input type="radio" id="crew2" name="crew-size" value="small">
+                            <label for="crew2">Небольшой (2-5 человек)</label>
+                            <input type="radio" id="crew3" name="crew-size" value="medium">
+                            <label for="crew3">Средний (6-20 человек)</label>
+                            <input type="radio" id="crew4" name="crew-size" value="large">
+                            <label for="crew4">Большой (21-100 человек)</label>
+                            <input type="radio" id="crew5" name="crew-size" value="huge">
+                            <label for="crew5">Огромный (более 100 человек)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Какую музыку вы бы слушали во время полета?</label>
+                        <div class="radio-group horizontal-radio">
+                            <input type="radio" id="space-music1" name="space-music" value="classical">
+                            <label for="space-music1">Классическую</label>
+                            <input type="radio" id="space-music2" name="space-music" value="electronic">
+                            <label for="space-music2">Электронную</label>
+                            <input type="radio" id="space-music3" name="space-music" value="rock">
+                            <label for="space-music3">Рок</label>
+                            <input type="radio" id="space-music4" name="space-music" value="ambient">
+                            <label for="space-music4">Эмбиент</label>
+                            <input type="radio" id="space-music5" name="space-music" value="jazz">
+                            <label for="space-music5">Джаз</label>
+                            <input type="radio" id="space-music6" name="space-music" value="silence">
+                            <label for="space-music6">Тишину космоса</label>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 
                 <!-- Обязательные соглашения - вне системы блоков -->
                 <div class="agreements-section">
                     <h3>Обязательные соглашения</h3>
+                    <div class="hint-message warning">
+                        Для продолжения регистрации необходимо отметить все галочки! Кнопки будут неактивны, пока вы не согласитесь со всеми условиями.
+                    </div>
                     <div class="agreements-container">
                         <div class="checkbox-container">
                             <input type="checkbox" id="reg-agreement-1" class="required-agreement" required>
@@ -520,6 +616,9 @@
                 <!-- Финальная проверка - вне системы блоков -->
                 <div class="final-check-section">
                     <h3>Финальная проверка</h3>
+                    <div class="hint-message">
+                        Кнопка регистрации станет активной только после правильного ответа на вопрос. После неверного ответа варианты будут перемешаны.
+                    </div>
                     <p>Как по-китайски "Моя семья - мой космос"?</p>
                     <div class="chinese-options" id="chinese-options">
                         <div class="radio-group horizontal-radio">
@@ -543,11 +642,18 @@
                             
                             <input type="radio" id="chinese7" name="chinese-translation" value="wrong6">
                             <label for="chinese7">宇宙中有很多星星</label>
+                            
+                            <input type="radio" id="chinese8" name="chinese-translation" value="wrong7">
+                            <label for="chinese8">星球大战很有趣</label>
+                            
+                            <input type="radio" id="chinese9" name="chinese-translation" value="wrong8">
+                            <label for="chinese9">地球是蓝色的</label>
                         </div>
                     </div>
                     <button type="button" id="check-translation" class="check-button">Проверить перевод</button>
                     <div class="validation-message" id="translation-result"></div>
                 </div>
+                
                 
                 <div class="validation-message success">Регистрация успешна!</div>
                 <div class="validation-message error">Заполните все обязательные поля</div>
