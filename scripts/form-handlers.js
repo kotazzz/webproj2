@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const cellSize = 20;
     const registrationForm = document.querySelector('.registration-form');
     const container = document.querySelector('.chinese-options');
-    const selectedTranslation = document.querySelector('input[name="chinese-translation"]:checked');
     const mbtiType = document.querySelector('.mbti-type');
     const mbtiToggleDescription = document.querySelector('.mbti-description');
     const mbtiDescription = document.querySelector('.mbti-description');
@@ -57,6 +56,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const cardCvvInput = document.getElementById('card-cvv');
     const captchaInputDisplay = document.getElementById('captcha-input-display');
 
+    // Add these lines to define errorMessage and successMessage
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+    const exportButton = document.getElementById('export-button');
+    const importButton = document.getElementById('import-button');
+    const importButtonLabel = document.getElementById('import-button-label');
+    const formDataContent = document.getElementById('formDataContent');
+    const copyButton = document.getElementById('copy-button');
+    const importText = document.getElementById('import-text');
+    const importTextButton = document.getElementById('import-text-button');
+
     if (ageInput && ageRange) {
         ageRange.addEventListener('input', function () {
             ageInput.value = ageRange.value;
@@ -106,17 +116,118 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         errorMessage.style.display = 'none';
         successMessage.style.display = 'none';
-        if (!email || !password || !confirmPassword || !agreement) {
-            errorMessage.textContent = 'Заполните все обязательные поля';
+
+        if (!checkAllAgreements()) {
+            errorMessage.textContent = 'Необходимо согласиться со всеми условиями';
             errorMessage.style.display = 'block';
             return;
         }
+
+        if (translationResult.className !== 'validation-message correct') {
+            errorMessage.textContent = 'Необходимо правильно ответить на вопрос';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        if (captchaResult.className !== 'validation-message success') {
+            errorMessage.textContent = 'Необходимо правильно ввести капчу';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // Collect form data
+        const formData = collectFormData();
+
+        // Display success message
         successMessage.style.display = 'block';
-        setTimeout(function () {
-            registrationForm.reset();
-            successMessage.style.display = 'none';
-        }, 2000);
+
+        // Display modal with JSON data
+        displayFormDataModal(formData);
     });
+
+    // Add event listener for the export button
+    if (exportButton) {
+        exportButton.addEventListener('click', function () {
+            const formData = collectFormData();
+            displayFormDataModal(formData);
+        });
+    }
+
+    // Add event listener for the import button
+    if (importButtonLabel && importButton) {
+        importButtonLabel.addEventListener('click', function () {
+            importButton.click(); // Trigger the file input
+        });
+
+        importButton.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        populateForm(jsonData);
+                    } catch (error) {
+                        alert('Ошибка при чтении файла: ' + error);
+                    }
+                }
+                reader.readAsText(file);
+            }
+        });
+    }
+
+    // Add event listener for the copy button
+    if (copyButton && formDataContent) {
+        copyButton.addEventListener('click', function () {
+            formDataContent.select();
+            document.execCommand('copy');
+            alert('Данные скопированы в буфер обмена!');
+        });
+    }
+
+    // Add event listener for the import text button
+    if (importTextButton && importText) {
+        importTextButton.addEventListener('click', function () {
+            try {
+                const jsonData = JSON.parse(importText.value);
+                populateForm(jsonData);
+                const modal = document.getElementById('formDataModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+                
+                // Add safety check before using successMessage
+                if (successMessage) {
+                    successMessage.textContent = 'Данные успешно импортированы!';
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 3000);
+                } else {
+                    // Fallback if successMessage element doesn't exist - create a temporary message
+                    const tempMessage = document.createElement('div');
+                    tempMessage.textContent = 'Данные успешно импортированы!';
+                    tempMessage.style.position = 'fixed';
+                    tempMessage.style.top = '20px';
+                    tempMessage.style.left = '50%';
+                    tempMessage.style.transform = 'translateX(-50%)';
+                    tempMessage.style.backgroundColor = '#48BB78';
+                    tempMessage.style.color = 'white';
+                    tempMessage.style.padding = '15px 20px';
+                    tempMessage.style.borderRadius = '5px';
+                    tempMessage.style.zIndex = '9999';
+                    document.body.appendChild(tempMessage);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(tempMessage);
+                    }, 3000);
+                }
+            } catch (error) {
+                alert('Ошибка при разборе JSON: ' + error);
+            }
+        });
+    }
+
     if (moodSlider && moodDisplay) {
         moodSlider.addEventListener('input', function () {
             moodDisplay.textContent = `Настроение: ${this.value}%`;
@@ -201,6 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
             checkTranslationButton.setAttribute('disabled', 'disabled');
         }
         checkTranslationButton.addEventListener('click', function () {
+            const selectedTranslation = document.querySelector('input[name="chinese-translation"]:checked');
             if (!selectedTranslation) {
                 translationResult.textContent = 'Пожалуйста, выберите вариант перевода';
                 translationResult.className = 'validation-message incorrect';
@@ -512,9 +624,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (input === captchaNumber.textContent) {
                 captchaResult.textContent = 'Капча введена верно!';
                 captchaResult.className = 'validation-message success';
+                registerButton.removeAttribute('disabled'); // Enable the register button
             } else {
                 captchaResult.textContent = 'Неверная капча. Попробуйте снова.';
                 captchaResult.className = 'validation-message error';
+                registerButton.setAttribute('disabled', 'disabled'); // Disable the register button
             }
         });
         generateCaptcha();
@@ -935,4 +1049,455 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         initCanvas();
     }
+
+    function collectFormData() {
+        const formData = {
+            personalInfo: {
+                name: '',
+                age: '',
+                gender: '',
+                phone: '',
+                mood: ''
+            },
+            familyMembers: [],
+            documents: {
+                passport: {
+                    number: '',
+                    issueDate: '',
+                    isEnabled: false
+                },
+                driverLicense: '',
+                snils: '',
+                inn: ''
+            },
+            bankingInfo: {
+                cardDetails: {
+                    number: '',
+                    expiry: '',
+                    cvv: '',
+                    isEnabled: false
+                },
+                loans: []
+            },
+            preferences: {
+                mbtiType: '',
+                characterScales: {},
+                agreements: {}
+            },
+            customization: {
+                flag: getFlagPixelData(),
+                shape: {
+                    isTriangle: false,
+                    borderRadius: 0
+                }
+            }
+        };
+
+        // Fill personal info
+        formData.personalInfo.name = document.getElementById('reg-name')?.value || '';
+        formData.personalInfo.age = document.getElementById('reg-age')?.value || '';
+        formData.personalInfo.gender = genderRatioSlider?.value || '';
+        formData.personalInfo.phone = phoneInput?.value || '';
+        formData.personalInfo.mood = moodSlider?.value || '';
+
+        // Fill family members
+        const familyMembers = document.querySelectorAll('.family-member');
+        familyMembers.forEach(member => {
+            formData.familyMembers.push({
+                name: member.querySelector('input[name="member-name"]')?.value || '',
+                relation: member.querySelector('select[name="member-relation"]')?.value || '',
+                age: member.querySelector('input[name="member-age"]')?.value || ''
+            });
+        });
+
+        // Fill documents
+        formData.documents.passport.number = passportNumberInput?.value || '';
+        formData.documents.passport.issueDate = document.getElementById('passport-issue-date')?.value || '';
+        formData.documents.passport.isEnabled = enablePassportBank?.checked || false;
+        formData.documents.driverLicense = driverLicenseInput?.value || '';
+        formData.documents.snils = snilsInput?.value || '';
+        formData.documents.inn = innInput?.value || '';
+
+        // Fill banking info
+        formData.bankingInfo.cardDetails.number = cardNumberInput?.value || '';
+        formData.bankingInfo.cardDetails.expiry = cardExpiryInput?.value || '';
+        formData.bankingInfo.cardDetails.cvv = cardCvvInput?.value || '';
+        formData.bankingInfo.cardDetails.isEnabled = enableCardDetails?.checked || false;
+
+        // Fill loans
+        const loans = document.querySelectorAll('.loan');
+        loans.forEach(loan => {
+            formData.bankingInfo.loans.push({
+                type: loan.querySelector('select')?.value || '',
+                creditor: loan.querySelector('input[type="text"]')?.value || '',
+                amount: loan.querySelector('input[type="number"]')?.value || '',
+                openDate: loan.querySelector('input[type="date"]')?.value || '',
+                status: loan.querySelector('select:last-child')?.value || ''
+            });
+        });
+
+        // Fill preferences
+        formData.preferences.mbtiType = mbtiType?.textContent || '';
+        
+        // Character scales
+        document.querySelectorAll('#character-scales input[type="range"]').forEach(scale => {
+            formData.preferences.characterScales[scale.id] = scale.value;
+        });
+
+        // Agreements
+        document.querySelectorAll('.required-agreement').forEach(agreement => {
+            formData.preferences.agreements[agreement.id] = agreement.checked;
+        });
+
+        // Fill customization
+        formData.customization.shape.isTriangle = triangleCheckbox?.checked || false;
+        formData.customization.shape.borderRadius = borderRadiusSlider?.value || 0;
+
+        return formData;
+    }
+
+    function displayFormDataModal(formData) {
+        const modal = document.getElementById('formDataModal');
+        const modalContent = document.getElementById('formDataContent');
+
+        modalContent.value = JSON.stringify(formData, null, 2);
+        modal.style.display = 'block';
+
+        const closeBtn = document.querySelector('.close-button');
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    function populateForm(jsonData) {
+        for (const key in jsonData) {
+            if (jsonData.hasOwnProperty(key)) {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.type === 'checkbox' || element.type === 'radio') {
+                        element.checked = jsonData[key];
+                    } else if (element.tagName === 'SELECT' && element.multiple) {
+                        const values = jsonData[key];
+                        for (let i = 0; i < element.options.length; i++) {
+                            element.options[i].selected = values.includes(element.options[i].value);
+                        }
+                    } else if (element.tagName === 'CANVAS') {
+                        setFlagPixelData(jsonData[key]);
+                    }
+                     else {
+                        element.value = jsonData[key];
+                    }
+                }
+            }
+        }
+
+        // Handle personal info
+        if (jsonData.personalInfo) {
+            document.getElementById('reg-name').value = jsonData.personalInfo.name || '';
+            document.getElementById('reg-age').value = jsonData.personalInfo.age || '';
+            if (ageRange) ageRange.value = jsonData.personalInfo.age || '';
+            if (genderRatioSlider) {
+                genderRatioSlider.value = jsonData.personalInfo.gender || 50;
+                genderRatioDisplay.textContent = `Мужчина ${genderRatioSlider.value}%, женщина ${100 - genderRatioSlider.value}%`;
+            }
+            if (phoneInput) phoneInput.value = jsonData.personalInfo.phone || '';
+            if (moodSlider) {
+                moodSlider.value = jsonData.personalInfo.mood || 50;
+                moodDisplay.textContent = `Настроение: ${moodSlider.value}%`;
+            }
+        }
+
+        // Handle family members
+        if (jsonData.familyMembers && jsonData.familyMembers.length > 0 && familyMembersContainer) {
+            // Clear existing family members except the first one
+            const existingMembers = familyMembersContainer.querySelectorAll('.family-member');
+            for (let i = 1; i < existingMembers.length; i++) {
+                existingMembers[i].remove();
+            }
+            
+            // Use the first one as a template
+            const template = existingMembers[0];
+            const inputs = template.querySelectorAll('input');
+            const selects = template.querySelectorAll('select');
+            
+            // Fill the first member
+            if (inputs.length >= 3 && selects.length >= 2) {
+                inputs[0].value = jsonData.familyMembers[0].name || '';
+                inputs[1].value = jsonData.familyMembers[0].relation || '';
+                inputs[2].value = jsonData.familyMembers[0].age || '';
+            }
+            
+            // Add additional members
+            for (let i = 1; i < jsonData.familyMembers.length; i++) {
+                const member = jsonData.familyMembers[i];
+                const newMember = template.cloneNode(true);
+                const newInputs = newMember.querySelectorAll('input');
+                
+                if (newInputs.length >= 3) {
+                    newInputs[0].value = member.name || '';
+                    newInputs[1].value = member.relation || '';
+                    newInputs[2].value = member.age || '';
+                }
+                
+                const removeBtn = newMember.querySelector('.remove-member');
+                if (removeBtn) {
+                    removeBtn.addEventListener('click', function () {
+                        if (familyMembersContainer.querySelectorAll('.family-member').length > 1) {
+                            newMember.remove();
+                        } else {
+                            alert('Необходимо оставить как минимум одного члена семьи');
+                        }
+                    });
+                }
+                
+                familyMembersContainer.appendChild(newMember);
+            }
+        }
+
+        // Handle documents
+        if (jsonData.documents) {
+            if (jsonData.documents.passport) {
+                if (passportNumberInput) passportNumberInput.value = jsonData.documents.passport.number || '';
+                const passportIssueDate = document.getElementById('passport-issue-date');
+                if (passportIssueDate) passportIssueDate.value = jsonData.documents.passport.issueDate || '';
+                if (enablePassportBank) enablePassportBank.checked = jsonData.documents.passport.isEnabled || false;
+            }
+            if (driverLicenseInput) driverLicenseInput.value = jsonData.documents.driverLicense || '';
+            if (snilsInput) snilsInput.value = jsonData.documents.snils || '';
+            if (innInput) innInput.value = jsonData.documents.inn || '';
+        }
+
+        // Handle banking info
+        if (jsonData.bankingInfo) {
+            if (jsonData.bankingInfo.cardDetails) {
+                if (cardNumberInput) cardNumberInput.value = jsonData.bankingInfo.cardDetails.number || '';
+                if (cardExpiryInput) cardExpiryInput.value = jsonData.bankingInfo.cardDetails.expiry || '';
+                if (cardCvvInput) cardCvvInput.value = jsonData.bankingInfo.cardDetails.cvv || '';
+                if (enableCardDetails) enableCardDetails.checked = jsonData.bankingInfo.cardDetails.isEnabled || false;
+            }
+
+            // Handle loans
+            if (jsonData.bankingInfo.loans && jsonData.bankingInfo.loans.length > 0 && loansContainer) {
+                // Clear existing loans
+                loansContainer.innerHTML = '';
+                
+                jsonData.bankingInfo.loans.forEach(loan => {
+                    const loanTemplate = `
+                        <div class="loan">
+                            <div class="form-group">
+                                <label>Тип кредита:</label>
+                                <select>
+                                    <option value="" disabled>Выберите тип</option>
+                                    <option value="mortgage" ${loan.type === 'mortgage' ? 'selected' : ''}>Ипотека</option>
+                                    <option value="car" ${loan.type === 'car' ? 'selected' : ''}>Автокредит</option>
+                                    <option value="consumer" ${loan.type === 'consumer' ? 'selected' : ''}>Потребительский</option>
+                                    <option value="business" ${loan.type === 'business' ? 'selected' : ''}>Бизнес-кредит</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Кредитор:</label>
+                                <input type="text" value="${loan.creditor || ''}" placeholder="Сбербанк">
+                            </div>
+                            <div class="form-group">
+                                <label>Сумма кредита:</label>
+                                <input type="number" value="${loan.amount || ''}" placeholder="1000000 ₽">
+                            </div>
+                            <div class="form-group">
+                                <label>Дата открытия:</label>
+                                <input type="date" value="${loan.openDate || ''}">
+                            </div>
+                            <div class="form-group">
+                                <label>Статус:</label>
+                                <select>
+                                    <option value="active" ${loan.status === 'active' ? 'selected' : ''}>Активен</option>
+                                    <option value="closed" ${loan.status === 'closed' ? 'selected' : ''}>Закрыт</option>
+                                    <option value="overdue" ${loan.status === 'overdue' ? 'selected' : ''}>Просрочен</option>
+                                </select>
+                            </div>
+                            <button type="button" class="remove-loan">Удалить</button>
+                        </div>
+                    `;
+                    
+                    const loanElement = document.createElement('div');
+                    loanElement.innerHTML = loanTemplate;
+                    loansContainer.appendChild(loanElement.firstElementChild);
+                });
+                
+                setupLoanDeleteButtons();
+            }
+        }
+
+        // Handle preferences
+        if (jsonData.preferences) {
+            // Handle MBTI type
+            if (jsonData.preferences.mbtiType && mbtiType) {
+                const mbtiTypeParts = jsonData.preferences.mbtiType.split('');
+                if (mbtiTypeParts.length === 4) {
+                    const mbtiToggleGroups = document.querySelectorAll('.mbti-toggle-group');
+                    if (mbtiToggleGroups.length === 4) {
+                        for (let i = 0; i < 4; i++) {
+                            const toggles = mbtiToggleGroups[i].querySelectorAll('.mbti-toggle');
+                            toggles.forEach(toggle => {
+                                if (toggle.dataset.value === mbtiTypeParts[i]) {
+                                    toggle.classList.add('active');
+                                } else {
+                                    toggle.classList.remove('active');
+                                }
+                            });
+                        }
+                        updateMBTI();
+                    }
+                }
+            }
+
+            // Handle character scales
+            if (jsonData.preferences.characterScales) {
+                Object.entries(jsonData.preferences.characterScales).forEach(([id, value]) => {
+                    const scale = document.getElementById(id);
+                    if (scale) {
+                        scale.value = value;
+                        const label = scale.previousElementSibling;
+                        if (label) {
+                            const valueDisplay = label.querySelector('.scale-value');
+                            if (valueDisplay) {
+                                valueDisplay.textContent = value;
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Handle agreements
+            if (jsonData.preferences.agreements) {
+                Object.entries(jsonData.preferences.agreements).forEach(([id, checked]) => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = checked;
+                    }
+                });
+                
+                // Check if all agreements are checked and update UI accordingly
+                if (checkAllAgreements()) {
+                    checkTranslationButton.removeAttribute('disabled');
+                }
+            }
+        }
+
+        // Handle customization
+        if (jsonData.customization) {
+            // Handle shape
+            if (jsonData.customization.shape) {
+                if (triangleCheckbox) {
+                    triangleCheckbox.checked = jsonData.customization.shape.isTriangle;
+                    if (triangleCheckbox.checked) {
+                        shapeDisplay.classList.add('triangle');
+                        shapeDisplay.style.borderRadius = '0';
+                        if (borderRadiusSlider) {
+                            borderRadiusSlider.disabled = true;
+                        }
+                    } else {
+                        shapeDisplay.classList.remove('triangle');
+                        if (borderRadiusSlider) {
+                            borderRadiusSlider.value = jsonData.customization.shape.borderRadius;
+                            shapeDisplay.style.borderRadius = jsonData.customization.shape.borderRadius + 'px';
+                            borderRadiusSlider.disabled = false;
+                        }
+                    }
+                }
+            }
+
+            // Handle flag
+            if (jsonData.customization.flag && flagCanvas) {
+                setFlagPixelData(jsonData.customization.flag);
+            }
+        }
+
+        // After importing data, check if all agreements are checked
+        if (checkAllAgreements()) {
+            // Also check if translation is correct
+            const selectedTranslation = document.querySelector('input[name="chinese-translation"][value="correct"]');
+            if (selectedTranslation) {
+                selectedTranslation.checked = true;
+                if (translationResult) {
+                    translationResult.textContent = 'Правильно! Вы можете продолжить регистрацию.';
+                    translationResult.className = 'validation-message correct';
+                    translationResult.style.display = 'block';
+                    registerButton.removeAttribute('disabled');
+                }
+            }
+        }
+    }
+
+    function getFlagPixelData() {
+        const pixels = [];
+        for (let y = 0; y < flagCanvas.height; y += cellSize) {
+            const row = [];
+            for (let x = 0; x < flagCanvas.width; x += cellSize) {
+                const [r, g, b] = ctx.getImageData(x, y, 1, 1).data;
+                const hex = '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+                row.push(hex);
+            }
+            pixels.push(row);
+        }
+        return pixels;
+    }
+
+    function setFlagPixelData(pixelData) {
+        ctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+        drawGrid(ctx, cellSize);
+        pixelData.forEach(pixel => {
+            ctx.fillStyle = pixel.color;
+            ctx.fillRect(pixel.x, pixel.y, cellSize, cellSize);
+            ctx.strokeStyle = '#ddd';
+            ctx.strokeRect(pixel.x, pixel.y, cellSize, cellSize);
+        });
+    }
+
+    // Add div elements for error and success messages if they don't exist in the DOM
+    function ensureMessagesExist() {
+        // Create error message element if it doesn't exist
+        if (!errorMessage) {
+            const errorDiv = document.createElement('div');
+            errorDiv.id = 'error-message';
+            errorDiv.className = 'validation-message error';
+            errorDiv.style.display = 'none';
+            
+            // Insert before the register button
+            const registerBtn = document.getElementById('register-button');
+            if (registerBtn && registerBtn.parentNode) {
+                registerBtn.parentNode.insertBefore(errorDiv, registerBtn);
+            } else {
+                // Fallback - add to the form
+                const form = document.querySelector('.registration-form');
+                if (form) form.appendChild(errorDiv);
+            }
+        }
+        
+        // Create success message element if it doesn't exist
+        if (!successMessage) {
+            const successDiv = document.createElement('div');
+            successDiv.id = 'success-message';
+            successDiv.className = 'validation-message success';
+            successDiv.style.display = 'none';
+            
+            // Insert before the register button
+            const registerBtn = document.getElementById('register-button');
+            if (registerBtn && registerBtn.parentNode) {
+                registerBtn.parentNode.insertBefore(successDiv, registerBtn);
+            } else {
+                // Fallback - add to the form
+                const form = document.querySelector('.registration-form');
+                if (form) form.appendChild(successDiv);
+            }
+        }
+    }
+    
+    // Call this function early in the script to ensure message elements exist
+    ensureMessagesExist();
 });
