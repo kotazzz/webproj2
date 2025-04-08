@@ -411,11 +411,14 @@
                     <div class="form-card" id="passport-bank-card" style="background-color: rgba(200, 230, 230, 0.2);">
                         <h3>
                             Паспортные данные
+                            <label style="font-size:14px;">
+                                <input type="checkbox" id="enable-passport-bank"> Включить
+                            </label>
                         </h3>
                         <div class="form-group-grouped">
                             <div class="form-group">
                                 <label for="passport-number">Номер паспорта:</label>
-                                <input type="text" id="passport-number" placeholder="Введите номер паспорта" disabled>
+                                <input type="text" id="passport-number" placeholder="0000 000000" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="passport-issue-date">Дата выдачи:</label>
@@ -786,28 +789,33 @@
 
                     <!-- Карточка: Информация о карте -->
                     <div class="form-card" style="background-color: rgba(230, 230, 250, 0.2);" id="card-details-card">
-                        <h3>Информация о карте</h3>
+                        <h3>
+                            Информация о карте
+                            <label style="font-size:14px;">
+                                <input type="checkbox" id="enable-card-details"> Включить
+                            </label>
+                        </h3>
                         <div class="form-group">
                             <label for="card-number">Номер карты:</label>
-                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" disabled>
                         </div>
                         <div class="form-group-grouped">
                             <div class="form-group">
                                 <label for="card-expiry">Срок действия:</label>
-                                <input type="text" id="card-expiry" placeholder="MM/YY">
+                                <input type="text" id="card-expiry" placeholder="MM/YY" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="card-cvv">CVV/CVC:</label>
-                                <input type="text" id="card-cvv" placeholder="123">
+                                <input type="text" id="card-cvv" placeholder="123" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="card-holder">Имя держателя:</label>
-                            <input type="text" id="card-holder" placeholder="Ivan Ivanov">
+                            <input type="text" id="card-holder" placeholder="Ivan Ivanov" disabled>
                         </div>
                         <div class="form-group">
                             <label for="card-balance">Баланс:</label>
-                            <input type="number" id="card-balance" placeholder="10000 ₽">
+                            <input type="number" id="card-balance" placeholder="10000 ₽" disabled>
                         </div>
                     </div>
 
@@ -824,7 +832,7 @@
                         <div class="form-group">
                             <button type="button" id="reaction-start" class="primary">Старт</button>
                             <div id="reaction-timer"
-                                style="font-size: 24px; font-weight: bold; text-align: center; margin-top: 15px;">10.000
+                                style="font-size: 24px; font-weight: bold; text-align: center; margin-top: 15px;">4.000
                             </div>
                             <div id="reaction-result" class="validation-message"></div>
                         </div>
@@ -946,6 +954,7 @@
                             <input class="captcha-slider" type="range" min="0" max="9" value="0" class="captcha-slider">
                             <input class="captcha-slider" type="range" min="0" max="9" value="0" class="captcha-slider">
                         </div>
+                        <div id="captcha-input-display" style="font-size: 18px; text-align: center; margin: 15px 0;">00000</div>
                         <button type="button" id="captcha-submit" class="primary">Подтвердить</button>
                         <div class="validation-message" id="captcha-result"></div>
                     </div>

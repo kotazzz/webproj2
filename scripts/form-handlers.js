@@ -49,6 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const innInput = document.getElementById('inn');
     const driverLicenseInput = document.getElementById('driver-license');
     const flagColorButtons = document.getElementById('flag-color-buttons');
+    const cardDetailsCard = document.getElementById('card-details-card');
+    const enableCardDetails = document.getElementById('enable-card-details');
+    const passportNumberInput = document.getElementById('passport-number');
+    const cardNumberInput = document.getElementById('card-number');
+    const cardExpiryInput = document.getElementById('card-expiry');
+    const cardCvvInput = document.getElementById('card-cvv');
+    const captchaInputDisplay = document.getElementById('captcha-input-display');
 
     if (ageInput && ageRange) {
         ageRange.addEventListener('input', function () {
@@ -512,6 +519,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         generateCaptcha();
     }
+    if (enableCardDetails && cardDetailsCard) {
+        const cardInputs = cardDetailsCard.querySelectorAll('input[type="text"], input[type="number"]');
+        enableCardDetails.addEventListener('change', function () {
+            cardInputs.forEach(input => {
+                input.disabled = !this.checked;
+            });
+        });
+    }
+    function setupLoanDeleteButtons() {
+        const removeButtons = document.querySelectorAll('.remove-loan');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const loan = this.closest('.loan');
+                if (loan) {
+                    loan.remove();
+                }
+            });
+        });
+    }
+
     addLoanButton.addEventListener('click', function () {
         const loanTemplate = `
             <div class="loan">
@@ -551,18 +578,22 @@ document.addEventListener('DOMContentLoaded', function () {
         const loanElement = document.createElement('div');
         loanElement.innerHTML = loanTemplate;
         loansContainer.appendChild(loanElement.firstElementChild);
-        loanElement.querySelector('.remove-loan').addEventListener('click', () => {
-            loanElement.firstElementChild.remove();
-        });
+        setupLoanDeleteButtons(); // Setup delete button for newly added loan
     });
+    
+    // Initialize delete buttons for any existing loans
+    setupLoanDeleteButtons();
+
+    // Updated reaction timer functionality
     if (reactionStart && reactionTimer && reactionResult) {
         let timerInterval;
         let startTime;
         let isTimerRunning = false;
         const maxReactionTime = 4;
         const formatTime = (time) => {
-            return Math.max(0, time).toFixed(3);
+            return time.toFixed(3);
         };
+        
         reactionStart.addEventListener('click', function () {
             if (!isTimerRunning) {
                 isTimerRunning = true;
@@ -572,9 +603,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 startTime = Date.now();
                 timerInterval = setInterval(function () {
                     const elapsedTime = (Date.now() - startTime) / 1000;
-                    const remainingTime = Math.max(maxReactionTime - elapsedTime, 0);
+                    const remainingTime = maxReactionTime - elapsedTime;
                     reactionTimer.textContent = formatTime(remainingTime);
-                    if (remainingTime <= 0) {
+                    
+                    // Only stop the timer when it reaches -4 seconds
+                    if (remainingTime <= -4) {
                         clearInterval(timerInterval);
                         isTimerRunning = false;
                         reactionStart.textContent = 'Старт';
@@ -595,6 +628,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Format masks for document fields
     if (snilsInput) {
         snilsInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
@@ -615,6 +650,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = formattedValue;
         });
     }
+    
     if (innInput) {
         innInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
@@ -624,6 +660,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = value;
         });
     }
+
     if (driverLicenseInput) {
         driverLicenseInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
@@ -641,26 +678,89 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = formattedValue;
         });
     }
-    if (enableDocuments && documentsCard) {
-        const documentInputs = documentsCard.querySelectorAll('input[type="text"]');
-        enableDocuments.addEventListener('change', function () {
-            documentInputs.forEach(input => {
-                input.disabled = !this.checked;
-            });
+    
+    // Add formatting for passport number
+    if (passportNumberInput) {
+        passportNumberInput.addEventListener('input', function (e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.substring(0, 10);
+            let formattedValue = '';
+            if (value.length > 0) {
+                formattedValue += value.substring(0, Math.min(4, value.length));
+                if (value.length > 4) {
+                    formattedValue += ' ' + value.substring(4, 10);
+                }
+            }
+            this.value = formattedValue;
         });
     }
+
+    // Add formatting for credit card fields
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', function (e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 16) value = value.substring(0, 16);
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i += 4) {
+                formattedValue += value.substring(i, i + 4);
+                if (i + 4 < value.length) {
+                    formattedValue += ' ';
+                }
+            }
+            this.value = formattedValue;
+        });
+    }
+
+    if (cardExpiryInput) {
+        cardExpiryInput.addEventListener('input', function (e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 4) value = value.substring(0, 4);
+            let formattedValue = '';
+            if (value.length > 0) {
+                formattedValue += value.substring(0, Math.min(2, value.length));
+                if (value.length > 2) {
+                    formattedValue += '/' + value.substring(2, 4);
+                }
+            }
+            this.value = formattedValue;
+        });
+    }
+
+    if (cardCvvInput) {
+        cardCvvInput.addEventListener('input', function (e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 3) value = value.substring(0, 3);
+            this.value = value;
+        });
+    }
+
+    // Update captcha to display entered value
     if (captchaNumber && captchaSliders.length > 0 && captchaSubmit) {
         const generateCaptcha = () => {
             const randomNumber = Math.floor(Math.random() * 100000).toString().padStart(5, '0');
             captchaNumber.textContent = randomNumber;
             return randomNumber;
         };
+        
         let correctCaptcha = generateCaptcha();
+        
+        // Update the input display whenever sliders change
+        function updateCaptchaInputDisplay() {
+            const input = Array.from(captchaSliders).map(slider => slider.value).join('');
+            if (captchaInputDisplay) {
+                captchaInputDisplay.textContent = input;
+            }
+        }
+        
         captchaSliders.forEach((slider, index) => {
             slider.addEventListener('input', function () {
-
+                updateCaptchaInputDisplay();
             });
         });
+        
+        // Initial update for input display
+        updateCaptchaInputDisplay();
+        
         captchaSubmit.addEventListener('click', function () {
             const input = Array.from(captchaSliders).map(slider => slider.value).join('');
             if (input === correctCaptcha) {
@@ -668,6 +768,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 captchaResult.className = 'validation-message success';
                 captchaResult.style.display = 'block';
                 correctCaptcha = generateCaptcha();
+                updateCaptchaInputDisplay(); // Reset the display after generating new captcha
             } else {
                 captchaResult.textContent = 'Неверная капча. Попробуйте снова.';
                 captchaResult.className = 'validation-message error';
