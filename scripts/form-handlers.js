@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Variable declaration at the top
     let isDrawing = false;
     let currentFlagColor = '#000000'; // Add missing variable declaration
-    
+
     const cellSize = 20;
     const registrationForm = document.querySelector('.registration-form');
     const container = document.querySelector('.chinese-options');
@@ -381,9 +381,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (valueDisplay) {
                     // Update the initial display
                     valueDisplay.textContent = slider.value;
-                    
+
                     // Add event listener to update the display when slider value changes
-                    slider.addEventListener('input', function() {
+                    slider.addEventListener('input', function () {
                         valueDisplay.textContent = this.value;
                     });
                 }
@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function setupLoanDeleteButtons() {
         const removeButtons = document.querySelectorAll('.remove-loan');
         removeButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const loan = this.closest('.loan');
                 if (loan) {
                     loan.remove();
@@ -580,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loansContainer.appendChild(loanElement.firstElementChild);
         setupLoanDeleteButtons(); // Setup delete button for newly added loan
     });
-    
+
     // Initialize delete buttons for any existing loans
     setupLoanDeleteButtons();
 
@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const formatTime = (time) => {
             return time.toFixed(3);
         };
-        
+
         reactionStart.addEventListener('click', function () {
             if (!isTimerRunning) {
                 isTimerRunning = true;
@@ -605,7 +605,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const elapsedTime = (Date.now() - startTime) / 1000;
                     const remainingTime = maxReactionTime - elapsedTime;
                     reactionTimer.textContent = formatTime(remainingTime);
-                    
+
                     // Only stop the timer when it reaches -4 seconds
                     if (remainingTime <= -4) {
                         clearInterval(timerInterval);
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = formattedValue;
         });
     }
-    
+
     if (innInput) {
         innInput.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
@@ -678,7 +678,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = formattedValue;
         });
     }
-    
+
     // Add formatting for passport number
     if (passportNumberInput) {
         passportNumberInput.addEventListener('input', function (e) {
@@ -741,9 +741,9 @@ document.addEventListener('DOMContentLoaded', function () {
             captchaNumber.textContent = randomNumber;
             return randomNumber;
         };
-        
+
         let correctCaptcha = generateCaptcha();
-        
+
         // Update the input display whenever sliders change
         function updateCaptchaInputDisplay() {
             const input = Array.from(captchaSliders).map(slider => slider.value).join('');
@@ -751,16 +751,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 captchaInputDisplay.textContent = input;
             }
         }
-        
+
         captchaSliders.forEach((slider, index) => {
             slider.addEventListener('input', function () {
                 updateCaptchaInputDisplay();
             });
         });
-        
+
         // Initial update for input display
         updateCaptchaInputDisplay();
-        
+
         captchaSubmit.addEventListener('click', function () {
             const input = Array.from(captchaSliders).map(slider => slider.value).join('');
             if (input === correctCaptcha) {
