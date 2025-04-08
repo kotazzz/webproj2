@@ -505,16 +505,6 @@ copyright {
     background-color: #3182CE;
 }
 
-.family-member {
-    border: 1px dashed #4299E1;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
 .add-member, .remove-member {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -2265,17 +2255,9 @@ h3 label input[type="checkbox"] {
     background-color: rgba(120, 230, 120, 0.15) !important;
 }
 
-/* Стили для CAPTCHA */
-.captcha-sliders {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 15px;
-}
 
 .captcha-slider {
     width: 50px;
-    transform: rotate(-90deg);
 }
 
 /* Стили для займов */
